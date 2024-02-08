@@ -1,13 +1,17 @@
-import * as dotenv from "dotenv";
-
-dotenv.config();
-
 const PORT = process.env.PORT || 3000;
 
-const DB_USER_NAME = process.env.DB_USER_NAME;
-const DB_USER_PASSWORD = process.env.DB_USER_PASSWORD;
-const DB_NAME = process.env.DB_NAME;
-const DB_PORT = process.env.DB_PORT;
-const DB_HOST = process.env.DB_HOST;
+const DB_URL = process.env.DB_URL;
+const CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME;
+const CLOUDINARY_API_KEY = process.env.CLOUDINARY_API_KEY;
+const CLOUDINARY_API_SECRET = process.env.CLOUDINARY_API_SECRET;
 
-export { PORT, DB_USER_NAME, DB_USER_PASSWORD, DB_NAME, DB_PORT, DB_HOST };
+const JWT_SECRET = process.env.JWT_SECRET;
+
+export {
+  PORT,
+  DB_URL,
+  CLOUDINARY_CLOUD_NAME,
+  CLOUDINARY_API_KEY,
+  CLOUDINARY_API_SECRET,
+  JWT_SECRET,
+};
