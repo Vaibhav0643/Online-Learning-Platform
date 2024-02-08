@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Quicksand";
+}
+
+.cover-image img {
+    width: 100%;
+    height: 20rem;
+    object-fit: cover;
+}
+
+.studentimage img {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    object-fit: cover;
+    position: relative;
+    bottom: 8rem;
+    left: 5rem;
+}
+
+.dashboard-info-details {
+    margin-left: 7rem;
+}
+
+.dashboard-info-details h1 {
+    color: orange;
+}
+
+.studentimage {
+    height: 150px
+}
+
+.courses-enrolled {
+    display: flex;
+    align-items: center;
+    color: blue;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 5rem;
+}
+
+.courses-content{
+    display: flex;
+    flex-direction: column;
+    margin-top: 5rem;
+    margin-left: 3rem;
+    width: 400px;  
+    /* display:none; */
+}
+
+.courses-content p{
+    margin-top: 2rem;
+}
+
+.courses-img-data img {
+    width: 300px
+}
+
+.courses-enrolled-data{
+    display: flex;
+    flex-direction: column;
+}
+
+.courses-img-data {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+
+@media screen and (max-width:1200px) {}

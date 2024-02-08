@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;600;700&display=swap');
+
+nav img {
+    width: 3rem;
+    /* height: 2.5rem; */
+    border-radius: 50%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    width: 100%;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgb(165, 165, 243);
+    padding: 20px 80px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
+}
+
+#navbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#navbar li {
+    list-style: none;
+    padding: 0 20px;
+    position: relative;
+}
+
+.nav-logo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-family: 'Quicksand', sans-serif;
+
+}
+
+.nav-logo h2 {
+    margin-left: 1rem;
+}
+
+#navbar li a {
+    text-decoration: none;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #fff;
+    transition: 0.3s ease-in-out;
+    font-family: 'Quicksand', sans-serif;
+
+}
+
+#navbar li a:hover,
+#navbar li a.active {
+    color: rgb(25, 25, 136);
+}
+
+#navbar li a:hover::after,
+#navbar li a.active::after {
+    content: "";
+    width: 30%;
+    height: 2px;
+    background: rgb(25, 25, 136);
+    position: absolute;
+    bottom: -4px;
+    left: 20px;
+}
+
+#mobile i {
+    color: #fff;
+}
+
+#mobile {
+    display: none;
+}
+
+#mobile-icon {
+    display: none;
+}
+
+@media screen and (max-width:769px) {
+    #navbar {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        position: fixed;
+        margin-top: -3rem;
+        right: -3000px;
+        width: 300px;
+        height: 100vh;
+        background: rgb(163, 163, 211);
+        box-shadow: 0 40px 60px rgba(0, 0, 0, 0.01);
+        padding: 40px 0 0 10px;
+        transition: 0.3s ease-in-out;
+    }
+
+    #navbar.active {
+        right: 0px;
+    }
+
+    #mobile-icon {
+        display: block;
+        margin-left: 1.3rem;
+        margin-bottom: 1rem;
+    }
+
+    #mobile-icon i {
+        color: white;
+    }
+
+    #mobile {
+        display: block;
+    }
+
+    #navbar li {
+        margin-bottom: 25px;
+    }
+
+    #mobile i {
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+}
