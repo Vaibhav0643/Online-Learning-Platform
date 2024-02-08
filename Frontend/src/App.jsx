@@ -1,5 +1,9 @@
 import { useState } from 'react'
+<<<<<<< HEAD
 import viteLogo from '/vite.svg'
+=======
+
+>>>>>>> 4b0f4c1738531abd698dfd427b829f55e5a9a2e5
 import './App.css'
 
 function App() {
@@ -8,14 +12,6 @@ function App() {
   
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
       <h1>Vite + React</h1>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
