@@ -68,10 +68,8 @@ function Login() {
           onChange={(e) => setPassword(e.target.value)}
         />
         <div className="password_hint">
-          <button className="forgot">Forgot password?</button>
+          <a href="/Forgot" className="forgot">Forgot password?</a>
         </div>
-
-        {/* <input type="submit" value="login"class="btn" /> */}
 
         <button className="btn">
           Login <span>&#x2192; </span>

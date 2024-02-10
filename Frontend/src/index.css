@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;600;700&display=swap');
 
 
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 .section1 {
   width: 97%;
   margin: 2rem;
@@ -91,7 +92,7 @@
   margin: 1rem;
   width: 290px;
   padding: 0.3rem;
- margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 .section2_cards:hover {
@@ -231,39 +232,44 @@
   color: rgb(115, 115, 199);
 }
 
-.section5{
-  width:97%;
+.section5 {
+  width: 97%;
   display: flex;
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
- 
+
 }
-.section5-part1 , .section5-part2 , .section5-part3{
-  width:350px;
-  height:500px;
+
+.section5-part1,
+.section5-part2,
+.section5-part3 {
+  width: 350px;
+  height: 500px;
   margin-left: 2rem;
   margin-right: 2rem;
   margin-bottom: 2rem;
   border-radius: 1rem;
 }
 
-.section5-part2 img{
-  width:350px;
-  height:500px;
+.section5-part2 img {
+  width: 350px;
+  height: 500px;
   border-radius: 1rem;
 }
 
-.section5-part1{
-  color:rgb(13, 13, 128);
+.section5-part1 {
+  color: rgb(13, 13, 128);
   font-family: 'Quicksand', sans-serif;
 }
 
-.section5-part1 p,.section5-part1 h1,.section5-part1 h4{
+.section5-part1 p,
+.section5-part1 h1,
+.section5-part1 h4 {
   margin-top: 2rem;
 }
 
-.section5-part3 img{
+.section5-part3 img {
   width: 350px;
   height: 235px;
   border-radius: 1rem;
@@ -338,4 +344,3 @@
     margin-left: 9rem;
   }
 }
-
