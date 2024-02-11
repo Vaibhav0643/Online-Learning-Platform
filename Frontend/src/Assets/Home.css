@@ -55,6 +55,10 @@
   margin: 2rem;
 }
 
+.home-login-btn:hover {
+  cursor: pointer;
+}
+
 .content1 {
   width: 50%;
 

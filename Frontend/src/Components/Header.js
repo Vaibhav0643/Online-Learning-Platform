@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import "../Assets/Header.css"
-import logoelearn from "../Images/logo-elearn.jpg"
+import "../Assets/Header.css";
+import logoelearn from "../Images/logo-elearn.jpg";
+import { NavLink } from 'react-router-dom';
 
 function Header() {
     const [icons, seticons] = useState(false)
@@ -25,11 +26,11 @@ function Header() {
                         <div id="mobile-icon" onClick={handleClick}>
                             <i className={bar}></i>
                         </div>
-                        <li></li>
-                        <li><a href="index.html" className="active">Home</a></li>
-                        <li><a href="index.html">Courses</a></li>
-                        <li><a href="index.html">Dashboard</a></li>
-                        <li><a href="index.html">Login</a></li>
+                        
+                        <li><NavLink exact to="/" activeClassName="active">Home</NavLink></li>
+                        <li><NavLink to="/courses" activeClassName="active">Courses</NavLink></li>
+                        <li><NavLink to="/dashboard" activeClassName="active">Dashboard</NavLink></li>
+                        <li><NavLink to="/login" activeClassName="active">Login</NavLink></li>
                     </ul>
                 </div>
                 <div id="mobile" onClick={handleClick}>

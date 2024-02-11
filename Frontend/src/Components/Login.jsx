@@ -2,7 +2,7 @@ import "../Assets/Login.css";
 
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   let navigate = useNavigate();
@@ -78,7 +78,7 @@ function Login() {
         <hr className="divider" />
         <p>
           {" "}
-          don't have an account <Link to="signup">Sign Up</Link>{" "}
+          don't have an account <a href="/signup">Sign Up</a>{" "}
         </p>
       </form>
     </div>
