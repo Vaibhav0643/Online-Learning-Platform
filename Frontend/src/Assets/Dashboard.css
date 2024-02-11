@@ -18,9 +18,12 @@
     height: 250px;
     border-radius: 50%;
     object-fit: cover;
-    position: relative;
-    bottom: 8rem;
-    left: 5rem;
+}
+
+.studentimage{
+    height: 150px;
+    margin-top: -8rem;
+    margin-left: 5rem;
 }
 
 .dashboard-info-details {
@@ -29,41 +32,44 @@
 
 .dashboard-info-details h1 {
     color: orange;
-}
-
-.studentimage {
-    height: 150px
+    margin-top: 8rem;
 }
 
 .courses-enrolled {
     display: flex;
     align-items: center;
-    color: blue;
+    color: orange;
     flex-direction: column;
     justify-content: center;
     margin-top: 5rem;
 }
 
-.courses-content{
+.courses-enrolled p {
+    color: black;
+}
+
+.courses-content {
     display: flex;
     flex-direction: column;
     margin-top: 5rem;
     margin-left: 3rem;
-    width: 400px;  
-    /* display:none; */
+    width: 400px;
+    margin-right: .5rem;
 }
 
-.courses-content p{
+.courses-content p {
     margin-top: 2rem;
 }
 
 .courses-img-data img {
-    width: 300px
+    width: 300px;
+    border-radius: 1rem;
 }
 
-.courses-enrolled-data{
+.courses-enrolled-data {
     display: flex;
     flex-direction: column;
+    margin-bottom: 3rem;
 }
 
 .courses-img-data {
@@ -75,5 +81,52 @@
     margin-bottom: 2rem;
 }
 
+.courses-img-data:hover{
+    transform: scale(1.1);
+    transition: transform 0.5s;
+    border: 0.5px solid black;
+    border-radius: 1rem;
+    box-shadow: 10px 10px 40px black ;
+}
 
-@media screen and (max-width:1200px) {}
+
+.courses-enrolled h1,
+.courses-enrolled u {
+    font-size: 40px;
+    color: rgb(50, 28, 85);
+    margin-bottom: 2rem;
+}
+
+.courses-content p{
+    margin-bottom: 2rem;
+}
+
+@media only screen and (max-width:850px) {
+
+    .courses-img-data img {
+        margin-top: .5rem;
+        margin-bottom: .5rem;
+        width: 200px;
+    }
+   
+    .courses-content {
+        
+        margin-top: 1.5rem;
+        margin-left: 2rem;
+        margin-right: .5rem;
+        margin-bottom: 1.5rem;
+        width: 300px;
+    }
+  }
+
+
+  @media only screen and (max-width:625px) {
+    
+    .courses-img-data{
+        width: 300px;
+    }
+
+    .courses-enrolled h1{
+        font-size: 32px;
+    }
+  }

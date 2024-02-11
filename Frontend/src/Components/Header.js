@@ -25,6 +25,7 @@ function Header() {
                         <div id="mobile-icon" onClick={handleClick}>
                             <i className={bar}></i>
                         </div>
+                        <li></li>
                         <li><a href="index.html" className="active">Home</a></li>
                         <li><a href="index.html">Courses</a></li>
                         <li><a href="index.html">Dashboard</a></li>
