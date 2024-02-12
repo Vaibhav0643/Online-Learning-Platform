@@ -1,7 +1,7 @@
 import "../Assets/Register.css";
 import axios from "axios";
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
   const [name, setName] = useState("");
@@ -43,48 +43,70 @@ function Register() {
   };
 
   return (
-    <div className="login-form-container">
-      <form onSubmit={handleSubmit}>
-        <h3>Create your account.</h3>
-        <div className="input_heading">NAME</div>
-        <input
-          type="text"
-          placeholder="Enter your full name"
-          className="box"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <div className="input_heading">EMAIL</div>
-        <input
-          type="email"
-          placeholder="name@email.com"
-          className="box"
-          value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-        />
-        <div className="input_heading">PASSWORD</div>
-        <input
-          type="password"
-          placeholder="Enter your password"
-          className="box"
-          value={password}
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
-        />
-        <button className="btn" disabled={btnDisabled}>
-          Sign Up <span>&#x2192; </span>
-        </button>
+    <div className='app_content'>
+      <div>
 
-        <hr className="divider" />
-        <p>
-          {" "}
-          Already have an account? <Link href="/login">Login</Link>{" "}
-        </p>
-      </form>
-    </div>
+
+        <div className="signup-form-container">
+          <form onSubmit={handleSubmit}>
+            <div >
+              <h3>Create your account.</h3>
+              <p className='header_description'>
+                < span >Open the Door to Infinite Learning Opportunities.
+                  <br />
+                  Join Us to Shape Your Future Today.
+                </span>
+              </p>
+              <hr className="divider" />
+            </div>
+
+
+            <div className="input_heading">NAME</div>
+            <input
+              type="text"
+              placeholder="Enter your full name"
+              className="box"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+
+
+            <div className="input_heading">EMAIL</div>
+            <input
+              type="email"
+              placeholder="name@email.com"
+              className="box"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+            />
+
+            <div className="input_heading">PASSWORD</div>
+            <input
+              type="password"
+              placeholder="Enter your password"
+              className="box"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+            />
+
+            <button className="btn" disabled={btnDisabled}>
+              Sign Up <span>&#x2192; </span>
+            </button>
+
+            <hr className="divider" />
+            <p className='footer_description'>
+              {" "}
+              Already have an account? <a href="/Login">Login</a>{" "}
+            </p>
+          </form>
+        </div>
+
+      </div >
+    </div >
   );
 }
 

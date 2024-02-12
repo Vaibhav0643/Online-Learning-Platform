@@ -99,7 +99,7 @@ function Login() {
             <hr className="divider" />
             <p className='footer_description'>
               {" "}
-              Don't have an account? <a href="/signup">Sign Up</a>{" "}
+              Don't have an account? <a href="/Signup">Sign Up</a>{" "}
             </p>
           </form>
         </div>

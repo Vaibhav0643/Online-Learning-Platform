@@ -92,11 +92,6 @@ div {
     background: rgb(0, 75, 179);
 }
 
-.login-form-container form p {
-    font-size: 1.5rem;
-    color: #666;
-}
-
 
 .divider {
     margin-top: 2rem;
@@ -107,8 +102,5 @@ div {
 }
 
 
-.login-form-container form p a {
-    color: rgb(0, 86, 210);
-    text-decoration: underline;
-}
+
 

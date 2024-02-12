@@ -23,7 +23,7 @@ function Forgot() {
                             <input type="email" placeholder="name@email.com" className="box" />
                             <button className='btn'>Reset Password <span>&#x2192; </span></button>
                             <hr className="divider" />
-                            <p>Back to <a href="/">Login</a> </p>
+                            <p>Back to <a href="/Login">Login</a> </p>
                         </form>
                     </div>
 
