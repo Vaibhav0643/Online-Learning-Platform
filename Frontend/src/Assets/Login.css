@@ -1,107 +1,142 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap'); */
 
-.login-form-container {
-    margin-top: 60px;
-    position: static;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 
+/* 16px = 1rem */
+/* If you apply  font-size: 62.5%; then  10px = 1rem*/
+
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.app_content {
+    background-color: rgba(163, 163, 163, 0.116);
+}
+
+div {
+    font-family: 'Poppins', 'sans-serif';   
 }
 
 
-.btn {
-    display: inline-block;
-    margin-top: 1rem;
-    padding: .8rem 3rem;
-    background: rgb(0, 75, 179);
-    color: white;
-    cursor: pointer;
-    font-size: 1.7rem;
-    border-radius: .5rem;
-    font-weight: 500;
-    text-align: center;
+.login-form-container {
+    margin-top: 60px;
+    display: flex;
+    justify-content: center;
 }
 
 
 .login-form-container form {
-
-    margin: 2rem;
+    margin: 5rem;
     text-align: center;
-    padding: 5rem 2rem 5rem 2rem;
-    width: 45rem;
-    border-radius: .5rem;
-    box-shadow: var(--box-shadow);
-    border: .1rem solid rgba(0, 0, 0, .1);
+    padding: 2.5rem 3.75rem;
+    height: 43rem;
+    width: 43rem;
+    border-radius: .2rem;
     background: #fff;
 }
 
+
+
+
 .login-form-container form h3 {
-    padding-bottom: 3rem;
-    font-size: 3rem;
+    margin-bottom: 10px;
+    font-size: 2.7rem;
     font-weight: 500;
-    color: var(--black);
+    color: #0b0b0b;
     text-transform: capitalize;
 }
 
 
+.header_description span {
+    font-size: 1rem;
+    line-height: 1.625rem;
+    display: block;
+    padding: 0 3rem;
+    color: #535353;
+}
+
+
 .input_heading {
-    margin: .7rem 0 .5rem 3rem;
+    margin: .7rem 0 .2rem 2.8rem;
     text-align: left;
-    font-size: 1.2rem;
-    font-weight: 700;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #0b0b0b;
 }
 
 .login-form-container form .box {
     margin: 0 0 .7rem 0;
-    width: 35rem;
-    font-size: 1.6rem;
-    color: var(--black);
-    text-transform: none;
-    border: .1rem solid rgba(0, 0, 0, 0.418);
+    width: 30rem;
+    height: 3rem;
+    font-size: 1rem;
+    color: #130f40;
+    border: 1px solid rgba(116, 116, 116, 0.418);
     padding: 1rem 1.2rem;
-    border-radius: .5rem;
+    border-radius: .2rem;
+    outline: none;
+
+
+}
+
+.login-form-container form .box:focus {
+    border-color: rgb(42, 115, 204);
 }
 
 
-.login-form-container form .btn {
-    width: 35rem;
-    margin: .5rem 0;
+.btn {
+    margin-top: 1rem;
+    background: rgb(0, 86, 210);
+    color: white;
+    cursor: pointer;
+    font-size: 1.2rem;
+    border-radius: .3rem;
+    font-weight: 500;
+    width: 27rem;
+    height: 4rem;
+    margin-top: 2rem;
+    margin-bottom: .5rem;
+    border: none;
+
 }
 
+.btn:hover {
+    background: rgb(0, 75, 179);
+}
 
-.login-form-container form p {
-    font-size: 1.5rem;
-    color: var(--light-color);
+.footer_description {
+    font-size: 1rem;
+    color: #666;
 }
 
 
 .password_hint {
     font-size: 13px;
     text-align: left;
-    margin-left: 3rem;
-    width: 100%;
+    margin-left: 2.9rem;
+    width: auto;
 }
 
 
 .forgot {
-    background: transparent;
     color: rgb(42, 115, 204);
     cursor: pointer;
     font-size: inherit;
-    padding: 0 0 12px 3px;
 
 }
 
 
-.divider{
+.divider {
     margin: 2rem;
     height: 1px;
     border: none;
     background-color: rgb(225, 225, 225);
 }
 
-.login-form-container form p a {
-    color: blue;
+.footer_description a {
+    color: rgb(0, 86, 210);
     text-decoration: underline;
 }
