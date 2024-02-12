@@ -1,11 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&display=swap');
 
 .login-form-container {
-    margin-top: 60px;
-    position: static;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 100%;
 
 }
 
@@ -13,8 +16,13 @@
 .btn {
     display: inline-block;
     margin-top: 1rem;
+<<<<<<< Updated upstream
     padding: .8rem 3rem;
     background: rgb(0, 75, 179);
+=======
+    padding: .1rem 3rem;
+    background: var(--blue);
+>>>>>>> Stashed changes
     color: white;
     cursor: pointer;
     font-size: 1.7rem;
@@ -33,7 +41,6 @@
     border-radius: .5rem;
     box-shadow: var(--box-shadow);
     border: .1rem solid rgba(0, 0, 0, .1);
-    background: #fff;
 }
 
 .login-form-container form h3 {
