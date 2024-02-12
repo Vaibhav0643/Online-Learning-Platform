@@ -25,11 +25,6 @@
     text-align: center;
 }
 
-.btn:hover {
-    background: rgb(0, 75, 179);
-}
-
-
 .login-form-container form {
 
     margin: 2rem;
