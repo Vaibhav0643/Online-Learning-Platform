@@ -1,7 +1,7 @@
 import "../Assets/Register.css";
 import axios from "axios";
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
   const [name, setName] = useState("");
@@ -81,7 +81,7 @@ function Register() {
         <hr className="divider" />
         <p>
           {" "}
-          Already have an account? <Link href="/login">Login</Link>{" "}
+          Already have an account? <a href="/login">Login</a>{" "}
         </p>
       </form>
     </div>
