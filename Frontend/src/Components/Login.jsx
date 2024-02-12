@@ -12,11 +12,13 @@ function Login() {
       console.log(user);
       navigate("/dashboard");
     }
-  }, []);
+  }, [navigate]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isBtnDisabled, setBtnDisabled] = useState("");
 
   const handleSubmit = (e) => {
+    setBtnDisabled("disabled");
     e.preventDefault();
     const data = {
       userEmail: email,
@@ -44,6 +46,7 @@ function Login() {
           console.log("Error", error.message);
         }
       });
+    setBtnDisabled("");
   };
   return (
     <div className="login-form-container">
@@ -73,7 +76,7 @@ function Login() {
           </a>
         </div>
 
-        <button className="btn">
+        <button className="btn" disabled={isBtnDisabled}>
           Login <span>&#x2192; </span>
         </button>
 
