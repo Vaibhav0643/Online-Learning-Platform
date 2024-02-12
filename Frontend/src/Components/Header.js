@@ -1,12 +1,7 @@
 import React, { useState } from "react";
 import "../Assets/Header.css";
 import logoelearn from "../Images/logo-elearn.jpg";
-<<<<<<< Updated upstream
-import { NavLink } from 'react-router-dom';
-=======
-
-import { Link } from "react-router-dom";
->>>>>>> Stashed changes
+import { NavLink } from "react-router-dom";
 
 function Header() {
   const [icons, seticons] = useState(false);
@@ -19,33 +14,6 @@ function Header() {
     setnavbaractive((prev) => !prev);
   }
 
-<<<<<<< Updated upstream
-    return (
-        <header>
-            <nav>
-                <div className="nav-logo">
-                    <img src={logoelearn} alt="Logo" />
-                    <h2>JMAN</h2>
-                </div>
-                <div className="nav-tags">
-                    <ul id="navbar" className={navactive}>
-                        <div id="mobile-icon" onClick={handleClick}>
-                            <i className={bar}></i>
-                        </div>
-                        
-                        <li><NavLink exact to="/" activeClassName="active">Home</NavLink></li>
-                        <li><NavLink to="/courses" activeClassName="active">Courses</NavLink></li>
-                        <li><NavLink to="/dashboard" activeClassName="active">Dashboard</NavLink></li>
-                        <li><NavLink to="/login" activeClassName="active">Login</NavLink></li>
-                    </ul>
-                </div>
-                <div id="mobile" onClick={handleClick}>
-                    <i className={bar}></i>
-                </div>
-            </nav>
-        </header>
-    )
-=======
   return (
     <header>
       <nav>
@@ -58,23 +26,26 @@ function Header() {
             <div id="mobile-icon" onClick={handleClick}>
               <i className={bar}></i>
             </div>
+
             <li>
-              <a href="index.html" className="active">
+              <NavLink exact to="/" activeClassName="active">
                 Home
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a href="index.html">Courses</a>
+              <NavLink to="/courses" activeClassName="active">
+                Courses
+              </NavLink>
             </li>
             <li>
-              <a href="index.html">Dashboard</a>
+              <NavLink to="/dashboard" activeClassName="active">
+                Dashboard
+              </NavLink>
             </li>
             <li>
-              {localStorage.getItem("user") ? (
-                <Link to="/logout">Logout</Link>
-              ) : (
-                <Link to="/login">Login</Link>
-              )}
+              <NavLink to="/login" activeClassName="active">
+                Login
+              </NavLink>
             </li>
           </ul>
         </div>
@@ -84,6 +55,5 @@ function Header() {
       </nav>
     </header>
   );
->>>>>>> Stashed changes
 }
 export default Header;
