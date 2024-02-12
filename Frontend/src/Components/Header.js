@@ -43,9 +43,15 @@ function Header() {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/login" activeClassName="active">
-                Login
-              </NavLink>
+              {localStorage.getItem("user") ? (
+                <NavLink to="/Logout" activeClassName="active">
+                  Logout
+                </NavLink>
+              ) : (
+                <NavLink to="/login" activeClassName="active">
+                  Login
+                </NavLink>
+              )}
             </li>
           </ul>
         </div>

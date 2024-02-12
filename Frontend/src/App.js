@@ -4,6 +4,7 @@ import Home from "./Components/Home";
 import Login from "./Components/Login";
 import Forgot from "./Components/Forgot";
 import Register from "./Components/Register";
+import Logout from "./Components/Logout";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/Login" element={<Login />} />
+        <Route path="/Logout" element={<Logout />} />
         <Route path="/Signup" element={<Register />} />
         <Route path="/Dashboard" element={<Dashboard />} />
         <Route path="/" element={<Home />} />
