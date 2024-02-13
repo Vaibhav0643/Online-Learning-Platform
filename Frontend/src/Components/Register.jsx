@@ -1,4 +1,4 @@
-import "../Assets/Register.css";
+import "../Assets/Login.css";
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -52,7 +52,7 @@ function Register() {
             <div >
               <h3>Create your account.</h3>
               <p className='header_description'>
-                < span >Open the Door to Infinite Learning Opportunities.
+                <span>Open the Door to Infinite Learning Opportunities.
                   <br />
                   Join Us to Shape Your Future Today.
                 </span>
@@ -105,8 +105,8 @@ function Register() {
           </form>
         </div>
 
-      </div >
-    </div >
+      </div>
+    </div>
   );
 }
 

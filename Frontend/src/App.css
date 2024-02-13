@@ -1,0 +1,13 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.app_content {
+    background-color: rgba(163, 163, 163, 0.116);
+}
+
+div {
+    font-family: 'Poppins', 'sans-serif';   
+}

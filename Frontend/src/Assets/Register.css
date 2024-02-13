@@ -1,23 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&display=swap');
 
-
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-.app_content {
-    background-color: rgba(163, 163, 163, 0.116);
-}
-
-
-div {
-    font-family: 'Poppins', 'sans-serif';
-}
-
-
 .signup-form-container {
     margin-top: 60px;
     display: flex;
@@ -109,11 +91,4 @@ div {
     height: 1px;
     border: none;
     background-color: rgb(225, 225, 225);
-}
-
-
-
-.footer_description a {
-    color: rgb(0, 86, 210);
-    text-decoration: underline;
 }

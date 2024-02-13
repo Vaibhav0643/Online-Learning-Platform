@@ -1,32 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&display=swap');
-/* @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap'); */
-
-
-/* 16px = 1rem */
-/* If you apply  font-size: 62.5%; then  10px = 1rem*/
-
-
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-.app_content {
-    background-color: rgba(163, 163, 163, 0.116);
-}
-
-div {
-    font-family: 'Poppins', 'sans-serif';   
-}
-
-
-.login-form-container {
-    margin-top: 60px;
-    display: flex;
-    justify-content: center;
-}
 
 
 .login-form-container form {

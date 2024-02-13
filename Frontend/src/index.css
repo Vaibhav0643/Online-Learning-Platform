@@ -1,35 +1,29 @@
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 
 /* Changing text selection color */
-::-moz-selection { /* Code for Firefox */
-  color: #fafafa;
+/* ::-moz-selection { Code for Firefox */
+  /* color: #fafafa;
   background: rgb(140, 140, 248);
 }
 
 ::selection {
   color: #fafafa;
   background: rgb(140, 140, 248);
-}
+} */
 
 
 /* Scroll Bar */
-::-webkit-scrollbar{
-  width: 0.70rem;
+/* ::-webkit-scrollbar{
+  width: 0.70rem; */
   /* background-color: var(--scroll-bar-color); */
-  background-color: rgb(152, 152, 152);
+  /* background-color: rgb(152, 152, 152); */
   /* border-radius: .5rem; */
-}
-::-webkit-scrollbar-thumb{
+/* } */
+/* ::-webkit-scrollbar-thumb{
   background-color: rgb(87, 87, 87);
   border-radius: .5rem;
   box-shadow: 0 0 34px white;
 }
 ::-webkit-scrollbar-thumb:hover{
   background-color: rgb(66, 66, 66);
-}
+} */

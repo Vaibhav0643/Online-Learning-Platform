@@ -1,4 +1,4 @@
-import "../Assets/Enrollment.css";
+import "../Assets/Login.css";
 
 function Enrollment() {
     return (
@@ -9,7 +9,7 @@ function Enrollment() {
               <div>
               <h3>Enrollment Form</h3>
                 <p className='header_description'>
-                  < span >Enroll in our courses and get certified by the best in the industry. <br />
+                  <span>Enroll in our courses and get certified by the best in the industry. <br />
                   </span>
                 </p>
                 <hr className="divider" />

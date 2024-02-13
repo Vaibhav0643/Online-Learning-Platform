@@ -1,4 +1,4 @@
-import '../Assets/Forgot.css';
+import '../Assets/Login.css';
 
 function Forgot() {
 
@@ -14,7 +14,7 @@ function Forgot() {
                         <div >
                             <h3>Reset your password.</h3>
                             <p className='header_description'>
-                                < span >Enter the email address you used when you signed up for our platform.
+                                <span>Enter the email address you used when you signed up for our platform.
                                 </span>
                             </p>
                         </div>
