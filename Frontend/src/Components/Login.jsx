@@ -2,7 +2,7 @@ import "../Assets/Login.css";
 
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Login() {
   let navigate = useNavigate();
@@ -15,10 +15,12 @@ function Login() {
   }, [navigate]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isBtnDisabled, setBtnDisabled] = useState("");
+  const [buttonDisabled, setButtonDisabled] = useState(false);
+  const [buttonText, setButtonText] = useState("Login");
 
   const handleSubmit = (e) => {
-    setBtnDisabled("disabled");
+    setButtonText("Please Wait...");
+    setButtonDisabled(true);
     e.preventDefault();
     const data = {
       userEmail: email,
@@ -32,6 +34,8 @@ function Login() {
       )
       .then((res) => {
         console.log(res.data);
+        setButtonText(" Login");
+        setButtonDisabled(false);
         navigate("/dashboard");
         localStorage.setItem("user", JSON.stringify(res.data.user));
       })
@@ -46,19 +50,17 @@ function Login() {
           console.log("Error", error.message);
         }
       });
-    setBtnDisabled("");
   };
   return (
-    <div className='app_content'>
+    <div className="app_content">
       <div>
         <div className="login-form-container">
           <form onSubmit={handleSubmit}>
-
-
-            <div >
+            <div>
               <h3>Sign in to your account.</h3>
-              <p className='header_description'>
-                < span >Open the Door to Infinite Learning Opportunities.
+              <p className="header_description">
+                <span>
+                  Open the Door to Infinite Learning Opportunities.
                   <br />
                   Join Us to Shape Your Future Today.
                 </span>
@@ -92,20 +94,19 @@ function Login() {
               </a>
             </div>
 
-            <button className="btn" disabled={isBtnDisabled}>
-              Login <span>&#x2192; </span>
+            <button className="btn" disabled={buttonDisabled}>
+              {buttonText}
             </button>
 
             <hr className="divider" />
-            <p className='footer_description'>
+            <p className="footer_description">
               {" "}
-              Don't have an account? <a href="/Signup">Sign Up</a>{" "}
+              Don't have an account? <Link to="/Signup">Sign Up</Link>{" "}
             </p>
           </form>
         </div>
-
-      </div >
-    </div >
+      </div>
+    </div>
   );
 }
 
