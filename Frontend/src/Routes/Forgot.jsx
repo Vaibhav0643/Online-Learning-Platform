@@ -1,4 +1,4 @@
-import '../Assets/Login.css';
+import '../Assets/Forgot.css';
 
 function Forgot() {
 
