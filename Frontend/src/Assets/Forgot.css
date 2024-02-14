@@ -49,7 +49,7 @@
     outline: none;
 }
 
-.login-form-container form .box:focus {
+.forgot-form-container form .box:focus {
     border-color: rgb(42, 115, 204);
 }
 
