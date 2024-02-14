@@ -103,12 +103,10 @@ margin-top: 1rem;
 
   .course-select{
     display: flex;
-  overflow: scroll;
-  }
-
-  .course-select::-webkit-scrollbar{
-    width: 0;
-  }
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
 
   .course-available-content{
     margin-top:4px;
