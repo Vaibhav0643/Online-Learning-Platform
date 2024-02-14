@@ -1,13 +1,13 @@
 import "./App.css";
-import Dashboard from "./Components/Dashboard";
-import Home from "./Components/Home";
-import Login from "./Components/Login";
-import Forgot from "./Components/Forgot";
-import Register from "./Components/Register";
-import Logout from "./Components/Logout";
+import Dashboard from "./Routes/Dashboard";
+import Home from "./Routes/Home";
+import Login from "./Routes/Login";
+import Forgot from "./Routes/Forgot";
+import Register from "./Routes/Register";
+import Logout from "./Routes/Logout";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Enrollment from "./Components/Enrollment";
-import Courses from "./Components/Courses";
+import Enrollment from "./Routes/Enrollment";
+import Courses from "./Routes/Courses";
 
 function App() {
   return (

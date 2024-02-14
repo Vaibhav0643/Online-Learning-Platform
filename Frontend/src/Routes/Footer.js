@@ -1,7 +1,7 @@
 import React from "react";
-import Footerdata from "./Footerdata";
-import Footercards from "./Footercards";
-import Footerend from "./Footerend";
+import Footerdata from "../Components/Footerdata";
+import Footercards from "../Components/Footercards";
+import Footerend from "../Components/Footerend";
 import "../Assets/Footer.css"
 
 

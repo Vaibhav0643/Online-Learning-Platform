@@ -4,8 +4,8 @@ import coverimage from "../Images/cover.jpg";
 import "../Assets/Dashboard.css";
 import profileimg from "../Images/profileimg.jpg";
 import Footer from "./Footer";
-import Section3data from "./Section3data";
-import CourseCard from "./CourseCard";
+import Section3data from "../Components/Section3data";
+import CourseCard from "../Components/CourseCard";
 import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
