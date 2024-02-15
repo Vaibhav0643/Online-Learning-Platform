@@ -2,14 +2,18 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Protest+Riot&display=swap');
 
+
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
+
+
 .course-heading{
-    font-family: 'Protest Riot', sans-serif;
-    color: rgb(233, 179, 80);
+    font-family: "Dancing Script", cursive;
+    color: orange;
     display: flex;
     justify-content: center;
     font-weight: 100;
-    font-size: 40px;
-    margin-top: 2rem;
+    font-size: 60px;
+    margin-bottom: 2rem;
 }
 
 .enroll-course{
@@ -19,7 +23,7 @@
     flex-wrap: wrap;
     margin-top: 3rem;
     margin-bottom: 3rem;
-    font-family: "Quicksand";
+    font-family: "Dancing Script", cursive;
 }
 
 .course-enroll-data{
@@ -30,6 +34,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    font-family: "Dancing Script", cursive;
 }
 
 .enroll-course img{
@@ -42,15 +47,18 @@ margin-top: 1rem;
 }
 
 .course-enroll-data h4{
+  font-size: 26px;
   margin-top: 0.2rem;
   color:grey;
 }
 .course-enroll-data h1{
     color: orange;
+    font-size: 40px;
     /* text-shadow: 2px 2px rgb(235, 217, 183); */
 }
 
 .course-enroll-data p,.course-enroll-data h5{
+  font-size: 22px;
     color: rgb(55, 55, 230);
 }
 
@@ -65,7 +73,7 @@ margin-top: 1rem;
     border-radius: 0.5rem;
     background-image: linear-gradient(to right,rgba(255,0,0,0),orange);
     font-size: 16px;
-    font-family: "Quicksand";
+    font-family: "Dancing Script", cursive;
 }
 
 .courses-available{

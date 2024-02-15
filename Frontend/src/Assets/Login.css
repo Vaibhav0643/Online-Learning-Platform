@@ -4,6 +4,9 @@
 
 /* 16px = 1rem */
 /* If you apply  font-size: 62.5%; then  10px = 1rem*/
+div {
+    font-family: 'Poppins', 'sans-serif';   
+}
 
 .login-form-container {
     margin-top: 60px;
