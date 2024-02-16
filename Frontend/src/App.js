@@ -4,7 +4,6 @@ import Home from "./Routes/Home";
 import Login from "./Routes/Login";
 import Forgot from "./Routes/Forgot";
 import Register from "./Routes/Register";
-import Logout from "./Routes/Logout";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Enrollment from "./Routes/Enrollment";
 import Upload from "./Routes/Upload";
@@ -16,7 +15,6 @@ function App() {
       <Routes>
         <Route path="/Login" element={<Login />} />
         <Route path="/Enrollment" element={<Enrollment />} />
-        <Route path="/Logout" element={<Logout />} />
         <Route path="/Signup" element={<Register />} />
         <Route path="/Dashboard" element={<Dashboard />} />
         <Route path="/Courses" element={<Courses />} />

@@ -2,10 +2,20 @@ import Courses from "../Components/Courses";
 import SideBar from "../Components/SideBar";
 import TopBar from "../Components/TopBar";
 import { Box, CssBaseline, Toolbar, Divider } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const drawerWidth = 240;
 
 function Dashboard() {
+  let navigate = useNavigate();
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) {
+      navigate("/login");
+    }
+  }, [navigate]);
+
   return (
     <Box sx={{ display: { sx: "flex" } }}>
       <CssBaseline />

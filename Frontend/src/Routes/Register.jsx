@@ -2,6 +2,8 @@ import "../Assets/Register.css";
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import red from "@mui/material/colors/red";
+import { Box } from "@mui/material";
 
 function Register() {
   const [name, setName] = useState("");
@@ -9,9 +11,12 @@ function Register() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const [btnDisabled, setBtnDisabled] = useState(false);
+  const [message, setMessage] = useState("");
+  const [buttonText, setButtonText] = useState("Register");
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setButtonText("Please Wait...");
     setBtnDisabled(true);
     const data = {
       userEmail: email,
@@ -26,40 +31,39 @@ function Register() {
       )
       .then((res) => {
         console.log(res.data);
+        setBtnDisabled(false);
+        setButtonText("Sign Up");
         navigate("/login");
       })
       .catch((error) => {
-        if (error.response) {
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
-        } else if (error.request) {
-          console.log(error.request);
+        if (error.response.status === 409) {
+          setMessage("User Already Exists");
+        } else if (error.response.status === 400) {
+          setMessage("Please fill all the fields");
         } else {
-          console.log("Error", error.message);
+          setMessage("Something went wrong");
         }
+        setBtnDisabled(false);
+        setButtonText("Sign Up");
       });
-    setBtnDisabled(false);
   };
 
   return (
-    <div className='app_content'>
+    <div className="app_content">
       <div>
-
-
         <div className="signup-form-container">
           <form onSubmit={handleSubmit}>
-            <div >
+            <div>
               <h3>Create your account.</h3>
-              <p className='header_description'>
-                <span>Open the Door to Infinite Learning Opportunities.
+              <p className="header_description">
+                <span>
+                  Open the Door to Infinite Learning Opportunities.
                   <br />
                   Join Us to Shape Your Future Today.
                 </span>
               </p>
               <hr className="divider" />
             </div>
-
 
             <div className="input_heading">NAME</div>
             <input
@@ -69,7 +73,6 @@ function Register() {
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
-
 
             <div className="input_heading">EMAIL</div>
             <input
@@ -94,17 +97,18 @@ function Register() {
             />
 
             <button className="btn" disabled={btnDisabled}>
-              Sign Up <span>&#x2192; </span>
+              {buttonText}
             </button>
 
+            <Box sx={{ color: red[500] }}>{message}</Box>
+
             <hr className="divider" />
-            <p className='footer_description'>
+            <p className="footer_description">
               {" "}
               Already have an account? <a href="/Login">Login</a>{" "}
             </p>
           </form>
         </div>
-
       </div>
     </div>
   );

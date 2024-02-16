@@ -1,8 +1,11 @@
+import { Box } from "@mui/material";
 import "../Assets/Login.css";
 
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
+
+import red from "@mui/material/colors/red";
 
 function Login() {
   let navigate = useNavigate();
@@ -17,6 +20,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [buttonText, setButtonText] = useState("Login");
+  const [message, setMessage] = useState("");
 
   const handleSubmit = (e) => {
     setButtonText("Please Wait...");
@@ -40,15 +44,9 @@ function Login() {
         localStorage.setItem("user", JSON.stringify(res.data.user));
       })
       .catch((error) => {
-        if (error.response) {
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
-        } else if (error.request) {
-          console.log(error.request);
-        } else {
-          console.log("Error", error.message);
-        }
+        setMessage("Invalid Email or Password");
+        setButtonText("Login");
+        setButtonDisabled(false);
       });
   };
   return (
@@ -97,6 +95,8 @@ function Login() {
             <button className="btn" disabled={buttonDisabled}>
               {buttonText}
             </button>
+
+            <Box sx={{ color: red[500] }}>{message}</Box>
 
             <hr className="divider" />
             <p className="footer_description">
