@@ -1,7 +1,13 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function EnrollCourseCard(props)
 {
+    let navigate=useNavigate();
+    function handleClick()
+    {
+        navigate("/enrollment");
+    }
     return(
         <div className="enroll-course">
             <img src={props.image} alt="" />
@@ -12,7 +18,7 @@ function EnrollCourseCard(props)
                 <h5>{props.ratings} Star</h5>
                 <h5>{props.duration} hours</h5>
 
-                <button className="enroll-button">Enroll Now</button>
+                <button className="enroll-button" onClick={handleClick}>Enroll Now</button>
 
             </div>
         </div>
