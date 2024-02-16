@@ -1,7 +1,7 @@
 import Courses from "../Components/Courses";
 import SideBar from "../Components/SideBar";
 import TopBar from "../Components/TopBar";
-import { Box, CssBaseline, Toolbar, Divider } from "@mui/material";
+import { Box, CssBaseline, Toolbar, Divider, Container } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
@@ -9,12 +9,35 @@ const drawerWidth = 240;
 
 function Dashboard() {
   let navigate = useNavigate();
+  let courses;
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
     if (!user) {
       navigate("/login");
     }
+    console.log(user);
   }, [navigate]);
+
+  courses = JSON.parse(localStorage.getItem("courses"));
+  console.log(courses);
+  const courseDisplay = () => {
+    if (courses) {
+      return courses.map((course) => {
+        return (
+          <div key={course.courseId}>
+            <Courses
+              key={course.courseId}
+              title={course.courseTitle}
+              content={course.courseDescription}
+              image={course.courseBannerImage}
+              videoCount={course.videoCount}
+            />
+            <Divider />
+          </div>
+        );
+      });
+    }
+  };
 
   return (
     <Box sx={{ display: { sx: "flex" } }}>
@@ -30,15 +53,17 @@ function Dashboard() {
         }}
       >
         <Toolbar />
-        <Courses title="Course 1" content="This is Course Content" />
-        <Divider />
-        <Courses
-          title="Course 2"
-          content="This is content of sample course 2 "
-        />
-        <Divider />
-        <Courses title="Course 3" content="This is Course Content" />
-        <Divider />
+        <Container
+          maxWidth="sm"
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+          }}
+        >
+          {courseDisplay()}
+        </Container>
       </Box>
     </Box>
   );

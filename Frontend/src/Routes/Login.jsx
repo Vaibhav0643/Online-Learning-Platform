@@ -42,6 +42,7 @@ function Login() {
         setButtonDisabled(false);
         navigate("/dashboard");
         localStorage.setItem("user", JSON.stringify(res.data.user));
+        localStorage.setItem("courses", JSON.stringify(res.data.courses));
       })
       .catch((error) => {
         setMessage("Invalid Email or Password");

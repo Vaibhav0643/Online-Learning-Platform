@@ -6,11 +6,17 @@ import {
   Button,
   Menu,
   MenuItem,
+  ListItemIcon,
+  ListItemText,
 } from "@mui/material";
+import LogoutIcon from "@mui/icons-material/Logout";
+
 import profile from "../Images/profile.png";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function TopBar(props) {
+  let navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -38,6 +44,7 @@ function TopBar(props) {
           aria-expanded={open ? "true" : undefined}
           onClick={handleClick}
           variant="text"
+          sx={{ textTransform: "none", color: "black" }}
         >
           <Typography variant="h6" noWrap component="div" sx={{ mr: "10px" }}>
             Hi {JSON.parse(localStorage.getItem("user")).userName}
@@ -56,14 +63,17 @@ function TopBar(props) {
             "aria-labelledby": "basic-button",
           }}
         >
-          <MenuItem onClick={handleClose}>Profile</MenuItem>
           <MenuItem
             onClick={() => {
               localStorage.removeItem("user");
-              window.location.reload();
+              localStorage.removeItem("courses");
+              navigate("/login");
             }}
           >
-            Logout
+            <ListItemIcon>
+              <LogoutIcon />
+            </ListItemIcon>
+            <ListItemText>Logout</ListItemText>
           </MenuItem>
         </Menu>
       </Toolbar>
