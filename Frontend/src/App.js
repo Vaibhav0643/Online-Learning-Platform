@@ -7,6 +7,7 @@ import Register from "./Routes/Register";
 import Logout from "./Routes/Logout";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Enrollment from "./Routes/Enrollment";
+import Upload from "./Routes/Upload";
 import Courses from "./Routes/Courses";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path="/Signup" element={<Register />} />
         <Route path="/Dashboard" element={<Dashboard />} />
         <Route path="/Courses" element={<Courses/>}/>
+        <Route path="/Upload" element={<Upload />} />
         <Route path="/" element={<Home />} />
         <Route path="/Forgot" element={<Forgot />} />
       </Routes>
