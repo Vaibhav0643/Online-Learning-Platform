@@ -1,5 +1,5 @@
 import "./App.css";
-import Dashboard from "./Routes/Dashboard";
+import Dashboard from "./Routes/dashboard.jsx";
 import Home from "./Routes/Home";
 import Login from "./Routes/Login";
 import Forgot from "./Routes/Forgot";
@@ -19,7 +19,7 @@ function App() {
         <Route path="/Logout" element={<Logout />} />
         <Route path="/Signup" element={<Register />} />
         <Route path="/Dashboard" element={<Dashboard />} />
-        <Route path="/Courses" element={<Courses/>}/>
+        <Route path="/Courses" element={<Courses />} />
         <Route path="/Upload" element={<Upload />} />
         <Route path="/" element={<Home />} />
         <Route path="/Forgot" element={<Forgot />} />
