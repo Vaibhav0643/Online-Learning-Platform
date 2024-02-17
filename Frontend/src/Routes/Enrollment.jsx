@@ -4,7 +4,26 @@ import 'react-toastify/dist/ReactToastify.css';
 function Enrollment() {
   function SuccesfulEnroll(event)
     {
+
       event.preventDefault();
+      const name = event.target.form[0].value;
+      const email = event.target.form[1].value;
+      const phoneNumber = event.target.form[2].value;
+      const dob = event.target.form[3].value;
+      const collegeOrOrganization = event.target.form[4].value;
+
+      if (!name || !email || !phoneNumber || !dob || !collegeOrOrganization) {
+        toast.error('Please fill in all fields.', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        return; // Stop the function if any field is empty
+      }
       toast.success('Successfully registered!', {
         position: "top-right",
         autoClose: 5000,
