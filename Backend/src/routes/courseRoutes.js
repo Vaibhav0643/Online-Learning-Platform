@@ -24,7 +24,7 @@ router.post(
 
 router.get("/", getAPIInfo);
 
-router.get("/getAllCourses", verifyToken, getAllCourses);
+router.get("/getAllCourses", getAllCourses);
 
 router.get("/:userId/getUserCourses", verifyToken, getUserCourses);
 
