@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
+
+.course_individual_data {
+  margin-left: 2rem;
+  margin-right: 2rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  font-family: "Dancing Script", cursive;
+}
+
+.course_individual_data img {
+  width: 800px;
+}
+
+.course_individual_data img,
+.course_individual_data h1,
+.course_individual_data p,
+.course_individual_data h2,
+.course_individual_data ul li {
+  margin-top: 2rem;
+}
+
+.course_individual_data h1 {
+  font-size: 44px;
+}
+
+.course_individual_data h3 {
+  font-size: 24px;
+}
+
+.course_individual_data p {
+  font-size: 20px;
+}
+
+.course_individual_data h2 {
+  font-size: 28px;
+}
+
+.course_individual_data{
+    margin-bottom: 2rem;
+}
+
+.complete-button {
+  margin-left: 3rem;
+  border: none;
+  width: 100px;
+  height: 30px;
+  border-radius: 0.5rem;
+  background-image: linear-gradient(to left, rgba(255, 0, 0, 0), blue);
+  font-size: 16px;
+  font-family: "Dancing Script", cursive;
+}
+
+@media only screen and (max-width:870px) {
+  .course_individual_data img{
+    width: 600px;
+} 
+}
+
+@media only screen and (max-width:650px) {
+  .course_individual_data img{
+    width: 400px;
+} 
+}
+
+@media only screen and (max-width:420px) {
+  .course_individual_data img{
+    width: 300px;
+} 
+}
