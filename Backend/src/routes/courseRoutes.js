@@ -23,7 +23,7 @@ router.post(
 
 router.get("/getAllCourses", verifyToken, getAllCourses);
 
-router.get("/:userId/getUserCourses", verifyToken, getAllCourses);
+router.get("/:userId/getUserCourses", verifyToken, getUserCourses);
 
 router.get("/:courseId/getCourseDetails", verifyToken, getCourseDetails);
 
