@@ -181,7 +181,7 @@ const enrollUserInCourse = async (req, res) => {
 
 //****************THIS FUNCTION NEEDS TO BE TESTED*********************
 const getAPIInfo = async (req, res) => {
-  res.send("Welcome to JMAN courses API. TESTING ENDPOINT");
+  res.send("JMAN Courses API Status: ACTIVE");
 }
 
 //****************THIS FUNCTION NEEDS TO BE TESTED*********************
