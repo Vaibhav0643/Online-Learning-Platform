@@ -179,6 +179,10 @@ const enrollUserInCourse = async (req, res) => {
   }
 };
 
+//****************THIS FUNCTION NEEDS TO BE TESTED*********************
+const getAPIInfo = async (req, res) => {
+  res.send("Welcome to JMAN courses API. TESTING ENDPOINT");
+}
 
 //****************THIS FUNCTION NEEDS TO BE TESTED*********************
 const getAllCourses = async (req, res) => {
@@ -330,6 +334,7 @@ const checkCourseOwnership = async (userId, courseId) => {
 };
 
 export {
+  getAPIInfo,
   getAllCourses,
   getUserCourses,
   getCourseDetails,

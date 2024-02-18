@@ -1,6 +1,7 @@
 import express from "express";
 
 import {
+  getAPIInfo,
   getAllCourses,
   getUserCourses,
   deleteCourse,
@@ -20,6 +21,8 @@ router.post(
   upload.single("courseBannerImage"),
   uploadCourse
 );
+
+router.get("/", getAPIInfo);
 
 router.get("/getAllCourses", verifyToken, getAllCourses);
 
