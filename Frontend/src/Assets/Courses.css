@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;600;700&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Protest+Riot&display=swap');
+
+
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
+
+
+.course-heading{
+    font-family: "Dancing Script", cursive;
+    color: orange;
+    display: flex;
+    justify-content: center;
+    font-weight: 100;
+    font-size: 60px;
+    margin-bottom: 2rem;
+}
+
+.enroll-course{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    font-family: "Dancing Script", cursive;
+}
+
+.course-enroll-data{
+    display: flex;
+    margin-left: 2.5rem;
+    margin-right: 0.5rem;
+    width: 500px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: "Dancing Script", cursive;
+}
+
+.enroll-course img{
+    width: 700px;
+    border-radius: 0.5rem;
+}
+
+.course-enroll-data h1,.course-enroll-data p,.course-enroll-data h5,.enroll-button{
+margin-top: 1rem;
+}
+
+.course-enroll-data h4{
+  font-size: 26px;
+  margin-top: 0.2rem;
+  color:grey;
+}
+.course-enroll-data h1{
+    color: orange;
+    font-size: 40px;
+    /* text-shadow: 2px 2px rgb(235, 217, 183); */
+}
+
+.course-enroll-data p,.course-enroll-data h5{
+  font-size: 22px;
+    color: rgb(55, 55, 230);
+}
+
+.course-enroll-data p{
+    margin-left: 1rem;
+}
+
+.enroll-button{
+    border: none;
+    width: 150px;
+    height: 50px;
+    border-radius: 0.5rem;
+    background-image: linear-gradient(to right,rgba(255,0,0,0),orange);
+    font-size: 16px;
+    font-family: "Dancing Script", cursive;
+}
+
+.courses-available{
+  height: 400px;
+  width:300px;
+  gap:3rem;
+  margin: 0;
+  margin:1rem;
+  padding: 0;
+  margin-top: 15px;
+  border-radius: 10px;
+  margin-bottom: 2.5rem;
+  position: relative;
+}
+
+.course-available-image{
+    height:300px;
+  width:300px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.courses-available-rating{
+    position: absolute;
+    right: 1rem;
+}
+
+.grey{
+    color:rgb(95, 95, 95);
+  }
+  
+  .fade{
+    color: rgb(56, 56, 56);
+  }
+
+  .course-select{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+  .course-available-content{
+    margin-top:4px;
+  margin:5px;
+  font-size: 18px;
+  }
+
+  .Duration{
+    margin-top: 1rem;
+  }
+
+  @media only screen and (max-width:750px) {
+    .enroll-course img{
+      width: 500px;
+      border-radius: 0.5rem;
+  } 
+
+  .course-enroll-data h1{
+    font-size: 24px;
+  }
+
+  .course-enroll-data p{
+    font-size: 15px;
+  }
+  }
+
+  @media only screen and (max-width:550px) {
+    .enroll-course img{
+      width: 300px;
+      border-radius: 0.5rem;
+  } 
+  }

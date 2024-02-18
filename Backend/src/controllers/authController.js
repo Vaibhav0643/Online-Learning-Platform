@@ -129,4 +129,28 @@ const loginUser = async (req, res) => {
   }
 };
 
-export { createUser, loginUser };
+const deleteUser = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    if (!userId) {
+      return res.status(400).json({ error: "Missing required fields" });
+    }
+
+    const result = await pool.query(
+      'DELETE FROM users WHERE "userId" = $1 RETURNING *',
+      [userId]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.status(200).json({ message: "User deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+export { createUser, loginUser, deleteUser };

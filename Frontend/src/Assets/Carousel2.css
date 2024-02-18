@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
+
+  .carousel-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  .slide {
+    display: none;
+    width: 100%;
+    height: 100vh;
+    position: relative;
+  }
+  
+  .slide.active {
+    display: block;
+    animation: fadeIn 1s;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  .slide-image {
+    width: 100%;
+    height: 80vh;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  .slide-text {
+    width: 90%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    bottom: 24vh;
+    left: 20px;
+    color: black;
+    z-index: 10;
+    font-size: 28px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-align: center;
+    font-family: "Dancing Script", cursive;
+  }
+  
+  button:focus {
+    outline: none;
+  }
+  
+  button:active {
+    transform: scale(0.98);
+  }
+
+.slide-indicators {
+    position: absolute;
+    bottom: 23vh;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+  }
+  
+  .indicator {
+    width: 40px; 
+    height: 4px; 
+    background-color: black; 
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border: none;
+  }
+  
+  .indicator.active {
+    background-color: orange; 
+  }
+  
+  @media only screen and (max-width:767px) {
+    .slide-indicators {
+      bottom: 23vh;
+    }
+  }
