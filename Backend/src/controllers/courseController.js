@@ -179,6 +179,28 @@ const enrollUserInCourse = async (req, res) => {
   }
 };
 
+const getAllCourses = async () => {
+  try {
+
+    const courses = await pool.query(
+      'SELECT * FROM courses'
+    );
+
+    if (!courses) {
+      return res.status(404).json({ error: "No courses found" });
+    }
+
+    courses = courses.rows;
+    
+    res.status(200).json({ courses });
+  } 
+  
+  catch (error) {
+    console.error("Error fetching all courses:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+}
+
 const fetchCourseDetails = async (courseId, userId) => {
   const courseResult = await pool.query(
     'SELECT * FROM courses WHERE "courseId" = $1',
@@ -275,6 +297,7 @@ const checkCourseOwnership = async (userId, courseId) => {
 };
 
 export {
+  getAllCourses,
   getCourseDetails,
   uploadCourse,
   enrollUserInCourse,
