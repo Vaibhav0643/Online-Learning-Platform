@@ -179,7 +179,9 @@ const enrollUserInCourse = async (req, res) => {
   }
 };
 
-const getAllCourses = async () => {
+
+//****************THIS FUNCTION NEEDS TO BE TESTED*********************
+const getAllCourses = async (req, res) => {
   try {
 
     const courses = await pool.query(
@@ -190,13 +192,44 @@ const getAllCourses = async () => {
       return res.status(404).json({ error: "No courses found" });
     }
 
-    courses = courses.rows;
-    
-    res.status(200).json({ courses });
+    // Check if any courses were found
+    if (courses.rows.length === 0) {
+      return res.status(200).json({ courses: [] }); // Return an empty array if no courses found
+    }
+
+    res.status(200).json({ courses: courses.rows });
   } 
   
   catch (error) {
     console.error("Error fetching all courses:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+}
+
+
+//****************THIS FUNCTION NEEDS TO BE TESTED*********************
+const getUserCourses = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    const courses = await pool.query(
+      'SELECT c.* FROM users_courses uc JOIN courses c ON uc.courseId = c.courseId WHERE uc.userId=$1', [userId]
+    );
+
+    if (!courses) {
+      return res.status(404).json({ error: "No courses found" });
+    }
+
+    // Check if any courses were found
+    if (courses.rows.length === 0) {
+      return res.status(200).json({ courses: [] }); // Return an empty array if no courses found
+    }
+
+    res.status(200).json({ courses: courses.rows });
+  } 
+  
+  catch (error) {
+    console.error("Error fetching courses for the given userId:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 }
@@ -298,6 +331,7 @@ const checkCourseOwnership = async (userId, courseId) => {
 
 export {
   getAllCourses,
+  getUserCourses,
   getCourseDetails,
   uploadCourse,
   enrollUserInCourse,
