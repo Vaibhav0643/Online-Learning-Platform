@@ -15,8 +15,6 @@ import {
   ListItemText,
 } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import Person2Icon from "@mui/icons-material/Person2";
-import HorizontalSplitIcon from "@mui/icons-material/HorizontalSplit";
 import MenuIcon from "@mui/icons-material/Menu";
 
 import logo from "../Images/logo-elearn.jpg";
@@ -42,22 +40,9 @@ function SideBar(props) {
     }
   };
 
-  const userLinks = [
-    {
-      title: "My Courses",
-      icon: <Person2Icon />,
-    },
-    {
-      title: "New Courses",
-      icon: <AddCircleOutlineIcon />,
-    },
-  ];
+  const userLinks = [];
 
   const adminLinks = [
-    {
-      title: "Courses",
-      icon: <HorizontalSplitIcon />,
-    },
     {
       title: "Add Course",
       icon: <AddCircleOutlineIcon />,

@@ -12,6 +12,8 @@ import Red from "@mui/material/colors/red";
 import axios from "axios";
 import * as React from "react";
 import Cookies from "universal-cookie";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function Courses(props) {
   const user = JSON.parse(localStorage.getItem("user") || null);
@@ -42,7 +44,7 @@ export default function Courses(props) {
   const ifAdmin = user.userEmail === "ADMIN@GMAIL.COM";
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 300 }}>
       <CardHeader title={props.title} />
       <CardMedia
         component="img"
@@ -59,13 +61,14 @@ export default function Courses(props) {
           color="text.secondary"
           sx={{ textAlign: "right" }}
         >
-          {props.videoCount} Videos
+          {props.videoCount - 1} Videos
         </Typography>
       </CardContent>
       <CardActions>
         {ifAdmin && (
           <Link to={"/Delete/" + props.id} sx={{ textDecoration: "none" }}>
             <Button sx={{ color: Red[500] }} onClick={deleteCourse}>
+              <DeleteIcon />
               Delete
             </Button>
           </Link>
@@ -74,7 +77,10 @@ export default function Courses(props) {
           to={"/IndividualCourses/" + props.id}
           sx={{ textDecoration: "none" }}
         >
-          <Button onClick={gotoCourse}>Learn More</Button>
+          <Button onClick={gotoCourse}>
+            <RemoveRedEyeIcon />
+            View
+          </Button>
         </Link>
       </CardActions>
     </Card>

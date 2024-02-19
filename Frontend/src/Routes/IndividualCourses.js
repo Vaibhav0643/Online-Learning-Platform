@@ -5,7 +5,8 @@ import Footer from "../Routes/Footer";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import Cookies from "universal-cookie";
-import { Button, Toolbar, Typography } from "@mui/material";
+import { Button, Toolbar, Typography, Avatar, Box } from "@mui/material";
+import profile from "../Images/profile.png";
 
 function IndividualCourse() {
   const params = useParams();
@@ -63,6 +64,8 @@ function IndividualCourse() {
               : `../Image/machinelearning.jpg`
           }
           alt=""
+          width="100px"
+          height="auto"
         />
         <h1>{course ? course.courseDetails.courseTitle : "Course Title"}</h1>
         <p>
@@ -86,6 +89,29 @@ function IndividualCourse() {
               Enroll
             </Button>
           </>
+        )}
+
+        <Toolbar />
+        {course && course.courseDetails.enrolledUsers ? (
+          <>
+            <Typography>
+              {course.courseDetails.enrolledUsers.length} Users Enrolled
+            </Typography>
+            {course.courseDetails.enrolledUsers.map((user, index) => {
+              return (
+                <Box key={index} sx={{ display: "flex", alignItems: "center" }}>
+                  <Avatar
+                    alt="Profile Image"
+                    src={user.userImgUrl || profile}
+                    sx={{ width: 100, height: 100 }}
+                  />
+                  <Typography>{user.userName}</Typography>
+                </Box>
+              );
+            })}
+          </>
+        ) : (
+          <></>
         )}
       </div>
       <Footer />

@@ -17,7 +17,6 @@ function AddCourse() {
   const [courseBannerImage, setCourseBannerImage] = useState("");
   const [courseVideo, setCourseVideo] = useState("");
   const [open, setOpen] = useState(false);
-
   const formData = new FormData();
 
   const handleImageChange = (event) => {
@@ -69,6 +68,7 @@ function AddCourse() {
       )
       .then((res) => {
         console.log(res.data);
+        alert("Course Added");
         handleClose();
       })
       .catch((error) => {

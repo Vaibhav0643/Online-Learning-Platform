@@ -8,11 +8,11 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  font-family: "Dancing Script", cursive;
+  font-family: Arial;
 }
 
 .course_individual_data img {
-  width: 800px;
+  width: 100px;
 }
 
 .course_individual_data img,
