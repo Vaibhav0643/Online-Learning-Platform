@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../Assets/Header.css";
 import logoelearn from "../Images/logo-elearn.jpg";
-import { NavLink,useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function Header() {
   const [icons, seticons] = useState(false);
@@ -19,7 +19,7 @@ function Header() {
   const handleLogout = (event) => {
     event.preventDefault();
     localStorage.removeItem("user");
-    navigate('/login');
+    navigate("/login");
   };
   return (
     <header>
@@ -39,27 +39,30 @@ function Header() {
                 Home
               </NavLink>
             </li>
-            <li>
-              <NavLink to="/courses" activeClassName="active">
-                Courses
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/dashboard" activeClassName="active">
-                Dashboard
-              </NavLink>
-            </li>
-            <li>
-              {localStorage.getItem("user") ? (
-                <NavLink to="/login" activeClassName="active" onClick={handleLogout}>
-                  Logout
-                </NavLink>
-              ) : (
+            {localStorage.getItem("user") ? (
+              <>
+                <li>
+                  <NavLink to="/dashboard" activeClassName="active">
+                    Dashboard
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/login"
+                    activeClassName="active"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </NavLink>
+                </li>
+              </>
+            ) : (
+              <li>
                 <NavLink to="/login" activeClassName="active">
                   Login
                 </NavLink>
-              )}
-            </li>
+              </li>
+            )}
           </ul>
         </div>
         <div id="mobile" onClick={handleClick}>
