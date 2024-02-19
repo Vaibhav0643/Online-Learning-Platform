@@ -4,11 +4,13 @@ import "../Assets/Login.css";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import Cookies from "universal-cookie";
 
 import red from "@mui/material/colors/red";
 
 function Login() {
   let navigate = useNavigate();
+  const cookies = new Cookies();
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (user) {
@@ -38,9 +40,11 @@ function Login() {
         console.log(res.data);
         setButtonText(" Login");
         setButtonDisabled(false);
-        navigate("/dashboard");
         localStorage.setItem("user", JSON.stringify(res.data.user));
         localStorage.setItem("courses", JSON.stringify(res.data.courses));
+        localStorage.setItem("token", res.data.token);
+        cookies.set("token", res.data.token);
+        navigate("/dashboard");
       })
       .catch((error) => {
         setMessage("Invalid Email or Password");

@@ -8,9 +8,22 @@ import {
   Button,
   Link,
 } from "@mui/material";
+import Red from "@mui/material/colors/red";
 import * as React from "react";
 
 export default function Courses(props) {
+  const user = JSON.parse(localStorage.getItem("user") || null);
+
+  if (user === null) {
+    return <div></div>;
+  }
+
+  const gotoCourse = () => {
+    props.navigate("/individualCourses/" + props.id);
+  };
+
+  const ifAdmin = user.userEmail === "ADMIN@GMAIL.COM";
+
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader title={props.title} />
@@ -22,7 +35,7 @@ export default function Courses(props) {
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          {props.content}
+          {props.content.substring(0, 100) + "..."}
         </Typography>
         <Typography
           variant="subtitle2"
@@ -33,8 +46,16 @@ export default function Courses(props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Link to={"/courses/" + props.id} sx={{ textDecoration: "none" }}>
-          <Button>Learn More</Button>
+        {ifAdmin && (
+          <Link to={"/Delete/" + props.id} sx={{ textDecoration: "none" }}>
+            <Button sx={{ color: Red[500] }}>Delete</Button>
+          </Link>
+        )}
+        <Link
+          to={"/IndividualCourses/" + props.id}
+          sx={{ textDecoration: "none" }}
+        >
+          <Button onClick={gotoCourse}>Learn More</Button>
         </Link>
       </CardActions>
     </Card>

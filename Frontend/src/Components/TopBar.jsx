@@ -16,9 +16,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function TopBar(props) {
+  const user = JSON.parse(localStorage.getItem("user")) || null;
   let navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+
+  if (user === null) navigate("/login");
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };

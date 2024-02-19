@@ -25,7 +25,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/Forgot" element={<Forgot />} />
         <Route path="/AddCourse" element={<AddCourse />} />
-        <Route path="/IndividualCourses" element={<IndividualCourses />} />
+        <Route path="/IndividualCourses/:id" element={<IndividualCourses />} />
       </Routes>
     </BrowserRouter>
   );

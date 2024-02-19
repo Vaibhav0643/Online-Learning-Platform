@@ -11,8 +11,9 @@ function Dashboard() {
   let navigate = useNavigate();
   let courses;
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user") || "{}");
-    if (!user) {
+    const user = JSON.parse(localStorage.getItem("user") || null);
+    console.log(user);
+    if (user == null) {
       navigate("/login");
     }
   }, [navigate]);
@@ -30,6 +31,7 @@ function Dashboard() {
               content={course.courseDescription}
               image={course.courseBannerImage}
               videoCount={course.videoCount}
+              navigate={navigate}
             />
             <Divider />
           </div>

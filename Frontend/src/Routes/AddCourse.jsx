@@ -10,17 +10,17 @@ import {
 import { useState } from "react";
 import red from "@mui/material/colors/red";
 import Cookie from "universal-cookie";
-
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 function AddCourse() {
   const [courseTitle, setCourseTitle] = useState("");
   const [courseDescription, setCourseDescription] = useState("");
   const [courseBannerImage, setCourseBannerImage] = useState("");
   const [courseVideo, setCourseVideo] = useState("");
+  const [message, setMessage] = useState("");
+  const [open, setOpen] = useState(false);
 
-  const navigate = useNavigate();
+  const formData = new FormData();
 
   const handleImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
@@ -38,9 +38,6 @@ function AddCourse() {
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIzLCJ1c2VyRW1haWwiOiJBRE1JTkBHTUFJTC5DT00iLCJ1c2VyVHlwZSI6ImFkbWluIiwiaWF0IjoxNzA4MjcwNzA4LCJleHAiOjE3MDgzNTcxMDh9.-1g-DTxVck78FzAaz0kgf_vLRwfQx7pr_-98-hwBVjs"
   );
 
-  const [message, setMessage] = useState("");
-
-  const [open, setOpen] = useState(false);
   const handleClose = () => {
     setOpen(false);
   };
@@ -57,15 +54,22 @@ function AddCourse() {
       courseBannerImage: courseBannerImage.data,
       videoURLs: courseVideo.split("\n"),
     };
+    formData.append("courseTitle", courseTitle);
+    formData.append("courseDescription", courseDescription);
+    formData.append("courseBannerImage", courseBannerImage.data);
+    formData.append("videoURLs", courseVideo.split("\n"));
 
     console.log(data);
     axios
       .post(
         "https://online-learning-platform-r55m.onrender.com/api/v1/course/uploadCourse",
-        data,
+        formData,
         {
           withCredentials: true,
-          headers: { Authorization: `Bearer ${cookies.get("token")}` },
+          headers: {
+            Authorization: `Bearer ${cookies.get("token")}`,
+            "Content-Type": "multipart/form-data",
+          },
         }
       )
       .then((res) => {
@@ -96,14 +100,14 @@ function AddCourse() {
           Add Course
         </Typography>
         <TextField
-          id="outlined-basic"
+          id="title"
           label="Course Title"
           variant="outlined"
           onChange={(e) => setCourseTitle(e.target.value)}
           sx={{ margin: "10px 0" }}
         />
         <TextField
-          id="outlined-basic"
+          id="desc"
           label="Course Description"
           multiline={true}
           onChange={(e) => setCourseDescription(e.target.value)}
@@ -116,7 +120,7 @@ function AddCourse() {
         </Button>
 
         <TextField
-          id="outlined-basic"
+          id="video"
           label="Course Video"
           multiline={true}
           variant="outlined"
@@ -132,10 +136,10 @@ function AddCourse() {
         >
           Add Course
         </Button>
-        <Typography variant="h6" sx={{ color: red[500] }}>
-          {message}
-        </Typography>
       </Box>
+      <Typography variant="h6" sx={{ color: red[500] }}>
+        {message}
+      </Typography>
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={open}
