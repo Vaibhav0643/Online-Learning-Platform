@@ -17,14 +17,17 @@ import {
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import MenuIcon from "@mui/icons-material/Menu";
 import HomeIcon from "@mui/icons-material/Home";
-
 import logo from "../Images/logo-elearn.jpg";
 import { Link } from "react-router-dom";
-const user = JSON.parse(localStorage.getItem("user") || "{}");
 
 function SideBar(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
+  const [user, setUser] = React.useState("");
+
+  React.useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem("user")));
+  }, []);
 
   const handleDrawerClose = () => {
     setIsClosing(true);

@@ -85,7 +85,7 @@ function AddCourse() {
     if (user === null) {
       return <div></div>;
     }
-    if (JSON.parse(user).userEmail !== "admin@gmail.com") {
+    if (JSON.parse(user).userEmail != "ADMIN@GMAIL.COM") {
       navigator("/dashboard");
     }
   }, [navigator]);
