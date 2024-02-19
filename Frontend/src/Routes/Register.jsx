@@ -3,16 +3,27 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import red from "@mui/material/colors/red";
-import { Box } from "@mui/material";
+import { Avatar, Box } from "@mui/material";
 
 function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [image, setImage] = useState(null);
   const navigate = useNavigate();
   const [btnDisabled, setBtnDisabled] = useState(false);
   const [message, setMessage] = useState("");
   const [buttonText, setButtonText] = useState("Register");
+
+  const onImageChange = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      const img = {
+        preview: URL.createObjectURL(event.target.files[0]),
+        data: event.target.files[0],
+      };
+      setImage(img);
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,12 +33,20 @@ function Register() {
       userEmail: email,
       userPassword: password,
       userName: name,
+      userImage: image.data,
     };
+
     console.log(data);
+
     axios
       .post(
         "https://online-learning-platform-r55m.onrender.com/api/v1/user/createUser",
-        data
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       )
       .then((res) => {
         console.log(res.data);
@@ -93,6 +112,25 @@ function Register() {
               value={password}
               onChange={(e) => {
                 setPassword(e.target.value);
+              }}
+            />
+            <div className="input_heading">UserImage</div>
+            <input
+              type="file"
+              accept="image/*"
+              placeholder="Enter your password"
+              className="box"
+              onChange={onImageChange}
+            />
+            <Avatar
+              alt="User Image"
+              src={image ? image.preview : ""}
+              sx={{
+                width: 100,
+                height: 100,
+                position: "fixed",
+                right: "50px",
+                top: "50px",
               }}
             />
 

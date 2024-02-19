@@ -15,11 +15,9 @@ function Dashboard() {
     if (!user) {
       navigate("/login");
     }
-    console.log(user);
   }, [navigate]);
 
   courses = JSON.parse(localStorage.getItem("courses"));
-  console.log(courses);
   const courseDisplay = () => {
     if (courses) {
       return courses.map((course) => {
@@ -27,6 +25,7 @@ function Dashboard() {
           <div key={course.courseId}>
             <Courses
               key={course.courseId}
+              id={course.courseId}
               title={course.courseTitle}
               content={course.courseDescription}
               image={course.courseBannerImage}

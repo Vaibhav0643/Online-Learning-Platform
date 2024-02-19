@@ -15,14 +15,13 @@ import {
   ListItemText,
 } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import BarChartIcon from "@mui/icons-material/BarChart";
 import Person2Icon from "@mui/icons-material/Person2";
 import HorizontalSplitIcon from "@mui/icons-material/HorizontalSplit";
 import MenuIcon from "@mui/icons-material/Menu";
 
 import logo from "../Images/logo-elearn.jpg";
-
-const userType = "user";
+import { Link } from "react-router-dom";
+const user = JSON.parse(localStorage.getItem("user") || "{}");
 
 function SideBar(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -52,10 +51,6 @@ function SideBar(props) {
       title: "New Courses",
       icon: <AddCircleOutlineIcon />,
     },
-    {
-      title: "Statistics",
-      icon: <BarChartIcon />,
-    },
   ];
 
   const adminLinks = [
@@ -64,16 +59,17 @@ function SideBar(props) {
       icon: <HorizontalSplitIcon />,
     },
     {
+      title: "Add Course",
+      icon: <AddCircleOutlineIcon />,
+      link: "/addcourse",
+    },
+    {
       title: "Users",
       icon: <Person2Icon />,
     },
-    {
-      title: "Statistics",
-      icon: <BarChartIcon />,
-    },
   ];
 
-  const content = userType === "user" ? userLinks : adminLinks;
+  const content = user.userEmail === "ADMIN@GMAIL.COM" ? adminLinks : userLinks;
 
   const drawer = (
     <div>
@@ -86,10 +82,15 @@ function SideBar(props) {
       <List>
         {content.map((obj) => (
           <ListItem key={obj.title} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>{obj.icon}</ListItemIcon>
-              <ListItemText primary={obj.title} />
-            </ListItemButton>
+            <Link to={obj.link ? obj.link : "/"}>
+              <ListItemButton>
+                <ListItemIcon>{obj.icon}</ListItemIcon>
+                <ListItemText
+                  primary={obj.title}
+                  sx={{ textDecoration: "none", color: "black" }}
+                />
+              </ListItemButton>
+            </Link>
           </ListItem>
         ))}
       </List>

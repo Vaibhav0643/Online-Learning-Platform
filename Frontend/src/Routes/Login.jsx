@@ -12,7 +12,6 @@ function Login() {
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (user) {
-      console.log(user);
       navigate("/dashboard");
     }
   }, [navigate]);
@@ -30,7 +29,6 @@ function Login() {
       userEmail: email,
       userPassword: password,
     };
-    console.log(data);
     axios
       .post(
         "https://online-learning-platform-r55m.onrender.com/api/v1/user/login",

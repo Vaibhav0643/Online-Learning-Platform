@@ -1,9 +1,12 @@
 import {
   Card,
   CardHeader,
-  CardMedia,
   CardContent,
+  CardMedia,
+  CardActions,
   Typography,
+  Button,
+  Link,
 } from "@mui/material";
 import * as React from "react";
 
@@ -29,6 +32,11 @@ export default function Courses(props) {
           {props.videoCount} Videos
         </Typography>
       </CardContent>
+      <CardActions>
+        <Link to={"/courses/" + props.id} sx={{ textDecoration: "none" }}>
+          <Button>Learn More</Button>
+        </Link>
+      </CardActions>
     </Card>
   );
 }

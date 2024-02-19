@@ -182,15 +182,12 @@ const enrollUserInCourse = async (req, res) => {
 //****************THIS FUNCTION NEEDS TO BE TESTED*********************
 const getAPIInfo = async (req, res) => {
   res.send("JMAN Courses API Status: ACTIVE");
-}
+};
 
 //****************THIS FUNCTION NEEDS TO BE TESTED*********************
 const getAllCourses = async (req, res) => {
   try {
-
-    const courses = await pool.query(
-      'SELECT * FROM courses'
-    );
+    const courses = await pool.query("SELECT * FROM courses");
 
     if (!courses) {
       return res.status(404).json({ error: "No courses found" });
@@ -202,14 +199,11 @@ const getAllCourses = async (req, res) => {
     }
 
     res.status(200).json({ courses: courses.rows });
-  } 
-  
-  catch (error) {
+  } catch (error) {
     console.error("Error fetching all courses:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
-}
-
+};
 
 //****************THIS FUNCTION NEEDS TO BE TESTED*********************
 const getUserCourses = async (req, res) => {
@@ -217,7 +211,8 @@ const getUserCourses = async (req, res) => {
     const userId = req.params.userId;
 
     const courses = await pool.query(
-      'SELECT c.* FROM users_courses uc JOIN courses c ON uc.courseId = c.courseId WHERE uc.userId=$1', [userId]
+      "SELECT c.* FROM users_courses uc JOIN courses c ON uc.courseId = c.courseId WHERE uc.userId=$1",
+      [userId]
     );
 
     if (!courses) {
@@ -230,13 +225,11 @@ const getUserCourses = async (req, res) => {
     }
 
     res.status(200).json({ courses: courses.rows });
-  } 
-  
-  catch (error) {
+  } catch (error) {
     console.error("Error fetching courses for the given userId:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
-}
+};
 
 const fetchCourseDetails = async (courseId, userId) => {
   const courseResult = await pool.query(
