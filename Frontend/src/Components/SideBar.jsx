@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import MenuIcon from "@mui/icons-material/Menu";
+import HomeIcon from "@mui/icons-material/Home";
 
 import logo from "../Images/logo-elearn.jpg";
 import { Link } from "react-router-dom";
@@ -40,9 +41,20 @@ function SideBar(props) {
     }
   };
 
-  const userLinks = [];
+  const userLinks = [
+    {
+      title: "Home",
+      icon: <HomeIcon />,
+      link: "/",
+    },
+  ];
 
   const adminLinks = [
+    {
+      title: "Home",
+      icon: <HomeIcon />,
+      link: "/",
+    },
     {
       title: "Add Course",
       icon: <AddCircleOutlineIcon />,
