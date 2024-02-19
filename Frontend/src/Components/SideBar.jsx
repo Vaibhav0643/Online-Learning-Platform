@@ -102,10 +102,11 @@ function SideBar(props) {
         onClick={handleDrawerToggle}
         sx={{
           m: 2,
-          display: { sm: "none" },
+          display: { sx: "block", sm: "none" },
           position: "fixed",
-          top: 0,
-          right: 0,
+          top: 10,
+          left: 10,
+          zIndex: 100000,
         }}
       >
         <MenuIcon />
