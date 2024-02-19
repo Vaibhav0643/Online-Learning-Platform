@@ -31,7 +31,6 @@ function AddCourse() {
   };
 
   const cookies = new Cookie();
-  console.log(cookies.get("token"));
 
   const handleClose = () => {
     setOpen(false);
@@ -43,12 +42,6 @@ function AddCourse() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // const data = {
-    //   courseTitle: courseTitle,
-    //   courseDescription: courseDescription,
-    //   courseBannerImage: courseBannerImage.data,
-    //   videoURLs: courseVideo.split("\n"),
-    // };
     formData.append("courseTitle", courseTitle);
     formData.append("courseDescription", courseDescription);
     formData.append("courseBannerImage", courseBannerImage.data);
@@ -62,17 +55,17 @@ function AddCourse() {
         {
           withCredentials: true,
           headers: {
-            Authorization: `Bearer ${cookies.get("token")}`,
+            token: `${cookies.get("token")}`,
             "Content-Type": "multipart/form-data",
           },
         }
       )
       .then((res) => {
-        alert("Course Added Successfully");
+        console.log(res.data);
         handleClose();
       })
       .catch((error) => {
-        alert("Something went wrong");
+        console.log(error);
         handleClose();
       });
   };

@@ -29,25 +29,25 @@ function Register() {
     e.preventDefault();
     setButtonText("Please Wait...");
     setBtnDisabled(true);
-    const data = {
-      userEmail: email,
-      userPassword: password,
-      userName: name,
-      userImage: image.data,
-    };
+    // const data = {
+    //   userEmail: email,
+    //   userPassword: password,
+    //   userName: name,
+    //   userImage: image.data,
+    // };
 
-    const fromData = new FormData();
-    fromData.append("userEmail", email);
-    fromData.append("userPassword", password);
-    fromData.append("userName", name);
-    fromData.append("userImage", image.data);
+    const formData = new FormData();
+    formData.append("userEmail", email);
+    formData.append("userPassword", password);
+    formData.append("userName", name);
+    formData.append("userImage", image.data);
 
-    console.log(data);
+    console.log(formData);
 
     axios
       .post(
         "https://online-learning-platform-r55m.onrender.com/api/v1/user/createUser",
-        fromData,
+        formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",

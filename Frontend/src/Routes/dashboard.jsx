@@ -12,7 +12,6 @@ function Dashboard() {
   let courses;
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user") || null);
-    console.log(user);
     if (user == null) {
       navigate("/login");
     }
