@@ -50,16 +50,20 @@ function Dashboard() {
           flexGrow: 1,
           p: 3,
           width: { sm: `calc(100% - ${drawerWidth}px)` },
+          display: "flex",
+          margin: "auto",
+          justifyContent: "left",
         }}
       >
         <Toolbar />
         <Container
-          maxWidth="sm"
+          maxWidth="lg"
           sx={{
             display: "flex",
             flexDirection: "row",
             flexWrap: "wrap",
-            justifyContent: "space-between",
+            justifyContent: "space-evenly",
+            margin: "auto",
           }}
         >
           {courseDisplay()}
