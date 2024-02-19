@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../Assets/Header.css";
 import logoelearn from "../Images/logo-elearn.jpg";
-import { NavLink } from "react-router-dom";
+import { NavLink,useNavigate } from "react-router-dom";
 
 function Header() {
   const [icons, seticons] = useState(false);
@@ -14,6 +14,13 @@ function Header() {
     setnavbaractive((prev) => !prev);
   }
 
+  const navigate = useNavigate();
+
+  const handleLogout = (event) => {
+    event.preventDefault();
+    localStorage.removeItem("user");
+    navigate('/login');
+  };
   return (
     <header>
       <nav>
@@ -44,7 +51,7 @@ function Header() {
             </li>
             <li>
               {localStorage.getItem("user") ? (
-                <NavLink to="/Logout" activeClassName="active">
+                <NavLink to="/login" activeClassName="active" onClick={handleLogout}>
                   Logout
                 </NavLink>
               ) : (

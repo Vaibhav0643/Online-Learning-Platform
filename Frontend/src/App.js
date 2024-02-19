@@ -9,6 +9,7 @@ import Enrollment from "./Routes/Enrollment";
 import Upload from "./Routes/Upload";
 import Courses from "./Routes/Courses";
 import AddCourse from "./Routes/AddCourse.jsx";
+import IndividualCourses from "./Routes/IndividualCourses.js";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/Forgot" element={<Forgot />} />
         <Route path="/AddCourse" element={<AddCourse />} />
+        <Route path="/IndividualCourses" element={<IndividualCourses />} />
       </Routes>
     </BrowserRouter>
   );
