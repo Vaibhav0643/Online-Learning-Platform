@@ -55,7 +55,7 @@ function TopBar(props) {
           </Typography>
           <Avatar
             alt="Profile Image"
-            src={JSON.parse(localStorage.getItem("user")).userImage || profile}
+            src={JSON.parse(localStorage.getItem("user")).userImgUrl || profile}
           />
         </Button>
         <Menu

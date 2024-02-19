@@ -36,15 +36,21 @@ function Register() {
       userImage: image.data,
     };
 
+    const fromData = new FormData();
+    fromData.append("userEmail", email);
+    fromData.append("userPassword", password);
+    fromData.append("userName", name);
+    fromData.append("userImage", image.data);
+
     console.log(data);
 
     axios
       .post(
         "https://online-learning-platform-r55m.onrender.com/api/v1/user/createUser",
-        data,
+        fromData,
         {
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data",
           },
         }
       )
