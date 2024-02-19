@@ -8,7 +8,6 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { useState } from "react";
-import red from "@mui/material/colors/red";
 import Cookie from "universal-cookie";
 import axios from "axios";
 
@@ -17,7 +16,6 @@ function AddCourse() {
   const [courseDescription, setCourseDescription] = useState("");
   const [courseBannerImage, setCourseBannerImage] = useState("");
   const [courseVideo, setCourseVideo] = useState("");
-  const [message, setMessage] = useState("");
   const [open, setOpen] = useState(false);
 
   const formData = new FormData();
@@ -33,10 +31,7 @@ function AddCourse() {
   };
 
   const cookies = new Cookie();
-  cookies.set(
-    "token",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIzLCJ1c2VyRW1haWwiOiJBRE1JTkBHTUFJTC5DT00iLCJ1c2VyVHlwZSI6ImFkbWluIiwiaWF0IjoxNzA4MjcwNzA4LCJleHAiOjE3MDgzNTcxMDh9.-1g-DTxVck78FzAaz0kgf_vLRwfQx7pr_-98-hwBVjs"
-  );
+  console.log(cookies.get("token"));
 
   const handleClose = () => {
     setOpen(false);
@@ -48,18 +43,18 @@ function AddCourse() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const data = {
-      courseTitle: courseTitle,
-      courseDescription: courseDescription,
-      courseBannerImage: courseBannerImage.data,
-      videoURLs: courseVideo.split("\n"),
-    };
+    // const data = {
+    //   courseTitle: courseTitle,
+    //   courseDescription: courseDescription,
+    //   courseBannerImage: courseBannerImage.data,
+    //   videoURLs: courseVideo.split("\n"),
+    // };
     formData.append("courseTitle", courseTitle);
     formData.append("courseDescription", courseDescription);
     formData.append("courseBannerImage", courseBannerImage.data);
     formData.append("videoURLs", courseVideo.split("\n"));
 
-    console.log(data);
+    console.log(formData);
     axios
       .post(
         "https://online-learning-platform-r55m.onrender.com/api/v1/course/uploadCourse",
@@ -73,12 +68,11 @@ function AddCourse() {
         }
       )
       .then((res) => {
-        console.log(res.data);
-        setMessage(res.data);
+        alert("Course Added Successfully");
         handleClose();
       })
       .catch((error) => {
-        setMessage(error);
+        alert("Something went wrong");
         handleClose();
       });
   };
@@ -137,9 +131,9 @@ function AddCourse() {
           Add Course
         </Button>
       </Box>
-      <Typography variant="h6" sx={{ color: red[500] }}>
+      {/* <Typography variant="h6" sx={{ color: red[500] }}>
         {message}
-      </Typography>
+      </Typography> */}
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={open}
