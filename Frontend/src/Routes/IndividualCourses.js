@@ -82,7 +82,9 @@ function IndividualCourse() {
           })
         ) : (
           <>
-            <Typography>You Are Not Enrolled Yet</Typography>
+            <Typography textAlign={"center"}>
+              You Are Not Enrolled Yet
+            </Typography>
             <Button variant="contained" onClick={enroll} sx={{ width: "50vw" }}>
               Enroll
             </Button>
