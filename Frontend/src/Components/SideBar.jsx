@@ -63,10 +63,6 @@ function SideBar(props) {
       icon: <AddCircleOutlineIcon />,
       link: "/addcourse",
     },
-    {
-      title: "Users",
-      icon: <Person2Icon />,
-    },
   ];
 
   const content = user.userEmail === "ADMIN@GMAIL.COM" ? adminLinks : userLinks;

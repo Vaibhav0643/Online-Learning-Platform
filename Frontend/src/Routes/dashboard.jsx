@@ -54,7 +54,7 @@ function Dashboard() {
       >
         <Toolbar />
         <Container
-          maxWidth="sm"
+          maxWidth="md"
           sx={{
             display: "flex",
             flexDirection: "row",

@@ -2,67 +2,91 @@ import React from "react";
 import "../Assets/IndividualCourses.css";
 import Header from "../Routes/Header";
 import Footer from "../Routes/Footer";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from "axios";
+import Cookies from "universal-cookie";
+import { Button, Toolbar, Typography } from "@mui/material";
 
 function IndividualCourse() {
   const params = useParams();
-  const id = params.id;
-  console.log(id);
 
-  axios
-    .get(
-      `https://online-learning-platform-r55m.onrender.com/api/v1/course/${id}/getCourseDetails`
-    )
-    .then((res) => {
-      console.log(res.data);
-    });
+  const [course, setCourse] = React.useState(null);
+
+  const id = params.id;
+  const cookies = new Cookies();
+  React.useEffect(() => {
+    axios
+      .get(
+        `https://online-learning-platform-r55m.onrender.com/api/v1/course/${id}/getCourseDetails`,
+        {
+          headers: {
+            Authorization: "Bearer " + cookies.get("token"),
+          },
+        }
+      )
+      .then((res) => {
+        setCourse(res.data);
+        console.log(res.data);
+      });
+  }, [id]);
+
+  const enroll = () => {
+    axios
+      .post(
+        `https://online-learning-platform-r55m.onrender.com/api/v1/course/${id}/enrollUser`,
+        {},
+        {
+          headers: {
+            Authorization: "Bearer " + cookies.get("token"),
+          },
+        }
+      )
+      .then((res) => {
+        window.location.reload();
+        console.log(res.data);
+      })
+      .catch((error) => {
+        if (error.response.status === 400) {
+          alert("You are already enrolled");
+        }
+      });
+  };
 
   return (
     <div className="IndividualCourse">
       <Header />
       <div className="course_individual_data">
-        <img src={`../Image/machinelearning.jpg`} alt="" />
-        <h1>Course Name</h1>
-        <h3>Creator Name</h3>
-
+        <img
+          src={
+            course
+              ? course.courseDetails.courseBannerImage
+              : `../Image/machinelearning.jpg`
+          }
+          alt=""
+        />
+        <h1>{course ? course.courseDetails.courseTitle : "Course Title"}</h1>
         <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quo,
-          deleniti? Sint ipsam inventore ea quisquam repellendus tempore, fugit,
-          deserunt, vel expedita maxime at. Id facilis fugiat aperiam quam quos
-          illo possimus accusantium sit repudiandae consectetur rerum dolores
-          provident sed corporis ut velit voluptates ipsum aut soluta adipisci
-          excepturi, amet aspernatur. Ipsa illum soluta aut culpa nobis odio
-          consequatur voluptate, aspernatur vel! Eligendi facere, eaque
-          excepturi est aliquid dolore, qui necessitatibus consequuntur
-          blanditiis omnis voluptates possimus deserunt iusto quam! Eum
-          voluptatibus ipsa delectus dolore sit obcaecati amet enim deleniti,
-          doloribus id quis aut eius iure sunt veritatis, quo fugiat omnis
-          tenetur? Temporibus necessitatibus aliquam ab, facilis, architecto
-          animi impedit explicabo quam aliquid repellendus laboriosam
-          voluptatibus fugiat ut deserunt optio? Distinctio voluptates eum, vel
-          id consequuntur neque dicta tempora fugit repudiandae itaque sapiente
-          facilis nulla quod mollitia quia voluptatem. Saepe, aspernatur eveniet
-          ipsum, exercitationem dicta perferendis incidunt quaerat quasi
-          possimus reiciendis minima.
+          {course
+            ? course.courseDetails.courseDescription
+            : "Course Description"}
         </p>
-
-        <h2>
-          <u>Video Links</u>
-        </h2>
-
-        <ul>
-          <li>
-            Link1
-            <button className="complete-button">Complete</button>
-          </li>
-          <li>
-            Link2 <button className="complete-button">Complete</button>
-          </li>
-          <li>
-            Link3 <button className="complete-button">Complete</button>
-          </li>
-        </ul>
+        <Toolbar />
+        {course && course.courseDetails.videos ? (
+          course.courseDetails.videos.map((video, index) => {
+            return (
+              <div key={index}>
+                <Link to={video.videoURL}>{video.videoURL}</Link>
+              </div>
+            );
+          })
+        ) : (
+          <>
+            <Typography>You Are Not Enrolled Yet</Typography>
+            <Button variant="contained" onClick={enroll} sx={{ width: "50vw" }}>
+              Enroll
+            </Button>
+          </>
+        )}
       </div>
       <Footer />
     </div>

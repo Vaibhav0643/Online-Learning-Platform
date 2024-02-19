@@ -45,7 +45,14 @@ function AddCourse() {
     formData.append("courseTitle", courseTitle);
     formData.append("courseDescription", courseDescription);
     formData.append("courseBannerImage", courseBannerImage.data);
-    formData.append("videoURLs", courseVideo.split("\n"));
+    const videos = courseVideo.split("\n");
+    console.log(videos);
+    videos.forEach((video, index) => {
+      formData.append(`videoURLs[${index + 1}]`, video);
+    });
+
+    const token = cookies.get("token");
+    console.log(token);
 
     console.log(formData);
     axios
@@ -55,7 +62,7 @@ function AddCourse() {
         {
           withCredentials: true,
           headers: {
-            token: `${cookies.get("token")}`,
+            Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",
           },
         }

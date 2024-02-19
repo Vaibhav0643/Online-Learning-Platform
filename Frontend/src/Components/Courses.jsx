@@ -9,15 +9,32 @@ import {
   Link,
 } from "@mui/material";
 import Red from "@mui/material/colors/red";
+import axios from "axios";
 import * as React from "react";
+import Cookies from "universal-cookie";
 
 export default function Courses(props) {
   const user = JSON.parse(localStorage.getItem("user") || null);
-
+  const cookies = new Cookies();
   if (user === null) {
     return <div></div>;
   }
 
+  const deleteCourse = (e) => {
+    axios
+      .delete(
+        `https://online-learning-platform-r55m.onrender.com/api/v1/course/${props.id}/deleteCourse`,
+        {
+          headers: {
+            Authorization: "Bearer " + cookies.get("token"),
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+        alert("Course Deleted");
+      });
+  };
   const gotoCourse = () => {
     props.navigate("/individualCourses/" + props.id);
   };
@@ -48,7 +65,9 @@ export default function Courses(props) {
       <CardActions>
         {ifAdmin && (
           <Link to={"/Delete/" + props.id} sx={{ textDecoration: "none" }}>
-            <Button sx={{ color: Red[500] }}>Delete</Button>
+            <Button sx={{ color: Red[500] }} onClick={deleteCourse}>
+              Delete
+            </Button>
           </Link>
         )}
         <Link
