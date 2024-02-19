@@ -27,7 +27,6 @@ function IndividualCourse() {
       )
       .then((res) => {
         setCourse(res.data);
-        console.log(res.data);
       });
   }, [id]);
 
@@ -44,7 +43,6 @@ function IndividualCourse() {
       )
       .then((res) => {
         window.location.reload();
-        console.log(res.data);
       })
       .catch((error) => {
         if (error.response.status === 400) {
