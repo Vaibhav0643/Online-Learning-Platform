@@ -14,8 +14,8 @@ function IndividualCourse() {
   const [course, setCourse] = React.useState(null);
 
   const id = params.id;
-  const cookies = new Cookies();
   React.useEffect(() => {
+    const cookies = new Cookies();
     axios
       .get(
         `https://online-learning-platform-r55m.onrender.com/api/v1/course/${id}/getCourseDetails`,
@@ -31,6 +31,7 @@ function IndividualCourse() {
   }, [id]);
 
   const enroll = () => {
+    const cookies = new Cookies();
     axios
       .post(
         `https://online-learning-platform-r55m.onrender.com/api/v1/course/${id}/enrollUser`,

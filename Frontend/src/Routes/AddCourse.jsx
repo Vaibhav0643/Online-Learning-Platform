@@ -10,6 +10,8 @@ import {
 import { useState } from "react";
 import Cookie from "universal-cookie";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 function AddCourse() {
   const [courseTitle, setCourseTitle] = useState("");
@@ -18,6 +20,7 @@ function AddCourse() {
   const [courseVideo, setCourseVideo] = useState("");
   const [open, setOpen] = useState(false);
   const formData = new FormData();
+  const navigator = useNavigate();
 
   const handleImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
@@ -76,6 +79,16 @@ function AddCourse() {
         handleClose();
       });
   };
+
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (user === null) {
+      return <div></div>;
+    }
+    if (JSON.parse(user).userEmail !== "admin@gmail.com") {
+      navigator("/dashboard");
+    }
+  }, [navigator]);
 
   return (
     <Container maxWidth="sm">
