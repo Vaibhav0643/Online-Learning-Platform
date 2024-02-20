@@ -17,7 +17,6 @@ function Dashboard() {
     }
   }, [navigate]);
 
-  courses = JSON.parse(localStorage.getItem("courses"));
   const courseDisplay = () => {
     if (courses) {
       return courses.map((course) => {

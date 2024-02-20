@@ -41,7 +41,6 @@ function Login() {
         setButtonText(" Login");
         setButtonDisabled(false);
         localStorage.setItem("user", JSON.stringify(res.data.user));
-        localStorage.setItem("courses", JSON.stringify(res.data.courses));
         localStorage.setItem("token", res.data.token);
         cookies.set("token", res.data.token);
         navigate("/dashboard");

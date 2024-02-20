@@ -70,7 +70,6 @@ function TopBar(props) {
           <MenuItem
             onClick={() => {
               localStorage.removeItem("user");
-              localStorage.removeItem("courses");
               navigate("/login");
             }}
           >
