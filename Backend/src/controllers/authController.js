@@ -64,7 +64,7 @@ const createUser = async (req, res) => {
       sameSite: "Strict",
     });
 
-    res.status(201).json({ user: newUser, courses: allCourses });
+    res.status(201).json({ user: newUser, courses: allCourses, token });
   } catch (error) {
     console.error("Error creating user:", error);
 
@@ -122,7 +122,7 @@ const loginUser = async (req, res) => {
 
     res
       .status(200)
-      .json({ message: "Login successful", user, courses: allCourses });
+      .json({ message: "Login successful", user, courses: allCourses, token });
   } catch (error) {
     console.error("Error logging in:", error);
     res.status(500).json({ error: "Internal Server Error" });

@@ -27,3 +27,34 @@ const fn = async () => {
 };
 
 fn();
+
+const getTableSchema = async (tableName) => {
+  const query = `
+    SELECT column_name, data_type
+    FROM information_schema.columns
+    WHERE table_name = $1;
+  `;
+
+  const result = await pool.query(query, [tableName]);
+
+  const schema = result.rows.map((row) => ({
+    columnName: row.column_name,
+    dataType: row.data_type,
+  }));
+
+  console.log(`Schema for table ${tableName}:`, schema);
+};
+
+// Call this function for each table
+(async () => {
+  try {
+    await getTableSchema("users");
+    await getTableSchema("courses");
+    await getTableSchema("course_videos");
+    await getTableSchema("users_courses");
+  } catch (error) {
+    console.error("Error fetching table schemas:", error);
+  } finally {
+    pool.end(); // Close the pool when done
+  }
+})();
