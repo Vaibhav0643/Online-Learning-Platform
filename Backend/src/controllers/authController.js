@@ -44,10 +44,6 @@ const createUser = async (req, res) => {
 
     const newUser = result.rows[0];
 
-    const allCoursesResult = await pool.query("SELECT * FROM courses");
-
-    const allCourses = allCoursesResult.rows;
-
     const token = jwt.sign(
       {
         userId: newUser.userId,
@@ -64,7 +60,7 @@ const createUser = async (req, res) => {
       sameSite: "Strict",
     });
 
-    res.status(201).json({ user: newUser, courses: allCourses, token });
+    res.status(201).json({ user: newUser, token });
   } catch (error) {
     console.error("Error creating user:", error);
 
@@ -100,10 +96,6 @@ const loginUser = async (req, res) => {
       return res.status(401).json({ error: "Invalid credentials" });
     }
 
-    const allCoursesResult = await pool.query("SELECT * FROM courses");
-
-    const allCourses = allCoursesResult.rows;
-
     const token = jwt.sign(
       {
         userId: user.userId,
@@ -120,9 +112,7 @@ const loginUser = async (req, res) => {
       sameSite: "Strict",
     });
 
-    res
-      .status(200)
-      .json({ message: "Login successful", user, courses: allCourses, token });
+    res.status(200).json({ message: "Login successful", user, token });
   } catch (error) {
     console.error("Error logging in:", error);
     res.status(500).json({ error: "Internal Server Error" });
