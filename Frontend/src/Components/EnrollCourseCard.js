@@ -10,13 +10,13 @@ function EnrollCourseCard(props)
     }
     return(
         <div className="enroll-course">
-            <img src={props.image} alt="" />
+            <img src={props.courseBannerImage} alt="coursebanner" />
             <div className="course-enroll-data">
-                <h1>{props.coursename}</h1>
-                <h4>{props.coursetutior}</h4>
-                <p>{props.coursedescription} hours</p>
-                <h5>{props.ratings} Star</h5>
-                <h5>{props.duration} hours</h5>
+                <h1>{props.courseTitle}</h1>
+                {/* <h4>{props.coursetutior}</h4> */}
+                <p>{props.courseDescription}</p>
+                {/* <h5>{props.ratings} Star</h5> */}
+                <h5>{props.videoCount} Videos</h5>
 
                 <button className="enroll-button" onClick={handleClick}>Enroll Now</button>
 

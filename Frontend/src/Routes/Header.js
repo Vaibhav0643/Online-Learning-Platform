@@ -39,6 +39,11 @@ function Header() {
                 Home
               </NavLink>
             </li>
+            <li>
+              <NavLink exact to="/courses" activeClassName="active">
+                Courses
+              </NavLink>
+            </li>
             {localStorage.getItem("user") ? (
               <>
                 <li>

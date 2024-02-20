@@ -8,10 +8,9 @@ function CoursesAvailable(props) {
                  <b>
                 <p>{props.courseTitle}  <span className="courses-available-rating">{props.videoCount} videos</span></p>
             </b>
-            <i>
+            {/* <i>
                 <p className="grey">{props.courseDescription} </p>
-                {/* <p className="grey">{props.date}</p> */}
-            </i>
+            </i> */}
             </div>
         </div>
     )
