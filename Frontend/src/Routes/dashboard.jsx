@@ -11,7 +11,7 @@ const drawerWidth = 200;
 
 function Dashboard() {
   const [courses, setCourses] = useState([]);
-
+  const [admin,setAdmin]=useState(false)
   
   let navigate = useNavigate();
   useEffect(() => {
@@ -19,6 +19,13 @@ function Dashboard() {
     if (user == null) {
       navigate("/login");
     }
+
+    if( user.userEmail === "ADMIN@GMAIL.COM")
+    {
+      setAdmin(true);
+    }
+
+    
     const fetchData= async ()=>{
       try {
         const response =await axios.get('https://online-learning-platform-r55m.onrender.com/api/v1/course/getAllCourses');
@@ -57,6 +64,8 @@ function Dashboard() {
       <CssBaseline />
       <TopBar drawerWidth={drawerWidth} />
       <SideBar drawerWidth={drawerWidth} />
+      {!admin &&(
+        <>
       <Typography variant="h4" component="h2" sx={{ width: '100%', textAlign: 'center', mb: 4 , mt:5 }}>
         Enrolled Courses
         </Typography>
@@ -89,6 +98,9 @@ function Dashboard() {
           {courseDisplay()}
         </Container>
       </Box>
+      </>
+      )
+      }
        <Typography variant="h4" component="h2" sx={{ width: '100%', textAlign: 'center', mb: 4 , mt:5 }}>
         Courses Available
         </Typography>
