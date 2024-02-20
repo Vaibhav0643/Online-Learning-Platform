@@ -1,7 +1,7 @@
 import Courses from "../Components/Courses";
 import SideBar from "../Components/SideBar";
 import TopBar from "../Components/TopBar";
-import { Box, CssBaseline, Toolbar, Divider, Container } from "@mui/material";
+import { Box, CssBaseline, Toolbar, Divider, Container , Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios"
@@ -57,6 +57,41 @@ function Dashboard() {
       <CssBaseline />
       <TopBar drawerWidth={drawerWidth} />
       <SideBar drawerWidth={drawerWidth} />
+      <Typography variant="h4" component="h2" sx={{ width: '100%', textAlign: 'center', mb: 4 , mt:5 }}>
+        Enrolled Courses
+        </Typography>
+
+        {/*This section needs to be changed with the enrolled data  line 64 -91 i.e. Box Component*/}
+        <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          p: 3,
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          display: "flex",
+          margin: "auto",
+          justifyContent: "left",
+        }}
+      >
+        <Toolbar />
+        
+        <Container
+          maxWidth="lg"
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            justifyContent: "space-evenly",
+            margin: "auto",
+            marginLeft: 5
+          }}
+        >
+          {courseDisplay()}
+        </Container>
+      </Box>
+       <Typography variant="h4" component="h2" sx={{ width: '100%', textAlign: 'center', mb: 4 , mt:5 }}>
+        Courses Available
+        </Typography>
       <Box
         component="main"
         sx={{
@@ -69,6 +104,7 @@ function Dashboard() {
         }}
       >
         <Toolbar />
+        
         <Container
           maxWidth="lg"
           sx={{
@@ -77,6 +113,7 @@ function Dashboard() {
             flexWrap: "wrap",
             justifyContent: "space-evenly",
             margin: "auto",
+            marginLeft: 5
           }}
         >
           {courseDisplay()}

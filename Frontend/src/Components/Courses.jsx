@@ -44,7 +44,7 @@ export default function Courses(props) {
   const ifAdmin = user.userEmail === "ADMIN@GMAIL.COM";
 
   return (
-    <Card sx={{ maxWidth: 300 }}>
+    <Card sx={{ maxWidth: 300 , minWidth:300 , height:450 , mb:2}}>
       <CardHeader title={props.title} />
       <CardMedia
         component="img"
@@ -67,7 +67,7 @@ export default function Courses(props) {
       <CardActions>
         {ifAdmin && (
           <Link to={"/Delete/" + props.id} sx={{ textDecoration: "none" }}>
-            <Button sx={{ color: Red[500] }} onClick={deleteCourse}>
+            <Button sx={{ color: Red[500]}} onClick={deleteCourse}>
               <DeleteIcon />
               Delete
             </Button>
