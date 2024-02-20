@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import axios from "axios"
 
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 function Dashboard() {
   const [courses, setCourses] = useState([]);
