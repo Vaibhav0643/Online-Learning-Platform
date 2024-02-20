@@ -77,7 +77,16 @@ function IndividualCourse() {
           course.courseDetails.videos.map((video, index) => {
             return (
               <div key={index}>
-                <Link to={video.videoURL}>{video.videoURL}</Link>
+                <iframe 
+                width="560" 
+                height="315" 
+                src={video.videoURL} 
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                allowfullscreen>
+
+                </iframe>
               </div>
             );
           })
