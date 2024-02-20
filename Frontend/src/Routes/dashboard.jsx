@@ -3,18 +3,32 @@ import SideBar from "../Components/SideBar";
 import TopBar from "../Components/TopBar";
 import { Box, CssBaseline, Toolbar, Divider, Container } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios"
+
 
 const drawerWidth = 240;
 
 function Dashboard() {
+  const [courses, setCourses] = useState([]);
+
+  
   let navigate = useNavigate();
-  let courses;
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user") || null);
     if (user == null) {
       navigate("/login");
     }
+    const fetchData= async ()=>{
+      try {
+        const response =await axios.get('https://online-learning-platform-r55m.onrender.com/api/v1/course/getAllCourses');
+        setCourses(response.data.courses);
+      } catch (error) {
+        console.error( error);
+      }
+    }
+  
+    fetchData();
   }, [navigate]);
 
   const courseDisplay = () => {
