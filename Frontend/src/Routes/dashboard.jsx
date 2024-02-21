@@ -10,7 +10,8 @@ import axios from "axios"
 const drawerWidth = 200;
 
 function Dashboard() {
-  const [courses, setCourses] = useState([]);
+  const [allCourses, setAllCourses] = useState([]);
+  const [userCourses, setUserCourses] = useState([]);
   const [admin,setAdmin]=useState(false)
   
   let navigate = useNavigate();
@@ -28,8 +29,14 @@ function Dashboard() {
     
     const fetchData= async ()=>{
       try {
-        const response =await axios.get('https://online-learning-platform-r55m.onrender.com/api/v1/course/getAllCourses');
-        setCourses(response.data.courses);
+        const response = await axios.get('https://online-learning-platform-r55m.onrender.com/api/v1/course/getAllCourses');
+        setAllCourses(response.data.courses);
+
+        const data = {
+          userId: JSON.parse(localStorage.getItem("user").userId),
+        };
+        const userCoursesResponse = await axios.get('https://online-learning-platform-r55m.onrender.com/api/v1/course/getUserCourses', data);
+        setUserCourses(userCoursesResponse.data.courses);
       } catch (error) {
         console.error( error);
       }
@@ -38,9 +45,30 @@ function Dashboard() {
     fetchData();
   }, [navigate]);
 
-  const courseDisplay = () => {
-    if (courses) {
-      return courses.map((course) => {
+  const userCoursesDisplay = () => {
+    if (userCourses) {
+      return userCourses.map((course) => {
+        return (
+          <div key={course.courseId}>
+            <Courses
+              key={course.courseId}
+              id={course.courseId}
+              title={course.courseTitle}
+              content={course.courseDescription}
+              image={course.courseBannerImage}
+              videoCount={course.videoCount}
+              navigate={navigate}
+            />
+            <Divider />
+          </div>
+        );
+      });
+    }
+  };
+
+  const allCoursesDisplay = () => {
+    if (allCourses) {
+      return allCourses.map((course) => {
         return (
           <div key={course.courseId}>
             <Courses
@@ -95,7 +123,7 @@ function Dashboard() {
             marginLeft: 5
           }}
         >
-          {courseDisplay()}
+          {userCoursesDisplay()}
         </Container>
       </Box>
       </>
@@ -128,7 +156,7 @@ function Dashboard() {
             marginLeft: 5
           }}
         >
-          {courseDisplay()}
+          {allCoursesDisplay()}
         </Container>
       </Box>
     </Box>
