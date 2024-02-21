@@ -5,6 +5,7 @@ import { Box, CssBaseline, Toolbar, Divider, Container , Typography } from "@mui
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios"
+import Cookies from "universal-cookie";
 
 
 const drawerWidth = 200;
@@ -31,11 +32,15 @@ function Dashboard() {
       try {
         const response = await axios.get('https://online-learning-platform-r55m.onrender.com/api/v1/course/getAllCourses');
         setAllCourses(response.data.courses);
-
-        const data = {
-          userId: JSON.parse(localStorage.getItem("user").userId),
-        };
-        const userCoursesResponse = await axios.get('https://online-learning-platform-r55m.onrender.com/api/v1/course/getUserCourses', data);
+        
+        const cookies = new Cookies();
+        const userId = JSON.parse(localStorage.getItem("user")).userId;
+        const userCoursesResponse = await axios.get(`https://online-learning-platform-r55m.onrender.com/api/v1/course/${userId}/getUserCourses`, {
+          headers: {
+            Authorization: "Bearer " + cookies.get("token"),
+          },
+        });
+        console.log(userCoursesResponse);
         setUserCourses(userCoursesResponse.data.courses);
       } catch (error) {
         console.error( error);
