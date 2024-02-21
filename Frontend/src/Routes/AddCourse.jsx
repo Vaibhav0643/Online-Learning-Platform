@@ -50,7 +50,7 @@ function AddCourse() {
     const videos = courseVideo.split("\n");
     console.log(videos);
     videos.forEach((video, index) => {
-      formData.append(`videoURLs[${index + 1}]`, video);
+      formData.append(`videoURLs[${index}]`, video);
     });
 
     const token = cookies.get("token");
