@@ -100,11 +100,11 @@ function Dashboard() {
       <SideBar drawerWidth={drawerWidth} />
       {!admin &&(
         <>
-      <Typography variant="h4" component="h2" sx={{ width: '100%', textAlign: 'center', mb: 4 , mt:5 }}>
+      <Typography variant="h4" component="h2" sx={{ width: '100%', textAlign: 'center', mb: 4 , mt:5 , color:'#0d47a1' ,fontSize:40 }} className="quicksand">
         Enrolled Courses
         </Typography>
 
-        {/*This section needs to be changed with the enrolled data  line 64 -91 i.e. Box Component*/}
+        
         <Box
         component="main"
         sx={{
@@ -135,7 +135,7 @@ function Dashboard() {
       </>
       )
       }
-       <Typography variant="h4" component="h2" sx={{ width: '100%', textAlign: 'center', mb: 4 , mt:5 }}>
+       <Typography variant="h4" component="h2" sx={{ width: '100%', textAlign: 'center', mb: 4 , mt:5 ,color:'#0d47a1' ,fontSize:40 }} className="quicksand">
         Courses Available
         </Typography>
       <Box

@@ -50,7 +50,7 @@ function TopBar(props) {
           variant="text"
           sx={{ textTransform: "none", color: "black" }}
         >
-          <Typography variant="h6" noWrap component="div" sx={{ mr: "10px" }}>
+          <Typography variant="h6" noWrap component="div" sx={{ mr: "10px" , color:'#0d47a1'}}>
             Hi {JSON.parse(localStorage.getItem("user")).userName}
           </Typography>
           <Avatar
@@ -74,9 +74,9 @@ function TopBar(props) {
             }}
           >
             <ListItemIcon>
-              <LogoutIcon />
+              <LogoutIcon sx={{color:'#0d47a1'}}/>
             </ListItemIcon>
-            <ListItemText>Logout</ListItemText>
+            <ListItemText sx={{color:'#0d47a1'}}>Logout</ListItemText>
           </MenuItem>
         </Menu>
       </Toolbar>

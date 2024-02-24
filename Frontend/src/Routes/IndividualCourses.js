@@ -66,8 +66,8 @@ function IndividualCourse() {
           width="100px"
           height="auto"
         />
-        <h1>{course ? course.courseDetails.courseTitle : "Course Title"}</h1>
-        <p>
+        <h1 style={{color:"#0d47a1"}}>{course ? course.courseDetails.courseTitle : "Course Title"}</h1>
+        <p style={{color:'#64b5f6'}}>
           {course
             ? course.courseDetails.courseDescription
             : "Course Description"}
@@ -84,7 +84,11 @@ function IndividualCourse() {
                 title="YouTube video player" 
                 frameborder="0" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                allowfullscreen>
+                allowfullscreen
+                style={{
+                  marginBottom:"2rem"
+                }}
+                className="course-video">
 
                 </iframe>
               </div>

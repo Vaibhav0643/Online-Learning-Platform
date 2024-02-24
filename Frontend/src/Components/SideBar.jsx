@@ -20,6 +20,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import logo from "../Images/logo-elearn.jpg";
 import { Link } from "react-router-dom";
 
+
 function SideBar(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
@@ -46,17 +47,17 @@ function SideBar(props) {
 
   const userLinks = [
     {
-      title: "Home",
+      title: "Dashboard",
       icon: <HomeIcon />,
-      link: "/",
+      link: "/dashboard",
     },
   ];
 
   const adminLinks = [
     {
-      title: "Home",
+      title: "Dashboard",
       icon: <HomeIcon />,
-      link: "/",
+      link: "/dashboard",
     },
     {
       title: "Add Course",
@@ -71,19 +72,19 @@ function SideBar(props) {
     <div>
       <Toolbar>
         <Avatar alt="logo" src={logo} sx={{ mr: "10px" }} />
-        <Typography variant="h6" noWrap>
+        <Typography variant="h6" noWrap sx={{color:'#0d47a1'}}>
           JLearn
         </Typography>
       </Toolbar>
       <List>
         {content.map((obj) => (
-          <ListItem key={obj.title} disablePadding>
+          <ListItem key={obj.title} disablePadding sx={{ color:'#0d47a1'}}>
             <Link to={obj.link ? obj.link : "/"}>
-              <ListItemButton>
-                <ListItemIcon>{obj.icon}</ListItemIcon>
+              <ListItemButton >
+                <ListItemIcon sx={{ color:'#0d47a1'}}>{obj.icon}</ListItemIcon>
                 <ListItemText
                   primary={obj.title}
-                  sx={{ textDecoration: "none", color: "black" }}
+                  sx={{ textDecoration: "none", color: "blue" }}
                 />
               </ListItemButton>
             </Link>

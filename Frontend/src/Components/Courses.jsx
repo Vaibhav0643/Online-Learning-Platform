@@ -14,6 +14,7 @@ import * as React from "react";
 import Cookies from "universal-cookie";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import DeleteIcon from "@mui/icons-material/Delete";
+import "../Assets/Course.css";
 
 export default function Courses(props) {
   const user = JSON.parse(localStorage.getItem("user") || null);
@@ -45,8 +46,8 @@ export default function Courses(props) {
   const ifAdmin = user.userEmail === "ADMIN@GMAIL.COM";
 
   return (
-    <Card sx={{ maxWidth: 300 , minWidth:300 , height:450 , mb:2}}>
-      <CardHeader title={props.title} />
+    <Card sx={{ maxWidth: 300 , minWidth:300 , height:450 , mb:2 }} className="course-card-dashboard" >
+      <CardHeader title={props.title} sx={{color:'#64b5f6'}}/>
       <CardMedia
         component="img"
         height="194"
@@ -54,13 +55,13 @@ export default function Courses(props) {
         alt="Paella dish"
       />
       <CardContent>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" color="black">
           {props.content.substring(0, 100) + "..."}
         </Typography>
         <Typography
           variant="subtitle2"
           color="text.secondary"
-          sx={{ textAlign: "right" }}
+          sx={{ textAlign: "right", color:'#1976d2' }}
         >
           {props.videoCount - 1} Videos
         </Typography>
