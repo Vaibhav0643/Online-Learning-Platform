@@ -17,14 +17,16 @@ import {
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import MenuIcon from "@mui/icons-material/Menu";
 import HomeIcon from "@mui/icons-material/Home";
+import DashboardIcon from "@mui/icons-material/Dashboard";
 import logo from "../Images/logo-elearn.jpg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 function SideBar(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
   const [user, setUser] = React.useState("");
+  let navigate = useNavigate();
 
   React.useEffect(() => {
     setUser(JSON.parse(localStorage.getItem("user")));
@@ -47,16 +49,26 @@ function SideBar(props) {
 
   const userLinks = [
     {
-      title: "Dashboard",
+      title: "Home",
       icon: <HomeIcon />,
+      link: "/",
+    },
+    {
+      title: "Dashboard",
+      icon: <DashboardIcon />,
       link: "/dashboard",
     },
   ];
 
   const adminLinks = [
     {
-      title: "Dashboard",
+      title: "Home",
       icon: <HomeIcon />,
+      link: "/",
+    },
+    {
+      title: "Dashboard",
+      icon: <DashboardIcon />,
       link: "/dashboard",
     },
     {
@@ -67,12 +79,16 @@ function SideBar(props) {
   ];
 
   const content = user.userEmail === "ADMIN@GMAIL.COM" ? adminLinks : userLinks;
+  function home()
+  {
+    navigate('/');
+  }
 
   const drawer = (
     <div>
       <Toolbar>
-        <Avatar alt="logo" src={logo} sx={{ mr: "10px" }} />
-        <Typography variant="h6" noWrap sx={{color:'#0d47a1'}}>
+        <Avatar alt="logo" src={logo} sx={{ mr: "10px" }} onClick={home}/>
+        <Typography variant="h6" noWrap sx={{color:'#0d47a1'}} >
           JLearn
         </Typography>
       </Toolbar>

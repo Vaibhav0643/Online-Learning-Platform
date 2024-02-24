@@ -21,11 +21,16 @@ function Header() {
     localStorage.removeItem("user");
     navigate("/login");
   };
+
+  function home()
+  {
+    navigate('/')
+  }
   return (
     <header>
       <nav>
         <div className="nav-logo">
-          <img src={logoelearn} alt="Logo" />
+          <img src={logoelearn} alt="Logo" onClick={home}/>
           <h2>JMAN</h2>
         </div>
         <div className="nav-tags">

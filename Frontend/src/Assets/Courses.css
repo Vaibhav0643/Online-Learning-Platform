@@ -7,7 +7,7 @@
 
 
 .course-heading{
-    font-family: "Dancing Script", cursive;
+    font-family: "Quicksand";
     color: orange;
     display: flex;
     justify-content: center;
@@ -23,7 +23,7 @@
     flex-wrap: wrap;
     margin-top: 3rem;
     margin-bottom: 3rem;
-    font-family: "Dancing Script", cursive;
+    font-family: "Quicksand";
 }
 
 .course-enroll-data{
@@ -34,12 +34,13 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-family: "Dancing Script", cursive;
+    font-family: "Quicksand";
 }
 
 .enroll-course img{
-    width: 700px;
+    width: 500px;
     border-radius: 0.5rem;
+    object-fit: contain;
 }
 
 .course-enroll-data h1,.course-enroll-data p,.course-enroll-data h5,.enroll-button{
@@ -73,7 +74,7 @@ margin-top: 1rem;
     border-radius: 0.5rem;
     background-image: linear-gradient(to right,rgba(255,0,0,0),orange);
     font-size: 16px;
-    font-family: "Dancing Script", cursive;
+    font-family: "Quicksand";
 }
 
 .courses-available{
@@ -87,13 +88,14 @@ margin-top: 1rem;
   border-radius: 10px;
   margin-bottom: 2.5rem;
   position: relative;
+  font-family: 'Quicksand';
 }
 
 .course-available-image{
     height:300px;
   width:300px;
   border-radius: 10px;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .courses-available-rating{
@@ -114,6 +116,7 @@ margin-top: 1rem;
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
+    font-family: 'Quicksand';
 }
 
   .course-available-content{

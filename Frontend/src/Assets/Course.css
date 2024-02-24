@@ -1,5 +1,5 @@
 .course-card-dashboard:hover{
-box-shadow: 5px 5px 30px blue;
+box-shadow: 5px 5px 30px rgb(214, 203, 203);
 margin-left: 1rem;
 margin-right: 1rem;
 }
@@ -10,9 +10,9 @@ margin-right: 1rem;
 }
 
 .course-video:hover{
-    box-shadow: 10px 10px 30px blue;
+    box-shadow: 10px 10px 30px rgb(214, 203, 203);
     margin-left: 1rem;
     margin-right: 1rem;
-    scale: 1.01;
-    }
+    scale: 1.01; 
+}
     

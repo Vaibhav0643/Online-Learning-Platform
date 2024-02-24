@@ -46,14 +46,16 @@ export default function Courses(props) {
   const ifAdmin = user.userEmail === "ADMIN@GMAIL.COM";
 
   return (
-    <Card sx={{ maxWidth: 300 , minWidth:300 , height:450 , mb:2 }} className="course-card-dashboard" >
-      <CardHeader title={props.title} sx={{color:'#64b5f6'}}/>
+    <Card sx={{ maxWidth: 400 , minWidth:400 , height:450 , mb:2 }} className="course-card-dashboard" >
+      
       <CardMedia
         component="img"
-        height="194"
+        height="200"
         image={props.image}
         alt="Paella dish"
+        sx={{mt:1,objectFit:"contain"}}
       />
+      <CardHeader title={props.title} sx={{color:'#64b5f6'}}/>
       <CardContent>
         <Typography variant="body2" color="black">
           {props.content.substring(0, 100) + "..."}
@@ -66,7 +68,7 @@ export default function Courses(props) {
           {props.videoCount - 1} Videos
         </Typography>
       </CardContent>
-      <CardActions>
+      <CardActions >
         {ifAdmin && (
           <Link to={"/Delete/" + props.id} sx={{ textDecoration: "none" }}>
             <Button sx={{ color: Red[500]}} onClick={deleteCourse}>

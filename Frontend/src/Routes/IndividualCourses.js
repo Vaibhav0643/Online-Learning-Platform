@@ -7,6 +7,8 @@ import axios from "axios";
 import Cookies from "universal-cookie";
 import { Button, Toolbar, Typography, Avatar, Box } from "@mui/material";
 import profile from "../Images/profile.png";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function IndividualCourse() {
   const params = useParams();
@@ -44,10 +46,14 @@ function IndividualCourse() {
       )
       .then((res) => {
         window.location.reload();
+        toast.success("Successfully enrolled in the course!");
       })
       .catch((error) => {
-        if (error.response.status === 400) {
-          alert("You are already enrolled");
+        if (error.response && error.response.status === 400) {
+          toast.warning("You are already enrolled");
+        } else {
+          // Handle other errors
+          toast.error("An error occurred. Please try again.");
         }
       });
   };
@@ -55,7 +61,7 @@ function IndividualCourse() {
   return (
     <div className="IndividualCourse">
       <Header />
-      <div className="course_individual_data">
+      <div className="course_individual_data" >
         <img
           src={
             course
@@ -96,10 +102,10 @@ function IndividualCourse() {
           })
         ) : (
           <>
-            <Typography textAlign={"center"}>
+            <Typography textAlign={"center"} sx={{color:'#64b5f6'}}>
               You Are Not Enrolled Yet
             </Typography>
-            <Button variant="contained" onClick={enroll} sx={{ width: "50vw" }}>
+            <Button variant="contained" onClick={enroll} sx={{ width: "20vw" , mt:2 }}>
               Enroll
             </Button>
           </>
@@ -128,6 +134,7 @@ function IndividualCourse() {
           <></>
         )}
       </div>
+      <ToastContainer />
       <Footer />
     </div>
   );

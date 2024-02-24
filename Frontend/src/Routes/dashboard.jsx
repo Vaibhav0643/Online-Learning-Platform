@@ -100,7 +100,7 @@ function Dashboard() {
       <SideBar drawerWidth={drawerWidth} />
       {!admin &&(
         <>
-      <Typography variant="h4" component="h2" sx={{ width: '100%', textAlign: 'center', mb: 4 , mt:5 , color:'#0d47a1' ,fontSize:40 }} className="quicksand">
+      <Typography variant="h4" component="h2" sx={{ width: '100%', textAlign: 'center', mb: 4 , mt:5 , color:'#0d47a1' ,fontSize:40, ml:10 }} className="quicksand">
         Enrolled Courses
         </Typography>
 
@@ -135,8 +135,8 @@ function Dashboard() {
       </>
       )
       }
-       <Typography variant="h4" component="h2" sx={{ width: '100%', textAlign: 'center', mb: 4 , mt:5 ,color:'#0d47a1' ,fontSize:40 }} className="quicksand">
-        Courses Available
+       <Typography variant="h4" component="h2" sx={{ width: '100%', textAlign: 'center', mb: 4 , mt:5 ,color:'#0d47a1' ,fontSize:40 , ml:10}} className="quicksand">
+         Available Courses
         </Typography>
       <Box
         component="main"
