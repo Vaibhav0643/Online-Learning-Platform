@@ -35,6 +35,7 @@ export default function Courses(props) {
       .then((res) => {
         console.log(res.data);
         alert("Course Deleted");
+        window.location.reload();
       });
   };
   const gotoCourse = () => {

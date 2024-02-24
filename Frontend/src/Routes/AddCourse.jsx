@@ -129,8 +129,8 @@ function AddCourse() {
           variant="outlined"
           sx={{ margin: "10px 0" }}
         />
-        <Button variant="outlined" component="label" sx={{ margin: "10px 0", padding: "12px" }}>
-          Upload File
+        <Button variant="outlined" component="label" sx={{ margin: "10px 0 0 0", padding: "12px" }}>
+          Upload course cover image
           <input type="file" onChange={handleImageChange} hidden />
         </Button>
 
@@ -145,7 +145,7 @@ function AddCourse() {
             multiline={true}
             variant="outlined"
             onChange={(e) => setCourseVideo(e.target.value)}
-            sx={{ margin: "10px 0" }}
+            sx={{ margin: "20px 0 10px 0" }}
           />
         </Tooltip>
         <Button
