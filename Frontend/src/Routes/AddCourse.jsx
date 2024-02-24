@@ -13,7 +13,10 @@ import Cookie from "universal-cookie";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-
+import "../Assets/AddCourse.css";
+import SideBar from "../Components/SideBar";
+import TopBar from "../Components/TopBar";
+const drawerWidth = 200;
 function AddCourse() {
   const [courseTitle, setCourseTitle] = useState("");
   const [courseDescription, setCourseDescription] = useState("");
@@ -93,7 +96,10 @@ function AddCourse() {
   }, [navigator]);
 
   return (
+    
     <Container maxWidth="sm">
+      <TopBar drawerWidth={drawerWidth} />
+      <SideBar drawerWidth={drawerWidth} />
       <Box
         component="form"
         onSubmit={handleSubmit}
@@ -123,10 +129,14 @@ function AddCourse() {
           variant="outlined"
           sx={{ margin: "10px 0" }}
         />
-        <Button variant="outlined" component="label">
+        <Button variant="outlined" component="label" sx={{ margin: "10px 0", padding: "12px" }}>
           Upload File
           <input type="file" onChange={handleImageChange} hidden />
         </Button>
+
+        {courseBannerImage!="" && (
+          <img className="preview_img" src={courseBannerImage.preview} />
+        )}
 
         <Tooltip title="Use YouTube embed URL's seperated by newline">
           <TextField
@@ -140,9 +150,9 @@ function AddCourse() {
         </Tooltip>
         <Button
           onClick={handleOpen}
-          sx={{ margin: "10px 0" }}
+          sx={{ margin: "10px 0", padding: "15px" }}
           variant="contained"
-          color="primary"
+          style={{ backgroundColor: '#0a0a81', color: '#FFFFFF' }}
           type="submit"
         >
           Add Course
