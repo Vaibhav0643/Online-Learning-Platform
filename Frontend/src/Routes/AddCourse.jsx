@@ -6,6 +6,7 @@ import {
   Typography,
   Backdrop,
   CircularProgress,
+  Tooltip,
 } from "@mui/material";
 import { useState } from "react";
 import Cookie from "universal-cookie";
@@ -73,6 +74,7 @@ function AddCourse() {
         console.log(res.data);
         alert("Course Added");
         handleClose();
+        navigator("/dashboard")
       })
       .catch((error) => {
         console.log(error);
@@ -126,14 +128,16 @@ function AddCourse() {
           <input type="file" onChange={handleImageChange} hidden />
         </Button>
 
-        <TextField
-          id="video"
-          label="Course Video"
-          multiline={true}
-          variant="outlined"
-          onChange={(e) => setCourseVideo(e.target.value)}
-          sx={{ margin: "10px 0" }}
-        />
+        <Tooltip title="Use YouTube embed URL's seperated by newline">
+          <TextField
+            id="video"
+            label="Course Video"
+            multiline={true}
+            variant="outlined"
+            onChange={(e) => setCourseVideo(e.target.value)}
+            sx={{ margin: "10px 0" }}
+          />
+        </Tooltip>
         <Button
           onClick={handleOpen}
           sx={{ margin: "10px 0" }}

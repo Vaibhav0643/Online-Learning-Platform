@@ -32,6 +32,7 @@ function Dashboard() {
       try {
         const response = await axios.get('https://online-learning-platform-r55m.onrender.com/api/v1/course/getAllCourses');
         setAllCourses(response.data.courses);
+        console.log(allCourses);
         
         const cookies = new Cookies();
         const userId = JSON.parse(localStorage.getItem("user")).userId;
