@@ -55,7 +55,7 @@ function AddCourse() {
     });
 
     const token = cookies.get("token");
-    console.log(token);
+    console.log(token); 
 
     console.log(formData);
     axios
