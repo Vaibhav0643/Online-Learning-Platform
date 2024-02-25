@@ -1,12 +1,12 @@
-import { Box } from "@mui/material";
-import "../Assets/Login.css";
 
+import "../Assets/Login.css";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Cookies from "universal-cookie";
 
-import red from "@mui/material/colors/red";
+import { ToastContainer,toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Login() {
   let navigate = useNavigate();
@@ -21,16 +21,45 @@ function Login() {
   const [password, setPassword] = useState("");
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [buttonText, setButtonText] = useState("Login");
-  const [message, setMessage] = useState("");
+  
+
+  // function handleLogin(event)
+  // {
+  //   event.preventDefault();
+  //   setButtonText("Please Wait...");
+  //   setButtonDisabled(true);
+  //   const email=event.target.form[0].value;
+  //   const password=event.target.form[1].value;
+  //   if(!email && !password)
+  //   {
+  //     toast.error("Please fill in all fields. ")
+  //   }
+  //   if(!email && password)
+  //   {
+  //     toast.error("Please fill the Email. ")
+  //   }
+  //   if(email && !password)
+  //   {
+  //     toast.error("Please fill the Password. ")
+  //   }
+  // }
 
   const handleSubmit = (e) => {
     setButtonText("Please Wait...");
     setButtonDisabled(true);
     e.preventDefault();
+    
     const data = {
       userEmail: email,
       userPassword: password,
     };
+
+    if(!email && !password)
+    toast.error("Please Fill In All The Details.");
+    else if (email && !password)
+    toast.error("Please Fill The Password.");
+    else if (!email && password)
+    toast.error("Please Fill The Email.");
     axios
       .post(
         "https://online-learning-platform-r55m.onrender.com/api/v1/user/login",
@@ -46,7 +75,7 @@ function Login() {
         navigate("/dashboard");
       })
       .catch((error) => {
-        setMessage("Invalid Email or Password");
+        {(email && password) && toast.error("Invalid Email or Password")}  
         setButtonText("Login");
         setButtonDisabled(false);
       });
@@ -54,6 +83,7 @@ function Login() {
   return (
     <div className="app_content">
       <div>
+      <ToastContainer/>
         <div className="login-form-container">
           <form onSubmit={handleSubmit}>
             <div>
@@ -97,8 +127,6 @@ function Login() {
             <button className="btn" disabled={buttonDisabled}>
               {buttonText}
             </button>
-
-            <Box sx={{ color: red[500] }}>{message}</Box>
 
             <hr className="divider" />
             <p className="footer_description">
