@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect , useState} from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from "universal-cookie";
@@ -7,13 +7,19 @@ import "react-toastify/dist/ReactToastify.css";
 
 function EnrollCourseCard(props) {
   let navigate = useNavigate();
-
+  const [admin,setAdmin]=useState(false)
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user") || "{}");
     if (!user || Object.keys(user).length === 0) {
       navigate("/login");
     }
+    if( user.userEmail === "ADMIN@GMAIL.COM")
+    {
+      setAdmin(true);
+    }
   }, [navigate]);
+
+ 
 
   const enroll = () => {
     const cookies = new Cookies();
@@ -48,7 +54,7 @@ function EnrollCourseCard(props) {
         <h1>{props.courseTitle}</h1>
         <p>{props.courseDescription}</p>
         <h5>{props.videoCount} Videos</h5>
-        <button className="enroll-button" onClick={enroll}>Enroll Now</button>
+        { !admin && <button className="enroll-button" onClick={enroll}>Enroll Now</button>}
       </div>
       <ToastContainer />
     </div>

@@ -16,6 +16,9 @@ import { useEffect } from "react";
 import "../Assets/AddCourse.css";
 import SideBar from "../Components/SideBar";
 import TopBar from "../Components/TopBar";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const drawerWidth = 200;
 function AddCourse() {
   const [courseTitle, setCourseTitle] = useState("");
@@ -48,6 +51,28 @@ function AddCourse() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if (!courseTitle.trim()) {
+      toast.error("Please enter a course title.");
+      handleClose();
+      return;
+    }
+    if (!courseDescription.trim()) {
+      toast.error("Please enter a course description.");
+      handleClose();
+      return;
+    }
+    if (!courseBannerImage) {
+      toast.error("Please upload a course banner image.");
+      handleClose();
+      return;
+    }
+    if (!courseVideo.trim()) {
+      toast.error("Please enter at least one course video URL.");
+      handleClose();
+      return;
+    }
+  
+
     formData.append("courseTitle", courseTitle);
     formData.append("courseDescription", courseDescription);
     formData.append("courseBannerImage", courseBannerImage.data);
@@ -75,9 +100,11 @@ function AddCourse() {
       )
       .then((res) => {
         console.log(res.data);
-        alert("Course Added");
+        toast.success("Course Added");
+        setTimeout(()=>{
+          navigator('/dashboard');
+        },5000);
         handleClose();
-        navigator("/dashboard")
       })
       .catch((error) => {
         console.log(error);
@@ -98,6 +125,7 @@ function AddCourse() {
   return (
     
     <Container maxWidth="sm">
+    <ToastContainer/>
       <TopBar drawerWidth={drawerWidth} />
       <SideBar drawerWidth={drawerWidth} />
       <Box
@@ -134,8 +162,8 @@ function AddCourse() {
           <input type="file" onChange={handleImageChange} hidden />
         </Button>
 
-        {courseBannerImage!="" && (
-          <img className="preview_img" src={courseBannerImage.preview} />
+        {courseBannerImage!=="" && (
+          <img className="preview_img" src={courseBannerImage.preview} alt=""/>
         )}
 
         <Tooltip title="Use YouTube embed URL's seperated by newline">

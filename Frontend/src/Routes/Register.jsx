@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import red from "@mui/material/colors/red";
 import { Avatar, Box } from "@mui/material";
+import { ToastContainer,toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Register() {
   const [name, setName] = useState("");
@@ -28,7 +30,32 @@ function Register() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setButtonText("Please Wait...");
-    setBtnDisabled(true);
+    setBtnDisabled(true); 
+    if (!name.trim()) {
+    toast.error("Please enter your name.");
+    setButtonText("Register");
+    setBtnDisabled(false);
+    return;
+  }
+  if (!email.trim()) {
+    toast.error("Please enter your email.");
+    setButtonText("Register");
+    setBtnDisabled(false);
+    return;
+  }
+  if (!password.trim()) {
+    toast.error("Please enter your password.");
+    setButtonText("Register");
+    setBtnDisabled(false);
+    return;
+  }
+   
+  if (!image) {
+    toast.error("Please upload your image.");
+    setButtonText("Register");
+    setBtnDisabled(false);
+    return;
+  }
     // const data = {
     //   userEmail: email,
     //   userPassword: password,
@@ -56,26 +83,27 @@ function Register() {
       )
       .then((res) => {
         console.log(res.data);
+        toast.success("Registration successful, You are directed to Login page ", {
+          autoClose: 5000
+        });
         setBtnDisabled(false);
         setButtonText("Sign Up");
-        navigate("/login");
+        setTimeout(()=>{
+          navigate('/login')
+        },5000);
       })
       .catch((error) => {
-        if (error.response.status === 409) {
-          setMessage("User Already Exists");
-        } else if (error.response.status === 400) {
-          setMessage("Please fill all the fields");
-        } else {
-          setMessage("Something went wrong");
-        }
-        setBtnDisabled(false);
-        setButtonText("Sign Up");
+        const errorMessage = error.response && error.response.data.message ? error.response.data.message : "Something went wrong";
+      toast.error(errorMessage);
+      setButtonText("Register");
+      setBtnDisabled(false);
       });
   };
 
   return (
     <div className="app_content">
       <div>
+      <ToastContainer/>
         <div className="signup-form-container">
           <form onSubmit={handleSubmit}>
             <div>
