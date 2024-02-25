@@ -1,4 +1,3 @@
-
 import "../Assets/Login.css";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
@@ -23,26 +22,7 @@ function Login() {
   const [buttonText, setButtonText] = useState("Login");
   
 
-  // function handleLogin(event)
-  // {
-  //   event.preventDefault();
-  //   setButtonText("Please Wait...");
-  //   setButtonDisabled(true);
-  //   const email=event.target.form[0].value;
-  //   const password=event.target.form[1].value;
-  //   if(!email && !password)
-  //   {
-  //     toast.error("Please fill in all fields. ")
-  //   }
-  //   if(!email && password)
-  //   {
-  //     toast.error("Please fill the Email. ")
-  //   }
-  //   if(email && !password)
-  //   {
-  //     toast.error("Please fill the Password. ")
-  //   }
-  // }
+
 
   const handleSubmit = (e) => {
     setButtonText("Please Wait...");
@@ -54,12 +34,24 @@ function Login() {
       userPassword: password,
     };
 
-    if(!email && !password)
+    if(!email && !password){
     toast.error("Please Fill In All The Details.");
-    else if (email && !password)
+    setButtonText("Login");
+    setButtonDisabled(false);
+    return;
+  }
+    else if (email && !password){
     toast.error("Please Fill The Password.");
-    else if (!email && password)
+    setButtonText("Login");
+    setButtonDisabled(false);
+    return;
+    }
+    else if (!email && password){
     toast.error("Please Fill The Email.");
+    setButtonText("Login");
+    setButtonDisabled(false);
+    return;
+    }
     axios
       .post(
         "https://online-learning-platform-r55m.onrender.com/api/v1/user/login",
