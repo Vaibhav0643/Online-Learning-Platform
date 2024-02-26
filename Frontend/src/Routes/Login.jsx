@@ -76,9 +76,6 @@ function Login() {
       });
   };
 
-
-
-
   return (
     <div className="app_content">
       <div>
