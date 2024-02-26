@@ -1,19 +1,14 @@
 import CoursesContent from "../Components/Courses";
 import Header from "./Header";
 import Footer from "./Footer";
-import { Box, CssBaseline, Toolbar, Divider, Container , Typography } from "@mui/material";
+import { Box, Toolbar, Divider, Container , Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios"
 import Cookies from "universal-cookie";
 
-
-const drawerWidth = 200;
-
 function Courses() {
   const [allCourses, setAllCourses] = useState([]);
-  const [userCourses, setUserCourses] = useState([]);
-  const [admin,setAdmin]=useState(false)
   
   let navigate = useNavigate();
   useEffect(() => {
@@ -21,13 +16,6 @@ function Courses() {
     if (user == null) {
       navigate("/login");
     }
-
-    if( user.userEmail === "ADMIN@GMAIL.COM")
-    {
-      setAdmin(true);
-    }
-
-    
     const fetchData= async ()=>{
       try {
         const response = await axios.get('https://online-learning-platform-r55m.onrender.com/api/v1/course/getAllCourses');
@@ -42,7 +30,6 @@ function Courses() {
           },
         });
         console.log(userCoursesResponse);
-        setUserCourses(userCoursesResponse.data.courses);
       } catch (error) {
         console.error( error);
       }

@@ -14,8 +14,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import "../Assets/AddCourse.css";
-import SideBar from "../Components/SideBar";
-import TopBar from "../Components/TopBar";
+import Header from "./Header";
+import Footer from "./Footer";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -123,11 +123,10 @@ function AddCourse() {
   }, [navigator]);
 
   return (
-    
+    <div className="add-course">
+      <Header/>
     <Container maxWidth="sm">
     <ToastContainer/>
-      <TopBar drawerWidth={drawerWidth} />
-      <SideBar drawerWidth={drawerWidth} />
       <Box
         component="form"
         onSubmit={handleSubmit}
@@ -196,6 +195,10 @@ function AddCourse() {
         <CircularProgress color="inherit" />
       </Backdrop>
     </Container>
+    <Footer/>
+    </div>
+    
+    
   );
 }
 export default AddCourse;

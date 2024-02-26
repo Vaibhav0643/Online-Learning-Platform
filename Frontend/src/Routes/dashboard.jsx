@@ -1,14 +1,12 @@
 import Courses from "../Components/Courses";
-import SideBar from "../Components/SideBar";
-import TopBar from "../Components/TopBar";
+import Header from "./Header";
+import Footer from "./Footer";
 import { Box, CssBaseline, Toolbar, Divider, Container , Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios"
 import Cookies from "universal-cookie";
 
-
-const drawerWidth = 200;
 
 function Dashboard() {
   const [allCourses, setAllCourses] = useState([]);
@@ -95,22 +93,49 @@ function Dashboard() {
 
   return (
     <Box sx={{ display: { sx: "flex" } }}>
+    <Header/>
       <CssBaseline />
-      <TopBar drawerWidth={drawerWidth} />
-      <SideBar drawerWidth={drawerWidth} />
-      {!admin &&(
+      
+      {admin ?
+
+        <> <Typography variant="h4" component="h2" sx={{ width: '100%', textAlign: 'center', mb: 4 , mt:5 ,color:'#0d47a1' ,fontSize:40 }} className="quicksand">
+         Available Courses
+        </Typography>
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          width: "100%",
+          display: "flex",
+          margin: "auto",
+          justifyContent: "left",
+        }}
+      >
+        <Toolbar />
+        
+        <Container
+          maxWidth="lg"
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            justifyContent: "space-evenly",
+            margin: "auto",
+            marginLeft: 5
+          }}
+        >
+          {allCoursesDisplay()}
+        </Container>
+      </Box></>:
         <>
-      <Typography variant="h4" component="h2" sx={{ width: '100%', textAlign: 'center', mb: 4 , mt:5 , color:'#0d47a1' ,fontSize:40, ml:10 }} className="quicksand">
+      <Typography variant="h4" component="h2" sx={{ width: '100%', textAlign: 'center', mb: 4 , mt:5 , color:'#0d47a1' ,fontSize:40 }} className="quicksand">
         Enrolled Courses
         </Typography>
-
-        
         <Box
         component="main"
         sx={{
           flexGrow: 1,
-          p: 3,
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          width: "100%",
           display: "flex",
           margin: "auto",
           justifyContent: "left",
@@ -133,38 +158,9 @@ function Dashboard() {
         </Container>
       </Box>
       </>
-      )
+      
       }
-       <Typography variant="h4" component="h2" sx={{ width: '100%', textAlign: 'center', mb: 4 , mt:5 ,color:'#0d47a1' ,fontSize:40 , ml:10}} className="quicksand">
-         Available Courses
-        </Typography>
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          p: 3,
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-          display: "flex",
-          margin: "auto",
-          justifyContent: "left",
-        }}
-      >
-        <Toolbar />
-        
-        <Container
-          maxWidth="lg"
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            flexWrap: "wrap",
-            justifyContent: "space-evenly",
-            margin: "auto",
-            marginLeft: 5
-          }}
-        >
-          {allCoursesDisplay()}
-        </Container>
-      </Box>
+      <Footer/>
     </Box>
   );
 }
