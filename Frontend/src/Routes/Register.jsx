@@ -4,19 +4,33 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import red from "@mui/material/colors/red";
 import { Avatar, Box } from "@mui/material";
-import { ToastContainer,toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+
 
 function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [image, setImage] = useState(null);
-  const navigate = useNavigate();
-  const [btnDisabled, setBtnDisabled] = useState(false);
-  const [message, setMessage] = useState("");
-  const [buttonText, setButtonText] = useState("Register");
 
+//Password Conditions ---------------------------------------
+  const [capitalLetterValid, setCapitalLetterValid] = useState(false);
+  const [smallLetterValid, setSmallLetterValid] = useState(false);
+  const [specialCharacterValid, setSpecialCharacterValid] = useState(false);
+  const [lengthValid, setLengthValid] = useState(false);
+//----------------------------------------------------------
+
+  const [btnDisabled, setBtnDisabled] = useState(false);
+  const [buttonText, setButtonText] = useState("Register");
+  const [message, setMessage] = useState("");
+
+  const [activeField, setActiveField] = useState(""); // State to track active input field
+  const navigate = useNavigate();
+
+
+  
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
       const img = {
@@ -27,41 +41,66 @@ function Register() {
     }
   };
 
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+
+    // Only validate password when typing in password input field
+    if (activeField === 'password') {
+      // Password validation regex
+      const capitalLetterRegex = /[A-Z]/;
+      const smallLetterRegex = /[a-z]/;
+      const specialCharacterRegex = /[!@#$%^&*(),.?":{}|<>]/;
+      const lengthRegex = /^.{8,72}$/;
+
+      let capitalLetter = capitalLetterRegex.test(e.target.value);
+      let smallLetter = smallLetterRegex.test(e.target.value);
+      let specialCharacter = specialCharacterRegex.test(e.target.value);
+      let length = lengthRegex.test(e.target.value);
+
+      setCapitalLetterValid(capitalLetter);
+      setSmallLetterValid(smallLetter);
+      setSpecialCharacterValid(specialCharacter);
+      setLengthValid(length);
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setButtonText("Please Wait...");
     setBtnDisabled(true); 
+
     if (!name.trim()) {
-    toast.error("Please enter your name.");
-    setButtonText("Register");
-    setBtnDisabled(false);
-    return;
-  }
-  if (!email.trim()) {
-    toast.error("Please enter your email.");
-    setButtonText("Register");
-    setBtnDisabled(false);
-    return;
-  }
-  if (!password.trim()) {
-    toast.error("Please enter your password.");
-    setButtonText("Register");
-    setBtnDisabled(false);
-    return;
-  }
-   
-  if (!image) {
-    toast.error("Please upload your image.");
-    setButtonText("Register");
-    setBtnDisabled(false);
-    return;
-  }
-    // const data = {
-    //   userEmail: email,
-    //   userPassword: password,
-    //   userName: name,
-    //   userImage: image.data,
-    // };
+      toast.error("Please enter your name.");
+      setButtonText("Register");
+      setBtnDisabled(false);
+      return;
+    }
+    if (!email.trim()) {
+      toast.error("Please enter your email.");
+      setButtonText("Register");
+      setBtnDisabled(false);
+      return;
+    }
+    if (!password.trim()) {
+      toast.error("Please enter your password.");
+      setButtonText("Register");
+      setBtnDisabled(false);
+      return;
+    }
+
+    if (!(capitalLetterValid && smallLetterValid && specialCharacterValid && lengthValid)) {
+      toast.error("Password must meet all criteria.");
+      setButtonText("Register");
+      setBtnDisabled(false);
+      return;
+    }
+
+    if (!image) {
+      toast.error("Please upload your image.");
+      setButtonText("Register");
+      setBtnDisabled(false);
+      return;
+    }
 
     const formData = new FormData();
     formData.append("userEmail", email);
@@ -69,8 +108,8 @@ function Register() {
     formData.append("userName", name);
     formData.append("userImage", image.data);
 
-    console.log(formData);
 
+    
     axios
       .post(
         "https://online-learning-platform-r55m.onrender.com/api/v1/user/createUser",
@@ -92,18 +131,28 @@ function Register() {
           navigate('/login')
         },5000);
       })
+
+
+
       .catch((error) => {
-        const errorMessage = error.response && error.response.data.message ? error.response.data.message : "Something went wrong";
-      toast.error(errorMessage);
-      setButtonText("Register");
-      setBtnDisabled(false);
+        if (error.response.status === 409) {
+          setMessage("User Already Exists");
+        } else if (error.response.status === 400) {
+          setMessage("Please fill all the fields");
+        } else {
+          setMessage("Something went wrong");
+        }
+        setBtnDisabled(false);
+        setButtonText("Sign Up");
       });
+
+
   };
 
   return (
     <div className="app_content">
       <div>
-      <ToastContainer/>
+        <ToastContainer/>
         <div className="signup-form-container">
           <form onSubmit={handleSubmit}>
             <div>
@@ -125,6 +174,7 @@ function Register() {
               className="box"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              onFocus={() => setActiveField('name')} // Set active field when focused
             />
 
             <div className="input_heading">EMAIL</div>
@@ -136,6 +186,7 @@ function Register() {
               onChange={(e) => {
                 setEmail(e.target.value);
               }}
+              onFocus={() => setActiveField('email')} // Set active field when focused
             />
 
             <div className="input_heading">PASSWORD</div>
@@ -144,11 +195,22 @@ function Register() {
               placeholder="Enter your password"
               className="box"
               value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
+              onChange={handlePasswordChange}
+              name="password" // Add name attribute to identify password field
+              onFocus={() => setActiveField('password')} 
             />
-            <div className="input_heading">UserImage</div>
+            <p className="error_message">
+              {activeField === 'password' && password && (
+                <React.Fragment>
+                  {capitalLetterValid ? <span>&#10004;</span> : null} Password must contain at least one capital letter.<br />
+                  {smallLetterValid ? <span>&#10004;</span> : null} Password must contain at least one small letter.<br />
+                  {specialCharacterValid ? <span>&#10004;</span> : null} Password must contain at least one special character.<br />
+                  {lengthValid ? <span>&#10004;</span> : null} Password must be between 8 to 72 characters long.
+                </React.Fragment>
+              )}
+            </p>
+            
+            <div className="input_heading">User Image</div>
             <input
               type="file"
               accept="image/*"
@@ -177,7 +239,7 @@ function Register() {
             <hr className="divider" />
             <p className="footer_description">
               {" "}
-              Already have an account? <a href="/Login">Login</a>{" "}
+              Already have an account? <a href="/Login">Login <span>&#x2192; </span>  </a>{" "}
             </p>
           </form>
         </div>

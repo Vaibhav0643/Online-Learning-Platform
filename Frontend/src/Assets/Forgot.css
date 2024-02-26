@@ -52,12 +52,16 @@
 }
 
 .forgot-form-container form .box:focus {
-    border-color: rgb(42, 115, 204);
+    /* border-color: rgb(42, 115, 204); */
+    border-color:  rgb(10, 10, 129);
+
 }
 
 .btn {
     margin-top: 1rem;
-    background: rgb(0, 86, 210);
+    /* background: rgb(0, 86, 210); */
+
+    background: rgb(10, 10, 129); ;
     color: white;
     cursor: pointer;
     font-size: 1.2rem;
@@ -73,7 +77,9 @@
 
 
 .btn:hover {
-    background: rgb(0, 75, 179);
+    /* background: rgb(0, 75, 179); */
+    background: rgb(11, 11, 142);
+
 }
 
 

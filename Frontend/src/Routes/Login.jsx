@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Cookies from "universal-cookie";
 
-import { ToastContainer,toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function Login() {
@@ -20,7 +20,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [buttonText, setButtonText] = useState("Login");
-  
+
 
 
 
@@ -28,35 +28,38 @@ function Login() {
     setButtonText("Please Wait...");
     setButtonDisabled(true);
     e.preventDefault();
-    
+
     const data = {
       userEmail: email,
       userPassword: password,
     };
 
-    if(!email && !password){
-    toast.error("Please Fill In All The Details.");
-    setButtonText("Login");
-    setButtonDisabled(false);
-    return;
-  }
-    else if (email && !password){
-    toast.error("Please Fill The Password.");
-    setButtonText("Login");
-    setButtonDisabled(false);
-    return;
+    if (!email && !password) {
+      toast.error("Please Fill In All The Details.");
+      setButtonText("Login");
+      setButtonDisabled(false);
+      return;
     }
-    else if (!email && password){
-    toast.error("Please Fill The Email.");
-    setButtonText("Login");
-    setButtonDisabled(false);
-    return;
+    else if (email && !password) {
+      toast.error("Please Fill The Password.");
+      setButtonText("Login");
+      setButtonDisabled(false);
+      return;
     }
+    else if (!email && password) {
+      toast.error("Please Fill The Email.");
+      setButtonText("Login");
+      setButtonDisabled(false);
+      return;
+    }
+
+
     axios
       .post(
         "https://online-learning-platform-r55m.onrender.com/api/v1/user/login",
         data
       )
+
       .then((res) => {
         console.log(res.data);
         setButtonText(" Login");
@@ -67,15 +70,19 @@ function Login() {
         navigate("/dashboard");
       })
       .catch((error) => {
-        {(email && password) && toast.error("Invalid Email or Password")}  
+        { (email && password) && toast.error("Invalid Email or Password") }
         setButtonText("Login");
         setButtonDisabled(false);
       });
   };
+
+
+
+
   return (
     <div className="app_content">
       <div>
-      <ToastContainer/>
+        <ToastContainer />
         <div className="login-form-container">
           <form onSubmit={handleSubmit}>
             <div>
@@ -123,7 +130,7 @@ function Login() {
             <hr className="divider" />
             <p className="footer_description">
               {" "}
-              Don't have an account? <Link to="/Signup">Sign Up</Link>{" "}
+              Don't have an account? <Link to="/Signup">Sign Up  <span>&#x2192; </span>  </Link>{" "}
             </p>
           </form>
         </div>

@@ -10,7 +10,7 @@
     margin-top: 60px;
     display: flex;
     justify-content: center;
-    font-family: 'Poppins', 'sans-serif';   
+    font-family: 'Poppins', 'sans-serif';
 }
 
 
@@ -24,8 +24,6 @@
     border-radius: .2rem;
     background: #fff;
 }
-
-
 
 
 .login-form-container form h3 {
@@ -69,13 +67,16 @@
 }
 
 .login-form-container form .box:focus {
-    border-color: rgb(42, 115, 204);
+    /* border-color: rgb(42, 115, 204); */
+    border-color: rgb(10, 10, 129);
+
 }
 
 
 .btn {
     margin-top: 1rem;
-    background: rgb(0, 86, 210);
+    /* background: rgb(0, 86, 210); */
+    background: rgb(10, 10, 129);
     color: white;
     cursor: pointer;
     font-size: 1.2rem;
@@ -86,11 +87,12 @@
     margin-top: 2rem;
     margin-bottom: .5rem;
     border: none;
-
 }
 
 .btn:hover {
-    background: rgb(0, 75, 179);
+    /* background: rgb(0, 75, 179); */
+    background: rgb(11, 11, 142);
+
 }
 
 .footer_description {
@@ -101,7 +103,7 @@
 
 .footer_description a {
     color: rgb(0, 86, 210);
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 
@@ -128,4 +130,3 @@
     border: none;
     background-color: rgb(225, 225, 225);
 }
-
