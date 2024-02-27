@@ -180,7 +180,7 @@ const enrollUserInCourse = async (req, res) => {
 };
 
 //****************THIS FUNCTION NEEDS TO BE TESTED*********************
-const getAPIInfo = async (req, res) => {
+const getAPIInfo = (req, res) => {
   res.send("JMAN Courses API Status: ACTIVE");
 };
 
@@ -211,7 +211,7 @@ const getUserCourses = async (req, res) => {
     const userId = req.params.userId;
 
     const courses = await pool.query(
-      "SELECT c.* FROM users_courses uc JOIN courses c ON uc.courseId = c.courseId WHERE uc.userId=$1",
+      'SELECT c.* FROM users_courses uc JOIN courses c ON uc."courseId" = c."courseId" WHERE uc."userId"=$1',
       [userId]
     );
 

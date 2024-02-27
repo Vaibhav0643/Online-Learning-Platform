@@ -2,11 +2,23 @@ import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../configs/index.js";
 
 const verifyToken = (req, res, next) => {
-  const token = req.header.Authorization;
+  const tokenFromCookie = req.cookies.token;
+  const tokenFromHeader = req.headers.authorization;
 
-  if (!token) {
+  if (!tokenFromCookie && !tokenFromHeader) {
     return res.status(401).json({ error: "Unauthorized - No token provided" });
   }
+
+  let token;
+
+  if (tokenFromCookie) {
+    token = tokenFromCookie;
+  } else if (tokenFromHeader) {
+    const [, tokenValue] = tokenFromHeader.split(" ");
+    token = tokenValue;
+  }
+
+  console.log(token);
 
   jwt.verify(token, JWT_SECRET, (err, decoded) => {
     if (err) {

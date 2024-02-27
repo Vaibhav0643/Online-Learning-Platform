@@ -5,45 +5,12 @@ import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-function checkemail(userEmail){
-  var checkDomain = 0;
-    var checkAtSign = 0;
-    if(userEmail.indexOf('@')>-1){
-      checkAtSign = 1;
-    }
-    if(userEmail.indexOf(".com")>-1 || userEmail.indexOf(".in")>-1 || userEmail.indexOf(".org")>-1){
-      checkDomain = 1;
-    }
-
-    if(checkAtSign != 1 || checkDomain != 1){
-      return 0;
-    }
-    else{
-      return 1;
-    }
-}
-
 const createUser = async (req, res) => {
   try {
     const { userEmail, userPassword, userName } = req.body;
 
     if (!userEmail || !userPassword || !userName) {
-      if(!userName){
-        return res.status(400).json({error: "Username can't be empty"});
-      }
-      else if(!userEmail){
-        return res.status(400).json({error: "UserEmail Can't be empty"});
-      }
-      else if(!userPassword){
-        return res.status(400).json({error: "Password can't be empty"});
-      }
-      else{
-        return res.status(400).json({ error: "Missing required fields" });
-      }
-    }
-
-    if(!checkemail(userEmail)){
-      return res.status(400).json({error:"Use a valid email id"})
+      return res.status(400).json({ error: "Missing required fields" });
     }
 
     const existingUser = await pool.query(
@@ -77,10 +44,6 @@ const createUser = async (req, res) => {
 
     const newUser = result.rows[0];
 
-    const allCoursesResult = await pool.query("SELECT * FROM courses");
-
-    const allCourses = allCoursesResult.rows;
-
     const token = jwt.sign(
       {
         userId: newUser.userId,
@@ -97,7 +60,7 @@ const createUser = async (req, res) => {
       sameSite: "Strict",
     });
 
-    res.status(201).json({ user: newUser, courses: allCourses });
+    res.status(201).json({ user: newUser, token });
   } catch (error) {
     console.error("Error creating user:", error);
 
@@ -133,10 +96,6 @@ const loginUser = async (req, res) => {
       return res.status(401).json({ error: "Invalid credentials" });
     }
 
-    const allCoursesResult = await pool.query("SELECT * FROM courses");
-
-    const allCourses = allCoursesResult.rows;
-
     const token = jwt.sign(
       {
         userId: user.userId,
@@ -153,9 +112,7 @@ const loginUser = async (req, res) => {
       sameSite: "Strict",
     });
 
-    res
-      .status(200)
-      .json({ message: "Login successful", user, courses: allCourses });
+    res.status(200).json({ message: "Login successful", user, token });
   } catch (error) {
     console.error("Error logging in:", error);
     res.status(500).json({ error: "Internal Server Error" });
