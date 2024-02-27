@@ -132,7 +132,11 @@ function AddCourse() {
     formData.append("videoURLs", links);
     formData.append("videoTitle", titles);
     console.log(videos);
-    
+    // Iterate over key-value pairs using entries()
+  for (const pair of formData.entries()) {
+    console.log(pair[0] + ', ' + pair[1]);
+  }
+
 
     const token = cookies.get("token");
     console.log(token);

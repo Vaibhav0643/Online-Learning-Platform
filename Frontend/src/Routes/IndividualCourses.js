@@ -47,6 +47,7 @@ function IndividualCourse() {
       })
       .then((res) => {
         setCourse(res.data);
+        console.log(res.data);
         const initialCheckState = res.data.courseDetails.videos.reduce((acc, _, index) => {
           acc[index] = false;
           return acc;
@@ -85,7 +86,7 @@ function IndividualCourse() {
     return course.courseDetails.videos.map((video, index) => {
       return (
         <div key={index}>
-          <h2 style={{ color: "blue", marginBottom: "2rem" }}>Title</h2>
+          <h2 style={{ color: "blue", marginBottom: "2rem" }}>{video.videoTitle}</h2>
           <iframe
             width="450"
             height="340"
