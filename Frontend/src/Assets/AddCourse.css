@@ -1,3 +1,7 @@
+.add-course{
+    height: max-content;
+}
+
 .preview_img{
     margin-top: 20px;
     border-radius: 12px;
@@ -17,4 +21,8 @@
 .deleteButton{
     width: 10%;
     margin: 3%;
+}
+
+.submit-btn {
+    margin-bottom: 30px;
 }

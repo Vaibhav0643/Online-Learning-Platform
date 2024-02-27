@@ -60,8 +60,8 @@ function AddCourse() {
     setVideos(newVideos);
   };
   const handleDeleteVideo = (index) => {
-    let newVideos = [...videos];
-    newVideos = videos.splice(index, 1);
+    videos.splice(index, 1);
+    let newVideos = videos;
     setVideos(newVideos);
     console.log(videos);
   }
@@ -69,9 +69,9 @@ function AddCourse() {
   useEffect(() => {
     setVideos(videos);
   }, [videos]);
-  
+
   const handleAddVideo = () => {
-    setVideos([...videos, {title:'',link:''}]);
+    setVideos([...videos, { title: '', link: '' }]);
   }
 
   const handleSubmit = (e) => {
@@ -97,7 +97,7 @@ function AddCourse() {
       handleClose();
       return;
     }
-  
+
 
     formData.append("courseTitle", courseTitle);
     formData.append("courseDescription", courseDescription);
@@ -109,7 +109,7 @@ function AddCourse() {
     });
 
     const token = cookies.get("token");
-    console.log(token); 
+    console.log(token);
 
     console.log(formData);
     axios
@@ -127,9 +127,9 @@ function AddCourse() {
       .then((res) => {
         console.log(res.data);
         toast.success("Course Added");
-        setTimeout(()=>{
+        setTimeout(() => {
           navigator('/dashboard');
-        },5000);
+        }, 5000);
         handleClose();
       })
       .catch((error) => {
@@ -149,49 +149,50 @@ function AddCourse() {
   }, [navigator]);
 
   return (
-    <div className="add-course">
-      <Header/>
-    <Container maxWidth="sm">
-    <ToastContainer/>
-      <Box
-        component="form"
-        onSubmit={handleSubmit}
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          height: "100vh",
-          alignItems: "space-between",
-          padding: "100px 0",
-        }}
-      >
-        <Typography variant="h4" textAlign={"center"}>
-          Add Course
-        </Typography>
-        <TextField
-          id="title"
-          label="Course Title"
-          variant="outlined"
-          onChange={(e) => setCourseTitle(e.target.value)}
-          sx={{ margin: "10px 0" }}
-        />
-        <TextField
-          id="desc"
-          label="Course Description"
-          multiline={true}
-          onChange={(e) => setCourseDescription(e.target.value)}
-          variant="outlined"
-          sx={{ margin: "10px 0" }}
-        />
-        <Button variant="outlined" component="label" sx={{ margin: "10px 0 0 0", padding: "12px" }}>
-          Upload course cover image
-          <input type="file" onChange={handleImageChange} hidden />
-        </Button>
+    <div>
+      <Header />
+      {/* <Container maxWidth="sm"> */}
+      <Container maxWidth="sm" className="add-course">
+        <ToastContainer />
+        <Box
+          component="form"
+          onSubmit={handleSubmit}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            height: "100vh",
+            alignItems: "space-between",
+            padding: "100px 0",
+          }}
+        >
+          <Typography variant="h4" textAlign={"center"}>
+            Add Course
+          </Typography>
+          <TextField
+            id="title"
+            label="Course Title"
+            variant="outlined"
+            onChange={(e) => setCourseTitle(e.target.value)}
+            sx={{ margin: "10px 0" }}
+          />
+          <TextField
+            id="desc"
+            label="Course Description"
+            multiline={true}
+            onChange={(e) => setCourseDescription(e.target.value)}
+            variant="outlined"
+            sx={{ margin: "10px 0" }}
+          />
+          <Button variant="outlined" component="label" sx={{ margin: "10px 0 0 0", padding: "12px" }}>
+            Upload course cover image
+            <input type="file" onChange={handleImageChange} hidden />
+          </Button>
 
-        {courseBannerImage!=="" && (
-          <img className="preview_img" src={courseBannerImage.preview} alt=""/>
-        )}
+          {courseBannerImage !== "" && (
+            <img className="preview_img" src={courseBannerImage.preview} alt="" />
+          )}
 
-        {/* <Tooltip title="Use YouTube embed URL's seperated by newline">
+          {/* <Tooltip title="Use YouTube embed URL's seperated by newline">
           <TextField
             id="video"
             label="Course Video"
@@ -202,66 +203,67 @@ function AddCourse() {
           />
         </Tooltip> */}
 
-        {videos.map((video, index) => (
-        <div key={index}>
-          <input
-            className="video_title"
-            type="text"
-            name="title"
-            placeholder="Video Title"
-            value={video.title}
-            onChange={(e) => handleChange(index, e)}
-          />
-          <input
-            className="video_link"
-            type="text"
-            name="link"
-            placeholder="Video Link"
-            value={video.link}
-            onChange={(e) => handleChange(index, e)}
-          />
-          <IconButton className="deleteButton" color="error" aria-label="add to shopping cart"  onClick={() => handleDeleteVideo(index)}>
-            <DeleteIcon/>
-          </IconButton>
-        </div>
-      ))}
+          {videos.map((video, index) => (
+            <div key={index}>
+              <input
+                className="video_title"
+                type="text"
+                name="title"
+                placeholder="Video Title"
+                value={video.title}
+                onChange={(e) => handleChange(index, e)}
+              />
+              <input
+                className="video_link"
+                type="text"
+                name="link"
+                placeholder="Video Link"
+                value={video.link}
+                onChange={(e) => handleChange(index, e)}
+              />
+              <IconButton className="deleteButton" color="error" aria-label="add to shopping cart" onClick={() => handleDeleteVideo(index)}>
+                <DeleteIcon />
+              </IconButton>
+            </div>
+          ))}
 
-        <Button 
-          variant="contained" 
-          startIcon={<VideoCallIcon />}
-          sx={{ margin: "10px 0", padding: "15px" }}
-          disableElevation
-          onClick={handleAddVideo}
-        >
-          Add Video
-        </Button>
+          <Button
+            variant="contained"
+            startIcon={<VideoCallIcon />}
+            sx={{ margin: "10px 0", padding: "15px" }}
+            disableElevation
+            onClick={handleAddVideo}
+          >
+            Add Video
+          </Button>
 
-        <Divider sx={{ margin: "10px 0",}} />
-        
-        <Button
-          onClick={handleOpen}
-          sx={{ margin: "10px 0", padding: "15px" }}
-          variant="contained"
-          style={{ backgroundColor: '#0a0a81', color: '#FFFFFF' }}
-          type="submit"
-        >
-          Add Course
-        </Button>
-      </Box>
-      {/* <Typography variant="h6" sx={{ color: red[500] }}>
+          <Divider sx={{ margin: "10px 0", }} />
+
+          <Button
+            onClick={handleOpen}
+            sx={{ margin: "10px 0", padding: "15px" }}
+            variant="contained"
+            style={{ backgroundColor: '#0a0a81', color: '#FFFFFF' }}
+            type="submit"
+            className="submit-btn"
+          >
+            Add Course
+          </Button>
+        </Box>
+        {/* <Typography variant="h6" sx={{ color: red[500] }}>
         {message}
       </Typography> */}
-      <Backdrop
-        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={open}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
-    </Container>
-    <Footer/>
+        <Backdrop
+          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={open}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      </Container>
+      <Footer />
     </div>
-    
-    
+
+
   );
 }
 export default AddCourse;
