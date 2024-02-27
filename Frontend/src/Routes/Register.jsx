@@ -1,7 +1,7 @@
 import "../Assets/Register.css";
 import axios from "axios";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import red from "@mui/material/colors/red";
 import { Avatar, Box } from "@mui/material";
 import { ToastContainer, toast } from 'react-toastify';
@@ -251,7 +251,7 @@ function Register() {
           <hr className="signup_divider" />
           <p className="footer_description">
             {" "}
-            Already have an account? <a href="/Login">Login <span>&#x2192; </span>  </a>{" "}
+            Already have an account? <Link to="/Login">Login <span>&#x2192; </span>  </Link>{" "}
           </p>
         </form>
       </div>

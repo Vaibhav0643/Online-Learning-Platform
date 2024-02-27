@@ -175,7 +175,7 @@ function AddCourse() {
   }, [navigator]);
 
   return (
-    <div>
+    <div  >
       <Header />
       {/* <Container maxWidth="sm"> */}
       <Container maxWidth="sm" className="add-course">
@@ -186,7 +186,6 @@ function AddCourse() {
           sx={{
             display: "flex",
             flexDirection: "column",
-            height: "100vh",
             alignItems: "space-between",
             padding: "100px 0",
           }}

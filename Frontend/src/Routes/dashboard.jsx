@@ -152,7 +152,7 @@ function Dashboard() {
             flexWrap: "wrap",
             justifyContent: "space-evenly",
             margin: "auto",
-            marginLeft: 5
+            marginLeft: 15
           }}
         >
           {userCoursesDisplay()}
