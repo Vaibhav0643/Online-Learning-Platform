@@ -83,7 +83,9 @@ function Login() {
 
   return (
       <div>
+
         <ToastContainer />
+
         <div className="login-form-container">
         <img className="jmanLogo" src={logo} alt="jmanImage" />
           <form onSubmit={handleSubmit}>
@@ -123,11 +125,11 @@ function Login() {
               />
             </div>
 
-            <div className="password_hint">
+            {/* <div className="password_hint">
               <a href="/Forgot" className="forgot">
                 Forgot password?
               </a>
-            </div>
+            </div> */}
 
             <button className="login_btn" disabled={buttonDisabled}>
               {buttonText}

@@ -230,7 +230,7 @@ function Register() {
               className="box"
               onChange={onImageChange}
             />
-            <Avatar
+            {/* <Avatar
               alt="User Image"
               src={image ? image.preview : ""}
               sx={{
@@ -240,7 +240,7 @@ function Register() {
                 right: "50px",
                 top: "50px",
               }}
-            />
+            /> */}
           </div>
           <button className="btn" disabled={btnDisabled}>
             {buttonText}
