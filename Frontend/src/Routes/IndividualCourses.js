@@ -28,7 +28,10 @@ function IndividualCourse() {
   }, [params.id]);
 
 
-  const progress = Object.values(checkedVideos).filter(checked => checked).length / (course?.courseDetails.videos.length || 1) * 100;
+  let progress;
+  if(admin){
+    progress = Object.values(checkedVideos).filter(checked => checked).length / (course?.courseDetails.videos.length || 1) * 100;
+  }
 
   const handleCheckboxChange = (index) => {
     setCheckedVideos(prevState => ({
