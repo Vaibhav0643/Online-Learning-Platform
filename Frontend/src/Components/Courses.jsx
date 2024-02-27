@@ -14,12 +14,16 @@ import React from "react";
 import Cookies from "universal-cookie";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from '@mui/icons-material/Edit';
 import "../Assets/Course.css";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";
 
 export default function Courses(props) {
+  console.log('PROPS:');
+  console.log(props);
+  
   const user = JSON.parse(localStorage.getItem("user") || null);
   const cookies = new Cookies();
   const navigate = useNavigate(); // Correctly call useNavigate as a function
@@ -27,6 +31,7 @@ export default function Courses(props) {
   if (user === null) {
     return <div></div>;
   }
+
 
   const deleteCourse = (e) => {
     e.preventDefault();
@@ -77,6 +82,12 @@ export default function Courses(props) {
         </Typography>
       </CardContent>
       <CardActions >
+        {ifAdmin && (
+          <Button component={Link} to={"/EditCourse/" + props.id} sx={{ textDecoration: "none" }}>
+            <EditIcon />
+            Edit
+          </Button>
+        )}
         {ifAdmin && (
           <Button sx={{ color: Red[500] }} onClick={deleteCourse}>
             <DeleteIcon />
