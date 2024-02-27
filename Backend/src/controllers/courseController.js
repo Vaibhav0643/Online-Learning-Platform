@@ -3,18 +3,19 @@ import { uploadOnCloudinary } from "../utils/cloudinary.js";
 
 const uploadCourse = async (req, res) => {
   try {
-    const { courseTitle, courseDescription, videoURLs } = req.body;
+    const { courseTitle, courseDescription, videoURLs, videoTitle } = req.body;
 
     if (
       !courseTitle ||
       !courseDescription ||
       !videoURLs ||
+      !videoTitle ||
       !req.file ||
       videoURLs.length === 0
     ) {
       return res.status(400).json({
         error:
-          "Course title, description,Course banner image, and at least one video URL are required",
+          "Course title, description,Course banner image, and at least one video URL and VideoTitle are required",
       });
     }
 
@@ -45,8 +46,8 @@ const uploadCourse = async (req, res) => {
     const videoInsertPromises = videoURLs.map(async (videoURL, index) => {
       try {
         const result = await pool.query(
-          'INSERT INTO course_videos ("courseId", "videoURL","videoNumber") VALUES ($1, $2,$3) RETURNING *',
-          [courseId, videoURL, index + 1]
+          'INSERT INTO course_videos ("courseId", "videoURL","videoNumber","videoTitle") VALUES ($1, $2,$3,$4) RETURNING *',
+          [courseId, videoURL, index + 1, videoTitle[index]]
         );
         return result.rows[0];
       } catch (error) {
@@ -308,6 +309,30 @@ const updateUserProgress = async (req, res) => {
   }
 };
 
+const getWebsiteStats = async (req, res) => {
+  try {
+    const videosResult = await pool.query("SELECT COUNT(*) FROM course_videos");
+    const totalVideos = parseInt(videosResult.rows[0].count);
+
+    const enrolledUsersResult = await pool.query(
+      "SELECT COUNT(*) FROM users_courses"
+    );
+    const totalEnrolledStudents = parseInt(enrolledUsersResult.rows[0].count);
+
+    const coursesResult = await pool.query("SELECT COUNT(*) FROM courses");
+    const totalCourses = parseInt(coursesResult.rows[0].count);
+
+    res.status(200).json({
+      totalVideos,
+      totalEnrolledStudents,
+      totalCourses,
+    });
+  } catch (error) {
+    console.error("Error fetching website statistics:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
 const checkUserEnrollment = async (userId, courseId) => {
   const enrollmentResult = await pool.query(
     'SELECT * FROM users_courses WHERE "userId" = $1 AND "courseId" = $2',
@@ -335,4 +360,5 @@ export {
   enrollUserInCourse,
   deleteCourse,
   updateUserProgress,
+  getWebsiteStats,
 };
