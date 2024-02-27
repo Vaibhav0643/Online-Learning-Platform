@@ -19,6 +19,12 @@ const uploadCourse = async (req, res) => {
       });
     }
 
+    const videoURLsArray = videoURLs.split(",");
+    const videoTitleArray = videoTitle.split(",");
+
+    console.log(videoURLsArray);
+    console.log(videoTitleArray);
+
     let courseBannerImage = null;
     const result = await uploadOnCloudinary(req.file.path);
     if (result) {
@@ -43,11 +49,11 @@ const uploadCourse = async (req, res) => {
     const uploadedCourse = courseResult.rows[0];
     const courseId = uploadedCourse.courseId;
 
-    const videoInsertPromises = videoURLs.map(async (videoURL, index) => {
+    const videoInsertPromises = videoURLsArray.map(async (videoURL, index) => {
       try {
         const result = await pool.query(
           'INSERT INTO course_videos ("courseId", "videoURL","videoNumber","videoTitle") VALUES ($1, $2,$3,$4) RETURNING *',
-          [courseId, videoURL, index + 1, videoTitle[index]]
+          [courseId, videoURL, index + 1, videoTitleArray[index]]
         );
         return result.rows[0];
       } catch (error) {
