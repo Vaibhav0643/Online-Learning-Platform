@@ -9,7 +9,7 @@ function Section5() {
             <div className="section5-part1">
             <p>Enroll into Programs</p>
             <h1>Learning Begins</h1>
-            <h4>Gather a string sense of community in our school community and social approaches.</h4>
+            <h4>Gather a strong sense of community in our school community and social approaches.</h4>
 
             <h4><b>Video Conferencing</b></h4>
             <h5>- Available in WPLMS education
