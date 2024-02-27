@@ -83,9 +83,7 @@ function Login() {
 
   return (
       <div>
-
         <ToastContainer />
-
         <div className="login-form-container">
         <img className="jmanLogo" src={logo} alt="jmanImage" />
           <form onSubmit={handleSubmit}>

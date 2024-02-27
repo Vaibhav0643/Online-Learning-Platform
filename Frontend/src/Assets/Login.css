@@ -6,20 +6,6 @@
 /* If you apply  font-size: 62.5%; then  10px = 1rem*/
 
 
-.login-form-container {
-    /* margin-top: 60px; */
-    display: flex;
-    justify-content: center;
-    font-family: 'Poppins', 'sans-serif';
-    background-image: url(../Images/backgroundImage6.jpg);
-    /* background-color: #00bfff; */
-    background-size: cover;
-
-    /* background-attachment: fixed; */
-    /* background-repeat: no-repeat; */
-
-}
-
 .jmanLogo {
     position: absolute;
     background-position-x: 0%;
@@ -37,11 +23,25 @@
 }
 
 
+.login-form-container {
+    /* margin-top: 60px; */
+    display: flex;
+    justify-content: center;
+    font-family: 'Poppins', 'sans-serif';
+    background-image: url(../Images/backgroundImage6.jpg);
+    background-size: cover;
+
+    /* background-color: #00bfff; */
+    /* background-attachment: fixed; */
+    /* background-repeat: no-repeat; */
+}
+
+
 .login-form-container form {
     margin: 5rem;
     text-align: center;
     padding: 2.5rem 3.75rem;
-    height: 43rem;
+    /* height: 43rem; */
     width: 43rem;
     border-radius: .2rem;
     background: #fff;
@@ -103,8 +103,6 @@
     outline: none;
     border: none;
     border-bottom: 2px solid #ccc;
-
-
 
 }
 
