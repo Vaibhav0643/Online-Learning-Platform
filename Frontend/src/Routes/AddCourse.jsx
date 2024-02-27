@@ -1,4 +1,5 @@
 import {
+  IconButton,
   Button,
   Container,
   Box,
@@ -7,18 +8,19 @@ import {
   Backdrop,
   CircularProgress,
   Tooltip,
+  Divider,
 } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Cookie from "universal-cookie";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 import "../Assets/AddCourse.css";
 import Header from "./Header";
 import Footer from "./Footer";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import DeleteIcon from "@mui/icons-material/Delete";
+import VideoCallIcon from '@mui/icons-material/VideoCall';
 const drawerWidth = 200;
 function AddCourse() {
   const [courseTitle, setCourseTitle] = useState("");
@@ -26,6 +28,7 @@ function AddCourse() {
   const [courseBannerImage, setCourseBannerImage] = useState("");
   const [courseVideo, setCourseVideo] = useState("");
   const [open, setOpen] = useState(false);
+  const [videos, setVideos] = useState([{ title: '', link: '' }]);
   const formData = new FormData();
   const navigator = useNavigate();
 
@@ -39,6 +42,7 @@ function AddCourse() {
     }
   };
 
+
   const cookies = new Cookie();
 
   const handleClose = () => {
@@ -47,6 +51,28 @@ function AddCourse() {
   const handleOpen = () => {
     setOpen(true);
   };
+
+
+  const handleChange = (index, event) => {
+    const { name, value } = event.target;
+    const newVideos = [...videos];
+    newVideos[index][name] = value;
+    setVideos(newVideos);
+  };
+  const handleDeleteVideo = (index) => {
+    let newVideos = [...videos];
+    newVideos = videos.splice(index, 1);
+    setVideos(newVideos);
+    console.log(videos);
+  }
+
+  useEffect(() => {
+    setVideos(videos);
+  }, [videos]);
+  
+  const handleAddVideo = () => {
+    setVideos([...videos, {title:'',link:''}]);
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -165,7 +191,7 @@ function AddCourse() {
           <img className="preview_img" src={courseBannerImage.preview} alt=""/>
         )}
 
-        <Tooltip title="Use YouTube embed URL's seperated by newline">
+        {/* <Tooltip title="Use YouTube embed URL's seperated by newline">
           <TextField
             id="video"
             label="Course Video"
@@ -174,7 +200,44 @@ function AddCourse() {
             onChange={(e) => setCourseVideo(e.target.value)}
             sx={{ margin: "20px 0 10px 0" }}
           />
-        </Tooltip>
+        </Tooltip> */}
+
+        {videos.map((video, index) => (
+        <div key={index}>
+          <input
+            className="video_title"
+            type="text"
+            name="title"
+            placeholder="Video Title"
+            value={video.title}
+            onChange={(e) => handleChange(index, e)}
+          />
+          <input
+            className="video_link"
+            type="text"
+            name="link"
+            placeholder="Video Link"
+            value={video.link}
+            onChange={(e) => handleChange(index, e)}
+          />
+          <IconButton className="deleteButton" color="error" aria-label="add to shopping cart"  onClick={() => handleDeleteVideo(index)}>
+            <DeleteIcon/>
+          </IconButton>
+        </div>
+      ))}
+
+        <Button 
+          variant="contained" 
+          startIcon={<VideoCallIcon />}
+          sx={{ margin: "10px 0", padding: "15px" }}
+          disableElevation
+          onClick={handleAddVideo}
+        >
+          Add Video
+        </Button>
+
+        <Divider sx={{ margin: "10px 0",}} />
+        
         <Button
           onClick={handleOpen}
           sx={{ margin: "10px 0", padding: "15px" }}
