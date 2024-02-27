@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState ,useEffect } from "react";
 import "../Assets/IndividualCourses.css";
 import Header from "../Routes/Header";
 import Footer from "../Routes/Footer";
@@ -14,8 +14,22 @@ function IndividualCourse() {
   const params = useParams();
   const [course, setCourse] = React.useState(null);
   const [checkedVideos, setCheckedVideos] = React.useState({});
+  const [admin , setAdmin]=useState(false);
+
+  const id = params.id;
+
+  useEffect(() => {
+    const cookies = new Cookies();
+  
+    const user = JSON.parse(localStorage.getItem("user") || "{}"); // Added "{}" as a fallback
+    if(user && user.userEmail === "ADMIN@GMAIL.COM") {
+      setAdmin(true);
+    }
+  }, [params.id]);
+
 
   const progress = Object.values(checkedVideos).filter(checked => checked).length / (course?.courseDetails.videos.length || 1) * 100;
+
   const handleCheckboxChange = (index) => {
     setCheckedVideos(prevState => ({
       ...prevState,
@@ -23,7 +37,6 @@ function IndividualCourse() {
     }));
   };
 
-  const id = params.id;
   React.useEffect(() => {
     const cookies = new Cookies();
     axios
@@ -90,12 +103,14 @@ function IndividualCourse() {
             : "Course Description"}
         </p>
         <Toolbar />
-        <Box sx={{
+
+        {!admin && <Box sx={{
           position: 'relative',
           display: 'inline-flex',
           justifyContent: 'center',
           alignItems: 'center',
         }}>
+
           {/* Background Circle (Empty Part) */}
           <CircularProgress
             variant="determinate"
@@ -141,6 +156,8 @@ function IndividualCourse() {
             </Typography>
           </Box>
         </Box>
+        }
+        
 
           {course && course.courseDetails.videos ? (
             course.courseDetails.videos.map((video, index) => {
@@ -164,7 +181,7 @@ function IndividualCourse() {
                   </iframe>
 
                   <br />
-                  <FormControlLabel control={<Checkbox checked={checkedVideos[index] || false} onChange={() => handleCheckboxChange(index)} />} label="Complete" />
+                 {!admin && <FormControlLabel control={<Checkbox checked={checkedVideos[index] || false} onChange={() => handleCheckboxChange(index)} />} label="Complete" />}
                 </div>
               );
             })
