@@ -24,7 +24,7 @@ const data = [
     id: 4,
     number: 10,
     topic: "Different Fields",
-    content: "Top Cousres of the demanding Fields",
+    content: "Top Courses of the demanding Fields",
   },
 ];
 
