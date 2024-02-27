@@ -5,7 +5,7 @@ import Footer from "../Routes/Footer";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Cookies from "universal-cookie";
-import { Button, Toolbar, Typography, Avatar, Box, CircularProgress, Checkbox, FormControlLabel } from "@mui/material";
+import { Button, Toolbar, Typography, Avatar, Box, CircularProgress, Checkbox, Container, FormControlLabel } from "@mui/material";
 import profile from "../Images/profile.png";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -81,6 +81,33 @@ function IndividualCourse() {
       });
   };
 
+  const courseVideos = () => {
+    return course.courseDetails.videos.map((video, index) => {
+      return (
+        <div key={index}>
+          <h2 style={{ color: "blue", marginBottom: "2rem" }}>Title</h2>
+          <iframe
+            width="450"
+            height="340"
+            src={video.videoURL}
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            style={{
+              marginBottom: "2rem",
+              marginLeft:"1rem",
+              marginRight:"1rem"
+            }}
+            className="course-video">
+          </iframe>
+
+          <br />
+         {!admin && <FormControlLabel control={<Checkbox checked={checkedVideos[index] || false} onChange={() => handleCheckboxChange(index)} />} label="Complete" />}
+        </div>
+      );
+    });
+  }
   return (
     <div className="IndividualCourse">
       <Header />
@@ -160,31 +187,32 @@ function IndividualCourse() {
         
 
           {course && course.courseDetails.videos ? (
-            course.courseDetails.videos.map((video, index) => {
-              return (
-                <div key={index}>
-                  <h2 style={{ color: "blue", marginBottom: "2rem" }}>Title</h2>
-                  <iframe
-                    width="560"
-                    height="315"
-                    src={video.videoURL}
-                    title="YouTube video player"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowfullscreen
-                    style={{
-                      marginBottom: "2rem",
-                      marginLeft:"1rem",
-                      marginRight:"1rem"
-                    }}
-                    className="course-video">
-                  </iframe>
-
-                  <br />
-                 {!admin && <FormControlLabel control={<Checkbox checked={checkedVideos[index] || false} onChange={() => handleCheckboxChange(index)} />} label="Complete" />}
-                </div>
-              );
-            })
+            <Box
+            component="main"
+            sx={{
+              flexGrow: 1,
+              width: "100%",
+              display: "flex",
+              margin: "auto",
+              justifyContent: "left",
+            }}
+          >
+          
+            <Container
+              maxWidth="lg"
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                flexWrap: "wrap",
+                justifyContent: "space-evenly",
+                margin: "auto",
+                marginLeft: 15
+              }}
+            >
+              {courseVideos()}
+            </Container>
+          </Box>
+            
           ) : (
             <>
               <Typography textAlign={"center"} sx={{ color: '#64b5f6' }}>
