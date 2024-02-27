@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios"
 import Cookies from "universal-cookie";
-
+import DashboardImg from "./DashboardImg";
 
 function Dashboard() {
   const [allCourses, setAllCourses] = useState([]);
@@ -94,6 +94,7 @@ function Dashboard() {
   return (
     <Box sx={{ display: { sx: "flex" } }}>
     <Header/>
+    <DashboardImg/>
       <CssBaseline />
       
       {admin ?
