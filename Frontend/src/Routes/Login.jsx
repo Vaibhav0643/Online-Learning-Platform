@@ -3,9 +3,11 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Cookies from "universal-cookie";
-
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import logo from "../Images/jmanlogo.png";
+
+
 
 function Login() {
   let navigate = useNavigate();
@@ -76,11 +78,16 @@ function Login() {
       });
   };
 
+
+
+
   return (
-    <div className="app_content">
       <div>
+
         <ToastContainer />
+
         <div className="login-form-container">
+        <img className="jmanLogo" src={logo} alt="jmanImage" />
           <form onSubmit={handleSubmit}>
             <div>
               <h3>Sign in to your account.</h3>
@@ -91,28 +98,32 @@ function Login() {
                   Join Us to Shape Your Future Today.
                 </span>
               </p>
-              <hr className="divider" />
+              <hr className="login-divider" />
             </div>
 
-            <div className="input_heading">EMAIL</div>
-            <input
-              id="email"
-              type="email"
-              placeholder="name@email.com"
-              className="box"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
+            <div className="loginDiv">
+              <label className="login_input_heading">EMAIL</label>
+              <input
+                id="email"
+                type="email"
+                placeholder="name@email.com"
+                className="box"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
 
-            <div className="input_heading">PASSWORD</div>
-            <input
-              id="password"
-              type="password"
-              placeholder="Enter your password"
-              className="box"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <div className="loginDiv">
+              <label className="login_input_heading">PASSWORD</label>
+              <input
+                id="password"
+                type="password"
+                placeholder="Enter your password"
+                className="box"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
 
             <div className="password_hint">
               <a href="/Forgot" className="forgot">
@@ -120,11 +131,11 @@ function Login() {
               </a>
             </div>
 
-            <button className="btn" disabled={buttonDisabled}>
+            <button className="login_btn" disabled={buttonDisabled}>
               {buttonText}
             </button>
 
-            <hr className="divider" />
+            <hr className="login-divider" />
             <p className="footer_description">
               {" "}
               Don't have an account? <Link to="/Signup">Sign Up  <span>&#x2192; </span>  </Link>{" "}
@@ -132,7 +143,6 @@ function Login() {
           </form>
         </div>
       </div>
-    </div>
   );
 }
 
