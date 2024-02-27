@@ -5,7 +5,7 @@ import Footer from "../Routes/Footer";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Cookies from "universal-cookie";
-import { Button, Toolbar, Typography, Avatar, Box, CircularProgress } from "@mui/material";
+import { Button, Toolbar, Typography, Avatar, Box, CircularProgress, Checkbox, FormControlLabel } from "@mui/material";
 import profile from "../Images/profile.png";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -13,28 +13,35 @@ import "react-toastify/dist/ReactToastify.css";
 function IndividualCourse() {
   const params = useParams();
   const [course, setCourse] = React.useState(null);
-  const [progress, setProgress] = React.useState(0);
-  const handleProgress = () => {
-    setProgress((prevProgress) => prevProgress >= 100 ? 100 : prevProgress + 100/course.courseDetails.videos.length);
-  };
+  const [checkedVideos, setCheckedVideos] = React.useState({});
 
+  const progress = Object.values(checkedVideos).filter(checked => checked).length / (course?.courseDetails.videos.length || 1) * 100;
+  const handleCheckboxChange = (index) => {
+    setCheckedVideos(prevState => ({
+      ...prevState,
+      [index]: !prevState[index]
+    }));
+  };
 
   const id = params.id;
   React.useEffect(() => {
     const cookies = new Cookies();
     axios
-      .get(
-        `https://online-learning-platform-r55m.onrender.com/api/v1/course/${id}/getCourseDetails`,
-        {
-          headers: {
-            Authorization: "Bearer " + cookies.get("token"),
-          },
-        }
-      )
+      .get(`https://online-learning-platform-r55m.onrender.com/api/v1/course/${params.id}/getCourseDetails`, {
+        headers: {
+          Authorization: "Bearer " + cookies.get("token"),
+        },
+      })
       .then((res) => {
         setCourse(res.data);
+        const initialCheckState = res.data.courseDetails.videos.reduce((acc, _, index) => {
+          acc[index] = false;
+          return acc;
+        }, {});
+        setCheckedVideos(initialCheckState);
       });
-  }, [id]);
+  }, [params.id]);
+
 
   const enroll = () => {
     const cookies = new Cookies();
@@ -84,91 +91,93 @@ function IndividualCourse() {
         </p>
         <Toolbar />
         <Box sx={{
-  position: 'relative',
-  display: 'inline-flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-}}>
-  {/* Background Circle (Empty Part) */}
-  <CircularProgress
-    variant="determinate"
-    value={100} // Full circle
-    size={100}
-    thickness={5}
-    sx={{
-      color: 'rgb(157, 157, 250)', // Example custom color for the empty part (light grey)
-      position: 'absolute', // Position it behind the actual progress circle
-    }}
-  />
-  {/* Actual Progress Circle (Filled Part) */}
-  <CircularProgress
-    variant="determinate"
-    value={progress}
-    size={100}
-    thickness={5}
-    sx={{
-      color: 'Blue', // Example custom color for the progress part (light blue)
-      // Ensure this circle is visually on top of the background circle
-    }}
-  />
-  <Box
-    sx={{
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      bottom: 0,
-      right: 0,
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-    }}
-  >
-    <Typography
-      variant="caption"
-      component="div"
-      sx={{
-        color: 'Blue', // Example custom color for the text
-        fontWeight: 'bold',
-      }}
-    >
-      {`${Math.round(progress)}%`}
-    </Typography>
-  </Box>
-</Box>
-        {course && course.courseDetails.videos ? (
-          course.courseDetails.videos.map((video, index) => {
-            return (
-              <div key={index}>
-                <h2 style={{ color: "blue", marginBottom: "2rem" }}>Title</h2>
-                <iframe
-                  width="560"
-                  height="315"
-                  src={video.videoURL}
-                  title="YouTube video player"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowfullscreen
-                  style={{
-                    marginBottom: "2rem"
-                  }}
-                  className="course-video">
-                </iframe>
-
-                <br />
-                <button className="complete-button" onClick={handleProgress}>Complete</button>
-              </div>
-            );
-          })
-        ) : (
-          <>
-            <Typography textAlign={"center"} sx={{ color: '#64b5f6' }}>
-              You Are Not Enrolled Yet
+          position: 'relative',
+          display: 'inline-flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+          {/* Background Circle (Empty Part) */}
+          <CircularProgress
+            variant="determinate"
+            value={100} // Full circle
+            size={100}
+            thickness={5}
+            sx={{
+              color: 'rgb(157, 157, 250)', // Example custom color for the empty part (light grey)
+              position: 'absolute', // Position it behind the actual progress circle
+            }}
+          />
+          {/* Actual Progress Circle (Filled Part) */}
+          <CircularProgress
+            variant="determinate"
+            value={progress}
+            size={100}
+            thickness={5}
+            sx={{
+              color: 'Blue',
+            }}
+          />
+          <Box
+            sx={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              bottom: 0,
+              right: 0,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Typography
+              variant="caption"
+              component="div"
+              sx={{
+                color: 'Blue',
+                fontWeight: 'bold',
+              }}
+            >
+              {`${Math.round(progress)}%`}
             </Typography>
-            <Button variant="contained" onClick={enroll} sx={{ width: "20vw", mt: 2 }}>
-              Enroll
-            </Button>
-          </>
-        )}
+          </Box>
+        </Box>
+
+          {course && course.courseDetails.videos ? (
+            course.courseDetails.videos.map((video, index) => {
+              return (
+                <div key={index}>
+                  <h2 style={{ color: "blue", marginBottom: "2rem" }}>Title</h2>
+                  <iframe
+                    width="560"
+                    height="315"
+                    src={video.videoURL}
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen
+                    style={{
+                      marginBottom: "2rem",
+                      marginLeft:"1rem",
+                      marginRight:"1rem"
+                    }}
+                    className="course-video">
+                  </iframe>
+
+                  <br />
+                  <FormControlLabel control={<Checkbox checked={checkedVideos[index] || false} onChange={() => handleCheckboxChange(index)} />} label="Complete" />
+                </div>
+              );
+            })
+          ) : (
+            <>
+              <Typography textAlign={"center"} sx={{ color: '#64b5f6' }}>
+                You Are Not Enrolled Yet
+              </Typography>
+              <Button variant="contained" onClick={enroll} sx={{ width: "20vw", mt: 2 }}>
+                Enroll
+              </Button>
+            </>
+          )}
 
         <Toolbar />
         {course && course.courseDetails.enrolledUsers ? (
@@ -200,3 +209,5 @@ function IndividualCourse() {
 }
 
 export default IndividualCourse;
+
+
