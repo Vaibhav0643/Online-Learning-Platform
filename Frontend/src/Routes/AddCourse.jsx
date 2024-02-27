@@ -22,11 +22,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import DeleteIcon from "@mui/icons-material/Delete";
 import VideoCallIcon from '@mui/icons-material/VideoCall';
 const drawerWidth = 200;
+
 function AddCourse() {
   const [courseTitle, setCourseTitle] = useState("");
   const [courseDescription, setCourseDescription] = useState("");
   const [courseBannerImage, setCourseBannerImage] = useState("");
-  const [courseVideo, setCourseVideo] = useState("");
   const [open, setOpen] = useState(false);
   const [videos, setVideos] = useState([{ title: '', link: '' }]);
   const formData = new FormData();
@@ -77,6 +77,32 @@ function AddCourse() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    let isSafe = true;
+    const titles = videos.map(video => {
+      if (!video.title.trim()) {
+        isSafe = false
+      }
+      return video.title;
+    });
+    if(!isSafe){
+      toast.error("Please fill all the video Titles.");
+      handleClose();
+      return;
+    }
+    
+    // Extract links from videos
+    const links = videos.map(video => {
+      if (!video.link.trim()) {
+        isSafe = false
+      }
+      return video.link;
+    });
+    if(!isSafe){
+      toast.error("Please fill all the video Links.");
+      handleClose();
+      return;
+    }
+
     if (!courseTitle.trim()) {
       toast.error("Please enter a course title.");
       handleClose();
@@ -92,21 +118,21 @@ function AddCourse() {
       handleClose();
       return;
     }
-    if (!courseVideo.trim()) {
-      toast.error("Please enter at least one course video URL.");
+    if(links.length === 0){
+      toast.error("Please upload atleast 1 course video.");
       handleClose();
       return;
     }
+    
 
 
     formData.append("courseTitle", courseTitle);
     formData.append("courseDescription", courseDescription);
     formData.append("courseBannerImage", courseBannerImage.data);
-    const videos = courseVideo.split("\n");
+    formData.append("videoURLs", links);
+    formData.append("videoTitle", titles);
     console.log(videos);
-    videos.forEach((video, index) => {
-      formData.append(`videoURLs[${index}]`, video);
-    });
+    
 
     const token = cookies.get("token");
     console.log(token);
@@ -192,17 +218,6 @@ function AddCourse() {
             <img className="preview_img" src={courseBannerImage.preview} alt="" />
           )}
 
-          {/* <Tooltip title="Use YouTube embed URL's seperated by newline">
-          <TextField
-            id="video"
-            label="Course Video"
-            multiline={true}
-            variant="outlined"
-            onChange={(e) => setCourseVideo(e.target.value)}
-            sx={{ margin: "20px 0 10px 0" }}
-          />
-        </Tooltip> */}
-
           {videos.map((video, index) => (
             <div key={index}>
               <input
@@ -227,6 +242,7 @@ function AddCourse() {
             </div>
           ))}
 
+          <Tooltip title="Use YouTube embed URL's seperated by newline">
           <Button
             variant="contained"
             startIcon={<VideoCallIcon />}
@@ -236,7 +252,8 @@ function AddCourse() {
           >
             Add Video
           </Button>
-
+          </Tooltip>
+            
           <Divider sx={{ margin: "10px 0", }} />
 
           <Button
