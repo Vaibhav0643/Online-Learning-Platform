@@ -83,19 +83,19 @@ export default function Courses(props) {
       </CardContent>
       <CardActions >
         {ifAdmin && (
-          <Button component={Link} to={"/EditCourse/" + props.id} sx={{ textDecoration: "none" }}>
-            <EditIcon />
+          <Button variant="outlined"  component={Link} to={"/EditCourse/" + props.id} sx={{ textDecoration: "none" }}>
+            <EditIcon sx={{ marginRight: "3px" }}/>
             Edit
           </Button>
         )}
         {ifAdmin && (
-          <Button sx={{ color: Red[500] }} onClick={deleteCourse}>
-            <DeleteIcon />
+          <Button variant="outlined" color="error" onClick={deleteCourse}>
+            <DeleteIcon sx={{ marginRight: "3px" }}/>
             Delete
           </Button>
         )}
-        <Button component={Link} to={"/IndividualCourses/" + props.id} sx={{ textDecoration: "none" }}>
-          <RemoveRedEyeIcon />
+        <Button variant="outlined"  component={Link} to={"/IndividualCourses/" + props.id} sx={{ textDecoration: "none" }}>
+          <RemoveRedEyeIcon sx={{ marginRight: "3px" }} />
           View
         </Button>
       </CardActions>
