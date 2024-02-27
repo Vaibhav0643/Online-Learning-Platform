@@ -60,8 +60,8 @@ function AddCourse() {
     setVideos(newVideos);
   };
   const handleDeleteVideo = (index) => {
-    videos.splice(index, 1);
-    let newVideos = videos;
+    let newVideos = [...videos];
+    newVideos.splice(index, 1);
     setVideos(newVideos);
     console.log(videos);
   }
