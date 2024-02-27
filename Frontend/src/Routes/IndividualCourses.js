@@ -51,11 +51,11 @@ function IndividualCourse() {
       .then((res) => {
         setCourse(res.data);
         console.log(res.data);
-        const initialCheckState = res.data.courseDetails.videos.reduce((acc, _, index) => {
-          acc[index] = false;
-          return acc;
-        }, {});
-        setCheckedVideos(initialCheckState);
+        // const initialCheckState = res.data.courseDetails.videos.reduce((acc, _, index) => {
+        //   acc[index] = false;
+        //   return acc;
+        // }, {});
+        // setCheckedVideos(initialCheckState);
       });
   }, [params.id]);
 
@@ -123,7 +123,7 @@ function IndividualCourse() {
               : `../Image/machinelearning.jpg`
           }
           alt=""
-          width="100px"
+          width="400px"
           height="auto"
         />
 
@@ -135,7 +135,7 @@ function IndividualCourse() {
         </p>
         <Toolbar />
 
-        {!admin && <Box sx={{
+        {!admin && course && course.courseDetails.videos && <Box sx={{
           position: 'relative',
           display: 'inline-flex',
           justifyContent: 'center',
