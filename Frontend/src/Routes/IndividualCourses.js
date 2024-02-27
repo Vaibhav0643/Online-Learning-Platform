@@ -2,7 +2,7 @@ import React from "react";
 import "../Assets/IndividualCourses.css";
 import Header from "../Routes/Header";
 import Footer from "../Routes/Footer";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import { Button, Toolbar, Typography, Avatar, Box, CircularProgress } from "@mui/material";
@@ -15,7 +15,7 @@ function IndividualCourse() {
   const [course, setCourse] = React.useState(null);
   const [progress, setProgress] = React.useState(0);
   const handleProgress = () => {
-    setProgress((prevProgress) => prevProgress >= 100 ? 100 : prevProgress + 20);
+    setProgress((prevProgress) => prevProgress >= 100 ? 100 : prevProgress + 100/course.courseDetails.videos.length);
   };
 
 

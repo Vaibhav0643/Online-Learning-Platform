@@ -19,8 +19,8 @@ const data = [
     id: 3,
     image: "elena.jpg",
     name: "Elena Cagan",
-    expertise: "Vcabulary and Arts",
-    designation: "Evangelist, Grammarly Inc.",
+    expertise: "Vocabulary and Arts",
+    designation: "CEO, Grammarly Inc.",
   },
 ];
 
