@@ -21,7 +21,7 @@ function IndividualCourse() {
   useEffect(() => {
     const cookies = new Cookies();
   
-    const user = JSON.parse(localStorage.getItem("user") || "{}"); // Added "{}" as a fallback
+    const user = JSON.parse(localStorage.getItem("user") || "{}"); 
     if(user && user.userEmail === "ADMIN@GMAIL.COM") {
       setAdmin(true);
     }
@@ -29,7 +29,7 @@ function IndividualCourse() {
 
 
   let progress;
-  if(admin){
+  if(!admin){
     progress = Object.values(checkedVideos).filter(checked => checked).length / (course?.courseDetails.videos.length || 1) * 100;
   }
 
@@ -51,11 +51,6 @@ function IndividualCourse() {
       .then((res) => {
         setCourse(res.data);
         console.log(res.data);
-        // const initialCheckState = res.data.courseDetails.videos.reduce((acc, _, index) => {
-        //   acc[index] = false;
-        //   return acc;
-        // }, {});
-        // setCheckedVideos(initialCheckState);
       });
   }, [params.id]);
 
@@ -210,7 +205,8 @@ function IndividualCourse() {
                 flexWrap: "wrap",
                 justifyContent: "space-evenly",
                 margin: "auto",
-                marginLeft: 15
+                marginLeft: 8,
+                marginRight:8
               }}
             >
               {courseVideos()}
