@@ -136,11 +136,11 @@ function Register() {
 
       .catch((error) => {
         if (error.response.status === 409) {
-          setMessage("User Already Exists");
+          toast.error("User Already Exists");
         } else if (error.response.status === 400) {
-          setMessage("Please fill all the fields");
+          toast.error("Recheck Your Inputs, You Made an Error");
         } else {
-          setMessage("Something went wrong");
+          toast.error("Something went wrong");
         }
         setBtnDisabled(false);
         setButtonText("Sign Up");
