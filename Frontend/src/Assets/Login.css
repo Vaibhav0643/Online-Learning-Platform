@@ -142,7 +142,8 @@
 
 
 .footer_description a {
-    color: rgb(0, 86, 210);
+    /* color: rgb(0, 86, 210); */
+    color: rgb(10, 10, 129);
     text-decoration: none;
 }
 

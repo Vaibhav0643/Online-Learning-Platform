@@ -156,7 +156,7 @@ function Register() {
     <div>
       <ToastContainer />
       <div className="signup-form-container">
-        <img className="jmanLogo" src={logo} alt="jmanImage" />
+      <Link to="/"><img className="jmanLogo" src={logo} alt="jmanImage"  /></Link> 
 
         <form onSubmit={handleSubmit}>
           <div>

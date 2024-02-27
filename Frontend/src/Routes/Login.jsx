@@ -87,7 +87,7 @@ function Login() {
         <ToastContainer />
 
         <div className="login-form-container">
-        <img className="jmanLogo" src={logo} alt="jmanImage" />
+        <Link to="/"><img className="jmanLogo" src={logo} alt="jmanImage"  /></Link>
           <form onSubmit={handleSubmit}>
             <div>
               <h3>Sign in to your account.</h3>
