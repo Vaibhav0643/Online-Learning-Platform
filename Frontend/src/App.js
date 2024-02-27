@@ -2,7 +2,7 @@ import "./App.css";
 import Dashboard from "./Routes/dashboard.jsx";
 import Home from "./Routes/Home";
 import Login from "./Routes/Login";
-import Forgot from "./Routes/Forgot";
+// import Forgot from "./Routes/Forgot";
 import Register from "./Routes/Register";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Enrollment from "./Routes/Enrollment";
@@ -24,7 +24,7 @@ function App() {
         <Route path="/Courses" element={<Courses />} />
         <Route path="/Upload" element={<Upload />} />
         <Route path="/" element={<Home />} />
-        <Route path="/Forgot" element={<Forgot />} />
+        {/* <Route path="/Forgot" element={<Forgot />} /> */}
         <Route path="/AddCourse" element={<AddCourse />} />
         <Route path="/IndividualCourses/:id" element={<IndividualCourses />} />
         <Route path="/EditCourse/:id" element={<EditCourse />} />
