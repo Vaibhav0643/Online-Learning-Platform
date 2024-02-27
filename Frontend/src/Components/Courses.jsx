@@ -73,7 +73,7 @@ export default function Courses(props) {
           color="text.secondary"
           sx={{ textAlign: "right", color:'#1976d2' }}
         >
-          {props.videoCount - 1} Videos
+          {props.videoCount} Videos
         </Typography>
       </CardContent>
       <CardActions >
