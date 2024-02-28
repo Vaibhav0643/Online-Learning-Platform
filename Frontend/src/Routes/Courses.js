@@ -65,7 +65,7 @@ function Courses() {
   };
 
   return (
-    <Box sx={{ display: { sx: "flex" } }}>
+    <Box sx={{ display: "flex", flexDirection: "column" }}>
       <Header />
       <Typography
         variant="h4"
@@ -102,7 +102,6 @@ function Courses() {
             flexWrap: "wrap",
             justifyContent: "space-evenly",
             margin: "auto",
-            marginLeft: 5,
           }}
         >
           {allCoursesDisplay()}
