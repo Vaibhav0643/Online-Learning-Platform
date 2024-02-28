@@ -42,7 +42,7 @@ const uploadCourse = async (req, res) => {
         courseDescription,
         courseBannerImage,
         req.userId,
-        videoURLs.length,
+        videoURLsArray.length,
       ]
     );
 
