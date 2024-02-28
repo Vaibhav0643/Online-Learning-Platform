@@ -40,7 +40,7 @@ function EditCourse() {
     try {
       const response = await fetch(url);
       const blob = await response.blob();
-      console.log(blob);
+      // console.log(blob);
       return blob;
     } catch (error) {
       console.error('Error fetching image data:', error);
@@ -50,7 +50,7 @@ function EditCourse() {
 
 
   const handleImageChange = (event) => {
-    console.log(event.target.files[0]);
+    // console.log(event.target.files[0]);
     if (event.target.files && event.target.files[0]) {
       const img = {
         preview: URL.createObjectURL(event.target.files[0]),
@@ -92,8 +92,8 @@ function EditCourse() {
         data: imageData,
       };
       setCourseBannerImage(img);
-      console.log("IMAGE");
-      console.log(img);
+      // console.log("IMAGE");
+      // console.log(img);
 
       const formattedData = resData.courseDetails.videos.map((video) => {
         return { title: video.videoTitle, link: video.videoURL };
@@ -189,12 +189,12 @@ function EditCourse() {
     formData.append("videoURLs", links);
     formData.append("videoTitle", titles);
 
-    // Retrieve value associated with a specific key using get()
-    console.log(formData.get("courseTitle"));
-    console.log(formData.get("courseDescription"));
-    console.log(formData.get("courseBannerImage"));
-    console.log(formData.get("videoURLs"));
-    console.log(formData.get("videoTitle"));
+    //// Retrieve value associated with a specific key using get()
+    // console.log(formData.get("courseTitle"));
+    // console.log(formData.get("courseDescription"));
+    // console.log(formData.get("courseBannerImage"));
+    // console.log(formData.get("videoURLs"));
+    // console.log(formData.get("videoTitle"));
 
     const token = cookies.get("token");
 
