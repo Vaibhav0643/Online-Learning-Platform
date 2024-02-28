@@ -17,14 +17,11 @@ import { useNavigate } from "react-router-dom";
 import "../Assets/AddCourse.css";
 import Header from "./Header";
 import Footer from "./Footer";
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import DeleteIcon from "@mui/icons-material/Delete";
-import VideoCallIcon from '@mui/icons-material/VideoCall';
+import VideoCallIcon from "@mui/icons-material/VideoCall";
 import { useParams } from "react-router-dom";
-
-
-const drawerWidth = 200;
 
 function EditCourse() {
   const params = useParams();
@@ -33,7 +30,7 @@ function EditCourse() {
   const [courseDescription, setCourseDescription] = useState("");
   const [courseBannerImage, setCourseBannerImage] = useState("");
   const [open, setOpen] = useState(false);
-  const [videos, setVideos] = useState([{ title: '', link: '' }]);
+  const [videos, setVideos] = useState([{ title: "", link: "" }]);
   const [loading, setLoading] = useState(true); // New state variable for loading indicator
 
   const formData = new FormData();
@@ -74,15 +71,14 @@ function EditCourse() {
         //     .then(response => response.blob()),
         // };
         // setCourseBannerImage(img);
-        
-        const formattedData = data.courseDetails.videos.map(video => {
+
+        const formattedData = data.courseDetails.videos.map((video) => {
           return { title: video.videoTitle, link: video.videoURL };
-        })
+        });
         setVideos(formattedData);
         setLoading(false);
       });
-
-  }, []); // Empty dependency array ensures the effect runs only once when component mounts
+  }, [params.id]); // Empty dependency array ensures the effect runs only once when component mounts
 
   const cookies = new Cookies();
 
@@ -92,7 +88,6 @@ function EditCourse() {
   const handleOpen = () => {
     setOpen(true);
   };
-
 
   const handleChange = (index, event) => {
     const { name, value } = event.target;
@@ -104,23 +99,23 @@ function EditCourse() {
     let newVideos = [...videos];
     newVideos.splice(index, 1);
     setVideos(newVideos);
-  }
+  };
 
   useEffect(() => {
     setVideos(videos);
   }, [videos]);
 
   const handleAddVideo = () => {
-    setVideos([...videos, { title: '', link: '' }]);
-  }
+    setVideos([...videos, { title: "", link: "" }]);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     let isSafe = true;
-    const titles = videos.map(video => {
+    const titles = videos.map((video) => {
       if (!video.title.trim()) {
-        isSafe = false
+        isSafe = false;
       }
       return video.title;
     });
@@ -131,9 +126,9 @@ function EditCourse() {
     }
 
     // Extract links from videos
-    const links = videos.map(video => {
+    const links = videos.map((video) => {
       if (!video.link.trim()) {
-        isSafe = false
+        isSafe = false;
       }
       return video.link;
     });
@@ -164,8 +159,6 @@ function EditCourse() {
       return;
     }
 
-
-
     formData.append("courseTitle", courseTitle);
     formData.append("courseDescription", courseDescription);
     formData.append("courseBannerImage", courseBannerImage.data);
@@ -173,12 +166,11 @@ function EditCourse() {
     formData.append("videoTitle", titles);
 
     // Retrieve value associated with a specific key using get()
-    console.log(formData.get('courseTitle'));
-    console.log(formData.get('courseDescription'));
-    console.log(formData.get('courseBannerImage'));
-    console.log(formData.get('videoURLs'));
-    console.log(formData.get('videoTitle'));
-
+    console.log(formData.get("courseTitle"));
+    console.log(formData.get("courseDescription"));
+    console.log(formData.get("courseBannerImage"));
+    console.log(formData.get("videoURLs"));
+    console.log(formData.get("videoTitle"));
 
     const token = cookies.get("token");
 
@@ -198,7 +190,7 @@ function EditCourse() {
         console.log(res.data);
         toast.success("Course updated Successfully!");
         setTimeout(() => {
-          navigator('/dashboard');
+          navigator("/dashboard");
         }, 5000);
         handleClose();
       })
@@ -219,11 +211,11 @@ function EditCourse() {
   }, [navigator]);
 
   return (
-
-    <div >
+    <div>
       <Header />
-      {loading ?
-        <p></p> :
+      {loading ? (
+        <p></p>
+      ) : (
         <Container maxWidth="sm" className="add-course">
           <ToastContainer />
           <Box
@@ -256,14 +248,22 @@ function EditCourse() {
               variant="outlined"
               sx={{ margin: "10px 0" }}
             />
-            <Button variant="outlined" component="label" sx={{ margin: "10px 0 0 0", padding: "12px" }}>
-            Upload course cover image
-            <input type="file" onChange={handleImageChange} hidden />
-          </Button>
+            <Button
+              variant="outlined"
+              component="label"
+              sx={{ margin: "10px 0 0 0", padding: "12px" }}
+            >
+              Upload course cover image
+              <input type="file" onChange={handleImageChange} hidden />
+            </Button>
 
             {courseBannerImage !== "" && (
-            <img className="preview_img" src={courseBannerImage.preview} alt="" />
-          )}
+              <img
+                className="preview_img"
+                src={courseBannerImage.preview}
+                alt=""
+              />
+            )}
 
             {videos.map((video, index) => (
               <div key={index}>
@@ -283,7 +283,12 @@ function EditCourse() {
                   value={video.link}
                   onChange={(e) => handleChange(index, e)}
                 />
-                <IconButton className="deleteButton" color="error" aria-label="add to shopping cart" onClick={() => handleDeleteVideo(index)}>
+                <IconButton
+                  className="deleteButton"
+                  color="error"
+                  aria-label="add to shopping cart"
+                  onClick={() => handleDeleteVideo(index)}
+                >
                   <DeleteIcon />
                 </IconButton>
               </div>
@@ -301,13 +306,13 @@ function EditCourse() {
               </Button>
             </Tooltip>
 
-            <Divider sx={{ margin: "10px 0", }} />
+            <Divider sx={{ margin: "10px 0" }} />
 
             <Button
               onClick={handleOpen}
               sx={{ margin: "10px 0", padding: "15px" }}
               variant="contained"
-              style={{ backgroundColor: '#0a0a81', color: '#FFFFFF' }}
+              style={{ backgroundColor: "#0a0a81", color: "#FFFFFF" }}
               type="submit"
               className="submit-btn"
             >
@@ -324,12 +329,10 @@ function EditCourse() {
             <CircularProgress color="inherit" />
           </Backdrop>
         </Container>
-      }
+      )}
 
       <Footer />
     </div>
-
-
   );
 }
 export default EditCourse;

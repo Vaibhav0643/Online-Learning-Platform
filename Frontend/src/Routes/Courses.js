@@ -1,7 +1,7 @@
 import CoursesContent from "../Components/Courses";
 import Header from "./Header";
 import Footer from "./Footer";
-import { Box, Toolbar, Divider, Container, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -83,10 +83,11 @@ function Courses() {
           width: "90%",
           display: "flex",
           flexWrap: "wrap",
-          justifyContent: "space-around",
-          alignItems: "flex-start",
+          justifyContent: "flex-start",
+          alignItems: "center",
           margin: "2% auto",
           padding: "10px",
+          columnGap: "20px",
         }}
       >
         {allCoursesDisplay()}

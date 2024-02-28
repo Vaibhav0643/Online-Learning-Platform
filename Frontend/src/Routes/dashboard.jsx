@@ -1,14 +1,7 @@
 import Courses from "../Components/Courses";
 import Header from "./Header";
 import Footer from "./Footer";
-import {
-  Box,
-  CssBaseline,
-  Toolbar,
-  Divider,
-  Container,
-  Typography,
-} from "@mui/material";
+import { Box, CssBaseline, Divider, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -57,7 +50,7 @@ function Dashboard() {
     };
 
     fetchData();
-  }, [navigate]);
+  }, [navigate, allCourses]);
 
   const userCoursesDisplay = () => {
     if (userCourses) {
@@ -131,10 +124,11 @@ function Dashboard() {
               width: "90%",
               display: "flex",
               flexWrap: "wrap",
-              justifyContent: "space-around",
-              alignItems: "flex-start",
+              justifyContent: "flex-start",
+              alignItems: "center",
               margin: "2% auto",
               padding: "10px",
+              columnGap: "20px",
             }}
           >
             {allCoursesDisplay()}
@@ -163,10 +157,11 @@ function Dashboard() {
               width: "90%",
               display: "flex",
               flexWrap: "wrap",
-              justifyContent: "space-around",
-              alignItems: "flex-start",
+              justifyContent: "flex-start",
+              alignItems: "center",
               margin: "2% auto",
               padding: "10px",
+              columnGap: "20px",
             }}
           >
             {userCoursesDisplay()}
