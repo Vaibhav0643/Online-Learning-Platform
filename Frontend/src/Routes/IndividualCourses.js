@@ -23,7 +23,7 @@ import "react-toastify/dist/ReactToastify.css";
 function IndividualCourse() {
   const params = useParams();
   const [course, setCourse] = React.useState(null);
-  const [checkedVideos, setCheckedVideos] = React.useState({});
+  const [checkedVideos, setCheckedVideos] = React.useState(null);
   const [admin, setAdmin] = useState(false);
 
   const id = params.id;
@@ -36,7 +36,8 @@ function IndividualCourse() {
 
   let progress;
   if (!admin) {
-    if (checkedVideos != {}) {
+    if (checkedVideos != null) {
+      console.log(checkedVideos);
       progress =
         (Object.values(checkedVideos).filter((checked) => checked).length /
           (course?.courseDetails.videos.length || 1)) *
