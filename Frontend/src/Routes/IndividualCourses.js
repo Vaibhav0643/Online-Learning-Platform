@@ -25,15 +25,18 @@ function IndividualCourse() {
   const [course, setCourse] = React.useState(null);
   const [checkedVideos, setCheckedVideos] = React.useState(null);
   const [admin, setAdmin] = useState(false);
-
+  const [checkedVideos, setCheckedVideos] = React.useState([]);
+  const [admin, setAdmin] = useState(false);
+  const [progress, setProgress] = useState(0);
   const id = params.id;
   useEffect(() => {
+
+    const cookies = new Cookies();
     const user = JSON.parse(localStorage.getItem("user") || "{}");
     if (user && user.userEmail === "ADMIN@GMAIL.COM") {
       setAdmin(true);
     }
   }, [params.id]);
-
   let progress;
   if (!admin) {
     if (checkedVideos != null) {
@@ -44,12 +47,41 @@ function IndividualCourse() {
         100;
     }
   }
+  // let progress;
+  // if(!admin){
+  //   progress = Object.values(checkedVideos).filter(checked => checked).length / (course?.courseDetails.videos.length || 1) * 100;
+  // }
 
   const handleCheckboxChange = (index) => {
     setCheckedVideos((prevState) => ({
       ...prevState,
       [index]: !prevState[index],
     }));
+    const cookies = new Cookies();
+
+    const user = JSON.parse(localStorage.getItem("user"));
+    console.table([
+      user.userId,
+      params.id,
+      index + 1,
+      course.courseDetails.videoCount,
+    ]);
+    axios
+      .post(
+        `https://online-learning-platform-r55m.onrender.com/api/v1/course/${
+          user.userId
+        }/${params.id}/${index + 1}/${
+          course.courseDetails.videoCount
+        }/updateUserProgress`,
+        {
+          headers: {
+            Authorization: "Bearer " + cookies.get("token"),
+          },
+        }
+      )
+      .then((res) => {
+        setProgress(res.data.progress);
+      });
   };
 
   React.useEffect(() => {
@@ -67,6 +99,16 @@ function IndividualCourse() {
         setCourse(res.data);
       });
   }, [params.id]);
+        setProgress(res.data.courseDetails.progress);
+        const arr = [];
+        for (let i = 0; i < res.data.courseDetails.videoCount; i++) {
+          arr.push(false);
+        }
+        setCheckedVideos(arr);
+        console.log(progress);
+        console.log(res.data);
+      });
+  }, [params.id]);
 
   const enroll = () => {
     const cookies = new Cookies();
@@ -81,6 +123,7 @@ function IndividualCourse() {
         }
       )
       .then((res) => {
+        console.log(res.data);
         window.location.reload();
         toast.success("Successfully enrolled in the course!");
       })

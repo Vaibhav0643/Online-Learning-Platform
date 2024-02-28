@@ -160,35 +160,18 @@ const enrollUserInCourse = async (req, res) => {
         .json({ error: "User is already enrolled in the course" });
     }
 
-    const isAdmin = req.userType === "admin";
-    const isCourseOwner = await checkCourseOwnership(userId, courseId);
-
-    if (isCourseOwner || isAdmin) {
-      return res
-        .status(400)
-        .json({ error: "User cannot enroll in their own course" });
-    }
-
     await pool.query(
-      'INSERT INTO users_courses ("courseId", "userId","progress") VALUES ($1, $2,0)',
-      [courseId, userId]
+      'INSERT INTO users_courses ("courseId", "userId","progress") VALUES ($1, $2,$3)',
+      [courseId, userId, 0]
     );
-
-    const courseDetails = await fetchCourseDetails(courseId, userId);
 
     res.status(201).json({
       message: "User enrolled in the course successfully",
-      courseDetails,
     });
   } catch (error) {
     console.error("Error enrolling user in the course:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
-};
-
-//****************THIS FUNCTION NEEDS TO BE TESTED*********************
-const getAPIInfo = (req, res) => {
-  res.send("JMAN Courses API Status: ACTIVE");
 };
 
 //****************THIS FUNCTION NEEDS TO BE TESTED*********************
@@ -238,38 +221,6 @@ const getUserCourses = async (req, res) => {
   }
 };
 
-const fetchCourseDetails = async (courseId, userId) => {
-  const courseResult = await pool.query(
-    'SELECT * FROM courses WHERE "courseId" = $1',
-    [courseId]
-  );
-
-  const course = courseResult.rows[0];
-
-  if (!course) {
-    return null;
-  }
-
-  const videosResult = await pool.query(
-    'SELECT * FROM course_videos WHERE "courseId" = $1 ORDER BY "videoId"',
-    [courseId]
-  );
-
-  const userProgress = await pool.query(
-    'SELECT progress FROM users_courses WHERE "courseId" = $1 AND "userId" = $2',
-    [courseId, userId]
-  );
-  const progress = userProgress.rows[0].progress;
-
-  const videos = videosResult.rows;
-
-  return {
-    ...course,
-    videos,
-    progress,
-  };
-};
-
 const deleteCourse = async (req, res) => {
   try {
     const courseId = req.params.courseId;
@@ -298,13 +249,17 @@ const updateUserProgress = async (req, res) => {
     const courseId = req.params.courseId;
     const videoNumber = req.params.videoNumber;
     const videoCount = req.params.videoCount;
+    const userId = req.params.userId;
+
+    console.table([userId, courseId, videoNumber, videoCount]);
 
     const progressPercentage = Math.round((videoNumber / videoCount) * 100);
 
     const userProgress = await pool.query(
-      'UPDATE users_courses SET "progress" = $1 WHERE "courseId" = $2 AND "userId" = $3 RETURNING "progress"',
-      [progressPercentage, courseId, req.userId]
+      'UPDATE users_courses SET "progress" = $1 WHERE "courseId" = $2 AND "userId" = $3 RETURNING *',
+      [progressPercentage, courseId, userId]
     );
+    console.log(userProgress);
 
     const progress = userProgress.rows[0].progress;
 
@@ -357,8 +312,72 @@ const checkCourseOwnership = async (userId, courseId) => {
   return ownershipResult.rows.length > 0;
 };
 
+const editCourse = async (req, res) => {
+  try {
+    console.log("Hello from EDIT");
+    const courseId = req.params.courseId;
+    const { courseTitle, courseDescription, videoURLs, videoTitle } = req.body;
+    console.table([courseTitle, courseDescription, videoURLs, videoTitle]);
+
+    if (!courseTitle || !courseDescription || !videoURLs || !videoTitle) {
+      return res.status(400).json({
+        error:
+          "Course title, description, video URLs, and video titles are required",
+      });
+    }
+
+    // Split video URLs and titles into arrays
+    const videoURLsArray = videoURLs.split(",");
+    const videoTitlesArray = videoTitle.split(",");
+
+    let courseBannerImage = null;
+    if (req.file) {
+      const result = await uploadOnCloudinary(req.file.path);
+      if (result) {
+        courseBannerImage = result.secure_url;
+      } else {
+        return res
+          .status(500)
+          .json({ error: "Failed to upload image to Cloudinary" });
+      }
+    }
+
+    // Update course info
+    const courseUpdateResult = await pool.query(
+      'UPDATE courses SET "courseTitle" = $1, "courseDescription" = $2, "courseBannerImage" = $3 WHERE "courseId" = $4 RETURNING *',
+      [courseTitle, courseDescription, courseBannerImage, courseId]
+    );
+
+    const updatedCourse = courseUpdateResult.rows[0];
+
+    // Update video info
+    const videoUpdatePromises = videoURLsArray.map(async (videoURL, index) => {
+      try {
+        const result = await pool.query(
+          'UPDATE course_videos SET "videoURL" = $1, "videoTitle" = $2 WHERE "courseId" = $3 AND "videoNumber" = $4 RETURNING *',
+          [videoURL, videoTitlesArray[index], courseId, index + 1]
+        );
+        return result.rows[0];
+      } catch (error) {
+        console.error("Error updating video information:", error);
+        return null;
+      }
+    });
+
+    const updatedVideos = await Promise.all(videoUpdatePromises);
+
+    res.status(200).json({
+      message: "Course updated successfully",
+      course: updatedCourse,
+      videos: updatedVideos,
+    });
+  } catch (error) {
+    console.error("Error editing course:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
 export {
-  getAPIInfo,
   getAllCourses,
   getUserCourses,
   getCourseDetails,
@@ -367,4 +386,5 @@ export {
   deleteCourse,
   updateUserProgress,
   getWebsiteStats,
+  editCourse,
 };
