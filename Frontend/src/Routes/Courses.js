@@ -47,18 +47,15 @@ function Courses() {
     if (allCourses) {
       return allCourses.map((course) => {
         return (
-          <div key={course.courseId}>
-            <CoursesContent
-              key={course.courseId}
-              id={course.courseId}
-              title={course.courseTitle}
-              content={course.courseDescription}
-              image={course.courseBannerImage}
-              videoCount={course.videoCount}
-              navigate={navigate}
-            />
-            <Divider />
-          </div>
+          <CoursesContent
+            key={course.courseId}
+            id={course.courseId}
+            title={course.courseTitle}
+            content={course.courseDescription}
+            image={course.courseBannerImage}
+            videoCount={course.videoCount}
+            navigate={navigate}
+          />
         );
       });
     }
@@ -101,7 +98,7 @@ function Courses() {
             flexDirection: "row",
             flexWrap: "wrap",
             justifyContent: "space-around",
-            alignItems: "center",
+            alignItems: "flex-start",
             margin: "auto",
           }}
         >
