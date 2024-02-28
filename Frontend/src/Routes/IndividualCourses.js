@@ -36,7 +36,7 @@ function IndividualCourse() {
 
   let progress;
   if (!admin) {
-    if (!checkedVideos) {
+    if (checkedVideos != {}) {
       progress =
         (Object.values(checkedVideos).filter((checked) => checked).length /
           (course?.courseDetails.videos.length || 1)) *
