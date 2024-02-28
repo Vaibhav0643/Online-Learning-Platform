@@ -245,27 +245,17 @@ function IndividualCourse() {
           <Box
             component="main"
             sx={{
-              flexGrow: 1,
-              width: "100%",
+              width: "90%",
               display: "flex",
-              margin: "auto",
-              justifyContent: "left",
+              flexWrap: "wrap",
+              justifyContent: "space-evenly",
+              alignItems: "center",
+              margin: "2% auto",
+              padding: "10px",
+              columnGap: "20px",
             }}
           >
-            <Container
-              maxWidth="lg"
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                flexWrap: "wrap",
-                justifyContent: "space-evenly",
-                margin: "auto",
-                marginLeft: 8,
-                marginRight: 8,
-              }}
-            >
-              {courseVideos()}
-            </Container>
+            {courseVideos()}
           </Box>
         ) : (
           <>
