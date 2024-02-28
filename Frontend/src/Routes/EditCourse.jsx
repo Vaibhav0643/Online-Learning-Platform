@@ -66,11 +66,15 @@ function EditCourse() {
         // Set data from API response to state variables
         setCourseTitle(data.courseDetails.courseTitle);
         setCourseDescription(data.courseDetails.courseDescription);
-        const img = {
-          preview: data.courseDetails.courseBannerImage,
-          data: data.courseDetails.courseBannerImage,
-        };
-        setCourseBannerImage(img);
+
+        // //********************************************** TO RESOLVE THIS IMAGE URL INTO IMAGE DATA**********************************************
+        // const img = {
+        //   preview: data.courseDetails.courseBannerImage,
+        //   data: fetch(data.courseDetails.courseBannerImage)
+        //     .then(response => response.blob()),
+        // };
+        // setCourseBannerImage(img);
+        
         const formattedData = data.courseDetails.videos.map(video => {
           return { title: video.videoTitle, link: video.videoURL };
         })
