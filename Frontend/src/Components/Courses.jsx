@@ -57,7 +57,7 @@ export default function Courses(props) {
     <Card
       sx={{
         flex: 1,
-        maxWidth: 300,
+        maxWidth: 400,
         minWidth: 300,
         margin: "10px 0",
         borderRadius: "20px",
@@ -76,7 +76,7 @@ export default function Courses(props) {
           objectFit: "cover",
           borderRadius: "20px",
           margin: "10px",
-          maxWidth: 275,
+          maxWidth: "calc(100% - 20px)",
         }}
       />
       <CardHeader title={props.title} sx={{ color: "#000000" }} />
@@ -100,14 +100,19 @@ export default function Courses(props) {
             variant="outlined"
             component={Link}
             to={"/EditCourse/" + props.id}
-            sx={{ textDecoration: "none" }}
+            sx={{ textDecoration: "none", borderRadius: "16px" }}
           >
             <EditIcon sx={{ marginRight: "3px" }} />
             Edit
           </Button>
         )}
         {ifAdmin && (
-          <Button variant="contained" color="error" onClick={deleteCourse}>
+          <Button
+            variant="contained"
+            color="error"
+            onClick={deleteCourse}
+            sx={{ borderRadius: "16px" }}
+          >
             <DeleteIcon sx={{ marginRight: "3px" }} />
             Delete
           </Button>
