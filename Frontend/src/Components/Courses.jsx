@@ -59,16 +59,16 @@ export default function Courses(props) {
   const ifAdmin = user && user.userEmail === "ADMIN@GMAIL.COM";
 
   return (
-    <Card sx={{ maxWidth: 400 , minWidth:400 , height:450 , mb:2 }} className="course-card-dashboard">
+    <Card sx={{ maxWidth: 400 , minWidth:400 , height:450 , mb:3.5 , borderRadius: "20px"}} className="course-card-dashboard">
       <ToastContainer/>
       <CardMedia
         component="img"
         height="200"
         image={props.image}
         alt="Course image"
-        sx={{mt:1,objectFit:"contain"}}
+        sx={{objectFit:"cover", borderRadius: "20px",margin:"10px", maxWidth: 375}}
       />
-      <CardHeader title={props.title} sx={{color:'#64b5f6'}}/>
+      <CardHeader title={props.title} sx={{color:'#000000'}}/>
       <CardContent>
         <Typography variant="body2" color="black">
           {props.content.substring(0, 100) + "..."}
