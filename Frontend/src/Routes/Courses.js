@@ -81,13 +81,14 @@ function Courses() {
         component="main"
         sx={{
           width: "90%",
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "flex-start",
-          alignItems: "center",
-          margin: "2% auto",
-          padding: "10px",
-          columnGap: "20px",
+          margin: "auto",
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+          gap: { sx: 5, md: 3, lg: 10 },
+          justifyContent: "space-between",
+          justifyItems: "center",
+          alignItems: "flex-start",
+          padding: "30px 10px",
         }}
       >
         {allCoursesDisplay()}

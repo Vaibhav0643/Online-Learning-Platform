@@ -1,5 +1,5 @@
 import React from "react";
-import coverimage from "../Images/cover.jpg";
+import coverimage from "../Images/background.jpg";
 import "../Assets/Dashboard.css";
 import profile from "../Images/profile.png";
 
@@ -10,7 +10,10 @@ function DashboardImg() {
         <img src={coverimage} alt="" />
       </div>
       <div className="studentimage">
-      <img src={JSON.parse(localStorage.getItem("user")).userImgUrl || profile} alt="" />
+        <img
+          src={JSON.parse(localStorage.getItem("user")).userImgUrl || profile}
+          alt=""
+        />
       </div>
       <div className="dashboard-info-details">
         <h1>{JSON.parse(localStorage.getItem("user")).userName}</h1>
