@@ -59,14 +59,14 @@ export default function Courses(props) {
   const ifAdmin = user && user.userEmail === "ADMIN@GMAIL.COM";
 
   return (
-    <Card sx={{ maxWidth: 400 , minWidth:400 , height:450 , mb:3.5 , borderRadius: "20px"}} className="course-card-dashboard">
+    <Card sx={{ maxWidth: 300 , minWidth:300 , height:420 , mb:3.5 , borderRadius: "20px",transition: "transform 0.3s"}} className="course-card-dashboard">
       <ToastContainer/>
       <CardMedia
         component="img"
-        height="200"
+        height="150"
         image={props.image}
         alt="Course image"
-        sx={{objectFit:"cover", borderRadius: "20px",margin:"10px", maxWidth: 375}}
+        sx={{objectFit:"cover", borderRadius: "20px",margin:"10px", maxWidth: 275}}
       />
       <CardHeader title={props.title} sx={{color:'#000000'}}/>
       <CardContent>
@@ -81,6 +81,8 @@ export default function Courses(props) {
           {props.videoCount} Videos
         </Typography>
       </CardContent>
+
+      {/*------------------ Buttons---------------------------- */}
       <CardActions >
         {ifAdmin && (
           <Button variant="outlined"  component={Link} to={"/EditCourse/" + props.id} sx={{ textDecoration: "none" }}>

@@ -1,13 +1,15 @@
 .course-card-dashboard:hover{
     box-shadow: 5px 5px 30px rgb(214, 203, 203);
-    margin-left: 1rem;
-    margin-right: 1rem;
+    /* margin-left: 1rem; */
+    /* margin-right: 1rem; */
+    transform: scale(1.04);
     }
     
     .course-card-dashboard{
-        margin-left: 0.5rem;
+        /* margin-left: 0.5rem; */
         /* border: 0.1px solid rgb(117, 117, 252); */
         border: 2px solid #e5e7e8;
+        
     }
     
     .course-video:hover{
