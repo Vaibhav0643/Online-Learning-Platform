@@ -23,30 +23,21 @@ import "react-toastify/dist/ReactToastify.css";
 function IndividualCourse() {
   const params = useParams();
   const [course, setCourse] = React.useState(null);
-  const [checkedVideos, setCheckedVideos] = React.useState(null);
-  const [admin, setAdmin] = useState(false);
   const [checkedVideos, setCheckedVideos] = React.useState([]);
   const [admin, setAdmin] = useState(false);
   const [progress, setProgress] = useState(0);
-  const id = params.id;
-  useEffect(() => {
 
+  const id = params.id;
+
+  useEffect(() => {
     const cookies = new Cookies();
+
     const user = JSON.parse(localStorage.getItem("user") || "{}");
     if (user && user.userEmail === "ADMIN@GMAIL.COM") {
       setAdmin(true);
     }
   }, [params.id]);
-  let progress;
-  if (!admin) {
-    if (checkedVideos != null) {
-      console.log(checkedVideos);
-      progress =
-        (Object.values(checkedVideos).filter((checked) => checked).length /
-          (course?.courseDetails.videos.length || 1)) *
-        100;
-    }
-  }
+
   // let progress;
   // if(!admin){
   //   progress = Object.values(checkedVideos).filter(checked => checked).length / (course?.courseDetails.videos.length || 1) * 100;
@@ -97,8 +88,6 @@ function IndividualCourse() {
       )
       .then((res) => {
         setCourse(res.data);
-      });
-  }, [params.id]);
         setProgress(res.data.courseDetails.progress);
         const arr = [];
         for (let i = 0; i < res.data.courseDetails.videoCount; i++) {
