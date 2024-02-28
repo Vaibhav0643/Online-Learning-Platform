@@ -99,6 +99,8 @@ function IndividualCourse() {
       });
   }, [params.id]);
 
+  
+
   const enroll = () => {
     const cookies = new Cookies();
     axios
