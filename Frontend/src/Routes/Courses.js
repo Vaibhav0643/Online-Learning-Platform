@@ -100,7 +100,8 @@ function Courses() {
             display: "flex",
             flexDirection: "row",
             flexWrap: "wrap",
-            justifyContent: "space-evenly",
+            justifyContent: "space-around",
+            alignItems: "center",
             margin: "auto",
           }}
         >
