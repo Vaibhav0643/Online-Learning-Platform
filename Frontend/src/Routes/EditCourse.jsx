@@ -37,6 +37,7 @@ function EditCourse() {
   const navigator = useNavigate();
 
   const handleImageChange = (event) => {
+    console.log(event.target.files[0]);
     if (event.target.files && event.target.files[0]) {
       const img = {
         preview: URL.createObjectURL(event.target.files[0]),
@@ -65,12 +66,13 @@ function EditCourse() {
         setCourseDescription(data.courseDetails.courseDescription);
 
         // //********************************************** TO RESOLVE THIS IMAGE URL INTO IMAGE DATA**********************************************
-        // const img = {
-        //   preview: data.courseDetails.courseBannerImage,
-        //   data: fetch(data.courseDetails.courseBannerImage)
-        //     .then(response => response.blob()),
-        // };
-        // setCourseBannerImage(img);
+        const img = {
+          preview: data.courseDetails.courseBannerImage,
+          data: fetch(data.courseDetails.courseBannerImage)
+            .then(response => response.blob()),
+        };
+        setCourseBannerImage(img);
+        console.log(img);
 
         const formattedData = data.courseDetails.videos.map((video) => {
           return { title: video.videoTitle, link: video.videoURL };
