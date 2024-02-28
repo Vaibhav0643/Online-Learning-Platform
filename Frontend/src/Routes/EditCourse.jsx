@@ -43,7 +43,7 @@ function EditCourse() {
     if (event.target.files && event.target.files[0]) {
       const img = {
         preview: URL.createObjectURL(event.target.files[0]),
-        data: event.target.files[0],
+        data: event.target.files[0], 
       };
       setCourseBannerImage(img);
     }
