@@ -6,24 +6,21 @@ import {
   CardActions,
   Typography,
   Button,
+  ButtonGroup,
 } from "@mui/material";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
-import Red from "@mui/material/colors/red";
 import axios from "axios";
 import React from "react";
 import Cookies from "universal-cookie";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from '@mui/icons-material/Edit';
+import EditIcon from "@mui/icons-material/Edit";
 import "../Assets/Course.css";
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 
 export default function Courses(props) {
-  console.log('PROPS:');
-  console.log(props);
-  
   const user = JSON.parse(localStorage.getItem("user") || null);
   const cookies = new Cookies();
   const navigate = useNavigate(); // Correctly call useNavigate as a function
@@ -31,7 +28,6 @@ export default function Courses(props) {
   if (user === null) {
     return <div></div>;
   }
-
 
   const deleteCourse = (e) => {
     e.preventDefault();
@@ -45,12 +41,12 @@ export default function Courses(props) {
         }
       )
       .then((res) => {
-        console.log(res.data);
         toast.success("Course Deleted Successfully");
-        setTimeout(()=>{
-         navigate('/'); // Use navigate function correctly
-        },3000);
-      }).catch(error => {
+        setTimeout(() => {
+          navigate("/"); // Use navigate function correctly
+        }, 3000);
+      })
+      .catch((error) => {
         console.error("Error deleting course:", error);
         toast.error("Failed to delete the course.");
       });
@@ -59,16 +55,32 @@ export default function Courses(props) {
   const ifAdmin = user && user.userEmail === "ADMIN@GMAIL.COM";
 
   return (
-    <Card sx={{ maxWidth: 400 , minWidth:400 , height:450 , mb:3.5 , borderRadius: "20px"}} className="course-card-dashboard">
-      <ToastContainer/>
+    <Card
+      sx={{
+        flex: 1,
+        maxWidth: 350,
+        minWidth: 300,
+        margin: "10px 0",
+        borderRadius: "20px",
+        transition: "transform 0.3s",
+        height: "100%",
+      }}
+      className="course-card-dashboard"
+    >
+      <ToastContainer />
       <CardMedia
         component="img"
-        height="200"
+        height="150"
         image={props.image}
         alt="Course image"
-        sx={{objectFit:"cover", borderRadius: "20px",margin:"10px", maxWidth: 375}}
+        sx={{
+          objectFit: "cover",
+          borderRadius: "20px",
+          margin: "10px",
+          maxWidth: "calc(100% - 20px)",
+        }}
       />
-      <CardHeader title={props.title} sx={{color:'#000000'}}/>
+      <CardHeader title={props.title} sx={{ color: "#000000" }} />
       <CardContent>
         <Typography variant="body2" color="black">
           {props.content.substring(0, 100) + "..."}
@@ -76,28 +88,45 @@ export default function Courses(props) {
         <Typography
           variant="subtitle2"
           color="text.secondary"
-          sx={{ textAlign: "right", color:'#1976d2' }}
+          sx={{ textAlign: "right", color: "#1976d2" }}
         >
           {props.videoCount} Videos
         </Typography>
       </CardContent>
-      <CardActions >
-        {ifAdmin && (
-          <Button variant="outlined"  component={Link} to={"/EditCourse/" + props.id} sx={{ textDecoration: "none" }}>
-            <EditIcon sx={{ marginRight: "3px" }}/>
-            Edit
+
+      {/*------------------ Buttons---------------------------- */}
+      <CardActions>
+        <ButtonGroup
+          disableElevation
+          variant="contained"
+          aria-label="text button group"
+          sx={{ width: "100%" }}
+        >
+          {ifAdmin && (
+            <Button
+              component={Link}
+              to={"/EditCourse/" + props.id}
+              sx={{ textDecoration: "none" }}
+            >
+              <EditIcon sx={{ marginRight: "3px" }} />
+              Edit
+            </Button>
+          )}
+          {ifAdmin && (
+            <Button color="error" onClick={deleteCourse}>
+              <DeleteIcon sx={{ marginRight: "3px" }} />
+              Delete
+            </Button>
+          )}
+          <Button
+            component={Link}
+            to={"/IndividualCourses/" + props.id}
+            sx={{ textDecoration: "none" }}
+          >
+            <RemoveRedEyeIcon sx={{ marginRight: "3px" }} />
+            View
           </Button>
-        )}
-        {ifAdmin && (
-          <Button variant="outlined" color="error" onClick={deleteCourse}>
-            <DeleteIcon sx={{ marginRight: "3px" }}/>
-            Delete
-          </Button>
-        )}
-        <Button variant="outlined"  component={Link} to={"/IndividualCourses/" + props.id} sx={{ textDecoration: "none" }}>
-          <RemoveRedEyeIcon sx={{ marginRight: "3px" }} />
-          View
-        </Button>
+        </ButtonGroup>
       </CardActions>
     </Card>
   );

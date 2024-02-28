@@ -30,8 +30,6 @@ function IndividualCourse() {
   const id = params.id;
 
   useEffect(() => {
-    const cookies = new Cookies();
-
     const user = JSON.parse(localStorage.getItem("user") || "{}");
     if (user && user.userEmail === "ADMIN@GMAIL.COM") {
       setAdmin(true);
@@ -94,10 +92,8 @@ function IndividualCourse() {
           arr.push(false);
         }
         setCheckedVideos(arr);
-        console.log(progress);
-        console.log(res.data);
       });
-  }, [params.id]);
+  }, [params.id, progress]);
 
   const enroll = () => {
     const cookies = new Cookies();
@@ -182,7 +178,7 @@ function IndividualCourse() {
         <h1 style={{ color: "#0d47a1" }}>
           {course ? course.courseDetails.courseTitle : "Course Title"}
         </h1>
-        <p style={{ color: "#64b5f6" }}>
+        <p style={{ color: "#333" }}>
           {course
             ? course.courseDetails.courseDescription
             : "Course Description"}
@@ -273,7 +269,7 @@ function IndividualCourse() {
           </Box>
         ) : (
           <>
-            <Typography textAlign={"center"} sx={{ color: "#64b5f6" }}>
+            <Typography textAlign={"center"} sx={{ color: "#888" }}>
               You Are Not Enrolled Yet
             </Typography>
             <Button
