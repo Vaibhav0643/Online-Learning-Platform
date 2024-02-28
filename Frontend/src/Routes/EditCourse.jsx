@@ -189,12 +189,12 @@ function EditCourse() {
     formData.append("videoURLs", links);
     formData.append("videoTitle", titles);
 
-    // Retrieve value associated with a specific key using get()
-    console.log(formData.get("courseTitle"));
-    console.log(formData.get("courseDescription"));
-    console.log(formData.get("courseBannerImage"));
-    console.log(formData.get("videoURLs"));
-    console.log(formData.get("videoTitle"));
+    //// Retrieve value associated with a specific key using get()
+    // console.log(formData.get("courseTitle"));
+    // console.log(formData.get("courseDescription"));
+    // console.log(formData.get("courseBannerImage"));
+    // console.log(formData.get("videoURLs"));
+    // console.log(formData.get("videoTitle"));
 
     const token = cookies.get("token");
 
