@@ -8,7 +8,6 @@ import {
   Button,
 } from "@mui/material";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
-import Red from "@mui/material/colors/red";
 import axios from "axios";
 import React from "react";
 import Cookies from "universal-cookie";
