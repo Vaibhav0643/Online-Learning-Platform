@@ -22,11 +22,10 @@ function Courses() {
           "https://online-learning-platform-r55m.onrender.com/api/v1/course/getAllCourses"
         );
         setAllCourses(response.data.courses);
-        console.log(allCourses);
 
         const cookies = new Cookies();
         const userId = JSON.parse(localStorage.getItem("user")).userId;
-        const userCoursesResponse = await axios.get(
+        axios.get(
           `https://online-learning-platform-r55m.onrender.com/api/v1/course/${userId}/getUserCourses`,
           {
             headers: {
@@ -34,7 +33,6 @@ function Courses() {
             },
           }
         );
-        console.log(userCoursesResponse);
       } catch (error) {
         console.error(error);
       }
@@ -82,28 +80,15 @@ function Courses() {
       <Box
         component="main"
         sx={{
-          flexGrow: 1,
-          width: "100%",
+          width: "90%",
           display: "flex",
-          margin: "auto",
-          justifyContent: "center",
+          flexWrap: "wrap",
+          justifyContent: "space-around",
+          alignItems: "flex-start",
+          margin: "2% auto",
         }}
       >
-        <Toolbar />
-
-        <Container
-          maxWidth="lg"
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            flexWrap: "wrap",
-            justifyContent: "space-around",
-            alignItems: "flex-start",
-            margin: "auto",
-          }}
-        >
-          {allCoursesDisplay()}
-        </Container>
+        {allCoursesDisplay()}
       </Box>
       <Footer />
     </Box>

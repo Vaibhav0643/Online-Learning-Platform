@@ -20,9 +20,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 
 export default function Courses(props) {
-  console.log("PROPS:");
-  console.log(props);
-
   const user = JSON.parse(localStorage.getItem("user") || null);
   const cookies = new Cookies();
   const navigate = useNavigate(); // Correctly call useNavigate as a function
@@ -43,7 +40,6 @@ export default function Courses(props) {
         }
       )
       .then((res) => {
-        console.log(res.data);
         toast.success("Course Deleted Successfully");
         setTimeout(() => {
           navigate("/"); // Use navigate function correctly
@@ -60,11 +56,13 @@ export default function Courses(props) {
   return (
     <Card
       sx={{
+        flex: 1,
         maxWidth: 300,
         minWidth: 300,
-        mb: 3.5,
+        margin: "10px 0",
         borderRadius: "20px",
         transition: "transform 0.3s",
+        height: "100%",
       }}
       className="course-card-dashboard"
     >
@@ -109,16 +107,16 @@ export default function Courses(props) {
           </Button>
         )}
         {ifAdmin && (
-          <Button variant="outlined" color="error" onClick={deleteCourse}>
+          <Button variant="contained" color="error" onClick={deleteCourse}>
             <DeleteIcon sx={{ marginRight: "3px" }} />
             Delete
           </Button>
         )}
         <Button
-          variant="outlined"
+          variant="contained"
           component={Link}
           to={"/IndividualCourses/" + props.id}
-          sx={{ textDecoration: "none" }}
+          sx={{ textDecoration: "none", borderRadius: "16px" }}
         >
           <RemoveRedEyeIcon sx={{ marginRight: "3px" }} />
           View
