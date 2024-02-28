@@ -86,6 +86,7 @@ function Courses() {
           justifyContent: "space-around",
           alignItems: "flex-start",
           margin: "2% auto",
+          padding: "10px",
         }}
       >
         {allCoursesDisplay()}
