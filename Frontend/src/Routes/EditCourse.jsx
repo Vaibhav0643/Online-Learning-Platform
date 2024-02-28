@@ -36,50 +36,72 @@ function EditCourse() {
   const formData = new FormData();
   const navigator = useNavigate();
 
+  async function fetchData(url) {
+    try {
+      const response = await fetch(url);
+      const blob = await response.blob();
+      console.log(blob);
+      return blob;
+    } catch (error) {
+      console.error('Error fetching image data:', error);
+      return null;
+    }
+  }
+
+
   const handleImageChange = (event) => {
     console.log(event.target.files[0]);
     if (event.target.files && event.target.files[0]) {
       const img = {
         preview: URL.createObjectURL(event.target.files[0]),
-        data: event.target.files[0], 
+        data: event.target.files[0],
       };
       setCourseBannerImage(img);
     }
   };
 
   useEffect(() => {
-    const cookies = new Cookies();
-    axios
-      .get(
-        `https://online-learning-platform-r55m.onrender.com/api/v1/course/${params.id}/getCourseDetails`,
-        {
-          headers: {
-            Authorization: "Bearer " + cookies.get("token"),
-          },
-        }
-      )
-      .then((res) => {
-        const data = res.data;
-        console.log(data.courseDetails);
-        // Set data from API response to state variables
-        setCourseTitle(data.courseDetails.courseTitle);
-        setCourseDescription(data.courseDetails.courseDescription);
+    async function fillDetails() {
+      const cookies = new Cookies();
+      let res;
+      try {
+        res = await axios
+          .get(
+            `https://online-learning-platform-r55m.onrender.com/api/v1/course/${params.id}/getCourseDetails`,
+            {
+              headers: {
+                Authorization: "Bearer " + cookies.get("token"),
+              },
+            }
+          );
+      }
+      catch{}
+      
+        const resData = res.data;
+      // console.log(resData.courseDetails);
+      // Set data from API response to state variables
+      setCourseTitle(resData.courseDetails.courseTitle);
+      setCourseDescription(resData.courseDetails.courseDescription);
 
-        // //********************************************** TO RESOLVE THIS IMAGE URL INTO IMAGE DATA**********************************************
-        const img = {
-          preview: data.courseDetails.courseBannerImage,
-          data: fetch(data.courseDetails.courseBannerImage)
-            .then(response => response.blob()),
-        };
-        setCourseBannerImage(img);
-        console.log(img);
+      // //********************************************** TO RESOLVE THIS IMAGE URL INTO IMAGE DATA**********************************************
+      // Fetch image data and wait for the result
+      const imageData = await fetchData(resData.courseDetails.courseBannerImage);
 
-        const formattedData = data.courseDetails.videos.map((video) => {
-          return { title: video.videoTitle, link: video.videoURL };
-        });
-        setVideos(formattedData);
-        setLoading(false);
+      const img = {
+        preview: resData.courseDetails.courseBannerImage,
+        data: imageData,
+      };
+      setCourseBannerImage(img);
+      console.log("IMAGE");
+      console.log(img);
+
+      const formattedData = resData.courseDetails.videos.map((video) => {
+        return { title: video.videoTitle, link: video.videoURL };
       });
+      setVideos(formattedData);
+      setLoading(false);
+    }
+    fillDetails();
   }, [params.id]); // Empty dependency array ensures the effect runs only once when component mounts
 
   const cookies = new Cookies();
@@ -189,7 +211,7 @@ function EditCourse() {
         }
       )
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         toast.success("Course updated Successfully!");
         setTimeout(() => {
           navigator("/dashboard");
