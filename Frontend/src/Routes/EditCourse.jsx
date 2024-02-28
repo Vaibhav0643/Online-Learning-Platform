@@ -40,7 +40,7 @@ function EditCourse() {
     try {
       const response = await fetch(url);
       const blob = await response.blob();
-      console.log(blob);
+      // console.log(blob);
       return blob;
     } catch (error) {
       console.error('Error fetching image data:', error);
@@ -50,7 +50,7 @@ function EditCourse() {
 
 
   const handleImageChange = (event) => {
-    console.log(event.target.files[0]);
+    // console.log(event.target.files[0]);
     if (event.target.files && event.target.files[0]) {
       const img = {
         preview: URL.createObjectURL(event.target.files[0]),
@@ -92,8 +92,8 @@ function EditCourse() {
         data: imageData,
       };
       setCourseBannerImage(img);
-      console.log("IMAGE");
-      console.log(img);
+      // console.log("IMAGE");
+      // console.log(img);
 
       const formattedData = resData.courseDetails.videos.map((video) => {
         return { title: video.videoTitle, link: video.videoURL };
