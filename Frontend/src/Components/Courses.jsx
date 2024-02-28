@@ -6,6 +6,7 @@ import {
   CardActions,
   Typography,
   Button,
+  ButtonGroup,
 } from "@mui/material";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import axios from "axios";
@@ -57,7 +58,7 @@ export default function Courses(props) {
     <Card
       sx={{
         flex: 1,
-        maxWidth: 400,
+        maxWidth: 350,
         minWidth: 300,
         margin: "10px 0",
         borderRadius: "20px",
@@ -95,37 +96,37 @@ export default function Courses(props) {
 
       {/*------------------ Buttons---------------------------- */}
       <CardActions>
-        {ifAdmin && (
-          <Button
-            variant="outlined"
-            component={Link}
-            to={"/EditCourse/" + props.id}
-            sx={{ textDecoration: "none", borderRadius: "16px" }}
-          >
-            <EditIcon sx={{ marginRight: "3px" }} />
-            Edit
-          </Button>
-        )}
-        {ifAdmin && (
-          <Button
-            variant="contained"
-            color="error"
-            onClick={deleteCourse}
-            sx={{ borderRadius: "16px" }}
-          >
-            <DeleteIcon sx={{ marginRight: "3px" }} />
-            Delete
-          </Button>
-        )}
-        <Button
+        <ButtonGroup
+          disableElevation
           variant="contained"
-          component={Link}
-          to={"/IndividualCourses/" + props.id}
-          sx={{ textDecoration: "none", borderRadius: "16px" }}
+          aria-label="text button group"
+          sx={{ width: "100%" }}
         >
-          <RemoveRedEyeIcon sx={{ marginRight: "3px" }} />
-          View
-        </Button>
+          {ifAdmin && (
+            <Button
+              component={Link}
+              to={"/EditCourse/" + props.id}
+              sx={{ textDecoration: "none" }}
+            >
+              <EditIcon sx={{ marginRight: "3px" }} />
+              Edit
+            </Button>
+          )}
+          {ifAdmin && (
+            <Button color="error" onClick={deleteCourse}>
+              <DeleteIcon sx={{ marginRight: "3px" }} />
+              Delete
+            </Button>
+          )}
+          <Button
+            component={Link}
+            to={"/IndividualCourses/" + props.id}
+            sx={{ textDecoration: "none" }}
+          >
+            <RemoveRedEyeIcon sx={{ marginRight: "3px" }} />
+            View
+          </Button>
+        </ButtonGroup>
       </CardActions>
     </Card>
   );

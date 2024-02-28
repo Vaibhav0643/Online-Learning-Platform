@@ -160,28 +160,16 @@ function Dashboard() {
           <Box
             component="main"
             sx={{
-              flexGrow: 1,
-              width: "100%",
+              width: "90%",
               display: "flex",
-              margin: "auto",
-              justifyContent: "left",
+              flexWrap: "wrap",
+              justifyContent: "space-around",
+              alignItems: "flex-start",
+              margin: "2% auto",
+              padding: "10px",
             }}
           >
-            <Toolbar />
-
-            <Container
-              maxWidth="lg"
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                flexWrap: "wrap",
-                justifyContent: "space-evenly",
-                margin: "auto",
-                marginLeft: 15,
-              }}
-            >
-              {userCoursesDisplay()}
-            </Container>
+            {userCoursesDisplay()}
           </Box>
         </>
       )}
