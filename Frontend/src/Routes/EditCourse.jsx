@@ -11,25 +11,31 @@ import {
   Divider,
 } from "@mui/material";
 import { useState, useEffect } from "react";
-import Cookie from "universal-cookie";
+import Cookies from "universal-cookie";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../Assets/AddCourse.css";
 import Header from "./Header";
 import Footer from "./Footer";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import DeleteIcon from "@mui/icons-material/Delete";
-import VideoCallIcon from "@mui/icons-material/VideoCall";
+import VideoCallIcon from '@mui/icons-material/VideoCall';
+import { useParams } from "react-router-dom";
+
+
 const drawerWidth = 200;
 
 function EditCourse() {
   const params = useParams();
+
   const [courseTitle, setCourseTitle] = useState("");
   const [courseDescription, setCourseDescription] = useState("");
   const [courseBannerImage, setCourseBannerImage] = useState("");
   const [open, setOpen] = useState(false);
-  const [videos, setVideos] = useState([{ title: "", link: "" }]);
+  const [videos, setVideos] = useState([{ title: '', link: '' }]);
+  const [loading, setLoading] = useState(true); // New state variable for loading indicator
+
   const formData = new FormData();
   const navigator = useNavigate();
 
@@ -43,7 +49,34 @@ function EditCourse() {
     }
   };
 
-  const cookies = new Cookie();
+  useEffect(() => {
+    const cookies = new Cookies();
+    axios
+      .get(
+        `https://online-learning-platform-r55m.onrender.com/api/v1/course/${params.id}/getCourseDetails`,
+        {
+          headers: {
+            Authorization: "Bearer " + cookies.get("token"),
+          },
+        }
+      )
+      .then((res) => {
+        const data = res.data;
+        console.log(data);
+        // Set data from API response to state variables
+        setCourseTitle(data.courseDetails.courseTitle);
+        setCourseDescription(data.courseDetails.courseDescription);
+        setCourseBannerImage(data.courseDetails.courseBannerImage);
+        const formattedData = data.courseDetails.videos.map(video => {
+          return { title: video.videoTitle, link: video.videoURL };
+        })
+        setVideos(formattedData);
+        setLoading(false);
+      });
+
+  }, []); // Empty dependency array ensures the effect runs only once when component mounts
+
+  const cookies = new Cookies();
 
   const handleClose = () => {
     setOpen(false);
@@ -51,6 +84,7 @@ function EditCourse() {
   const handleOpen = () => {
     setOpen(true);
   };
+
 
   const handleChange = (index, event) => {
     const { name, value } = event.target;
@@ -62,24 +96,23 @@ function EditCourse() {
     let newVideos = [...videos];
     newVideos.splice(index, 1);
     setVideos(newVideos);
-    console.log(videos);
-  };
+  }
 
   useEffect(() => {
     setVideos(videos);
   }, [videos]);
 
   const handleAddVideo = () => {
-    setVideos([...videos, { title: "", link: "" }]);
-  };
+    setVideos([...videos, { title: '', link: '' }]);
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     let isSafe = true;
-    const titles = videos.map((video) => {
+    const titles = videos.map(video => {
       if (!video.title.trim()) {
-        isSafe = false;
+        isSafe = false
       }
       return video.title;
     });
@@ -90,9 +123,9 @@ function EditCourse() {
     }
 
     // Extract links from videos
-    const links = videos.map((video) => {
+    const links = videos.map(video => {
       if (!video.link.trim()) {
-        isSafe = false;
+        isSafe = false
       }
       return video.link;
     });
@@ -123,28 +156,35 @@ function EditCourse() {
       return;
     }
 
+
+
     formData.append("courseTitle", courseTitle);
     formData.append("courseDescription", courseDescription);
     formData.append("courseBannerImage", courseBannerImage.data);
     formData.append("videoURLs", links);
     formData.append("videoTitle", titles);
 
+
+
     const token = cookies.get("token");
-    console.log(token);
-    console.log(params.id);
-    console.log(links);
-    console.log(titles);
-    console.log(formData);
+
     axios
       .post(
         `https://online-learning-platform-r55m.onrender.com/api/v1/course/${params.id}/editCourse`,
-        formData
+        formData,
+        {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
       )
       .then((res) => {
         console.log(res.data);
-        toast.success("Course Updated");
+        toast.success("Course updated Successfully!");
         setTimeout(() => {
-          navigator("/dashboard");
+          navigator('/dashboard');
         }, 5000);
         handleClose();
       })
@@ -165,122 +205,117 @@ function EditCourse() {
   }, [navigator]);
 
   return (
-    <div>
+
+    <div >
       <Header />
-      {/* <Container maxWidth="sm"> */}
-      <Container maxWidth="sm" className="add-course">
-        <ToastContainer />
-        <Box
-          component="form"
-          onSubmit={handleSubmit}
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "space-between",
-            padding: "100px 0",
-          }}
-        >
-          <Typography variant="h4" textAlign={"center"}>
-            Edit Course
-          </Typography>
-          <TextField
-            id="title"
-            label="Course Title"
-            variant="outlined"
-            onChange={(e) => setCourseTitle(e.target.value)}
-            sx={{ margin: "10px 0" }}
-          />
-          <TextField
-            id="desc"
-            label="Course Description"
-            multiline={true}
-            onChange={(e) => setCourseDescription(e.target.value)}
-            variant="outlined"
-            sx={{ margin: "10px 0" }}
-          />
-          <Button
-            variant="outlined"
-            component="label"
-            sx={{ margin: "10px 0 0 0", padding: "12px" }}
+      {loading ?
+        <p></p> :
+        <Container maxWidth="sm" className="add-course">
+          <ToastContainer />
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "space-between",
+              padding: "100px 0",
+            }}
           >
+            <Typography variant="h4" textAlign={"center"}>
+              Edit Course
+            </Typography>
+            <TextField
+              id="title"
+              label="Course Title"
+              variant="outlined"
+              onChange={(e) => setCourseTitle(e.target.value)}
+              value={courseTitle}
+              sx={{ margin: "10px 0" }}
+            />
+            <TextField
+              id="desc"
+              value={courseDescription}
+              label="Course Description"
+              multiline={true}
+              onChange={(e) => setCourseDescription(e.target.value)}
+              variant="outlined"
+              sx={{ margin: "10px 0" }}
+            />
+            <Button variant="outlined" component="label" sx={{ margin: "10px 0 0 0", padding: "12px" }}>
             Upload course cover image
             <input type="file" onChange={handleImageChange} hidden />
           </Button>
 
-          {courseBannerImage !== "" && (
-            <img
-              className="preview_img"
-              src={courseBannerImage.preview}
-              alt=""
-            />
+            {courseBannerImage !== "" && (
+            <img className="preview_img" src={courseBannerImage} alt="" />
           )}
 
-          {videos.map((video, index) => (
-            <div key={index}>
-              <input
-                className="video_title"
-                type="text"
-                name="title"
-                placeholder="Video Title"
-                value={video.title}
-                onChange={(e) => handleChange(index, e)}
-              />
-              <input
-                className="video_link"
-                type="text"
-                name="link"
-                placeholder="Video Link"
-                value={video.link}
-                onChange={(e) => handleChange(index, e)}
-              />
-              <IconButton
-                className="deleteButton"
-                color="error"
-                aria-label="add to shopping cart"
-                onClick={() => handleDeleteVideo(index)}
+            {videos.map((video, index) => (
+              <div key={index}>
+                <input
+                  className="video_title"
+                  type="text"
+                  name="title"
+                  placeholder="Video Title"
+                  value={video.title}
+                  onChange={(e) => handleChange(index, e)}
+                />
+                <input
+                  className="video_link"
+                  type="text"
+                  name="link"
+                  placeholder="Video Link"
+                  value={video.link}
+                  onChange={(e) => handleChange(index, e)}
+                />
+                <IconButton className="deleteButton" color="error" aria-label="add to shopping cart" onClick={() => handleDeleteVideo(index)}>
+                  <DeleteIcon />
+                </IconButton>
+              </div>
+            ))}
+
+            <Tooltip title="Use YouTube embed URL's seperated by newline">
+              <Button
+                variant="contained"
+                startIcon={<VideoCallIcon />}
+                sx={{ margin: "10px 0", padding: "15px" }}
+                disableElevation
+                onClick={handleAddVideo}
               >
-                <DeleteIcon />
-              </IconButton>
-            </div>
-          ))}
+                Add Video
+              </Button>
+            </Tooltip>
 
-          <Tooltip title="Use YouTube embed URL's seperated by newline">
+            <Divider sx={{ margin: "10px 0", }} />
+
             <Button
-              variant="contained"
-              startIcon={<VideoCallIcon />}
+              onClick={handleOpen}
               sx={{ margin: "10px 0", padding: "15px" }}
-              disableElevation
-              onClick={handleAddVideo}
+              variant="contained"
+              style={{ backgroundColor: '#0a0a81', color: '#FFFFFF' }}
+              type="submit"
+              className="submit-btn"
             >
-              Add Video
+              Edit Course
             </Button>
-          </Tooltip>
-
-          <Divider sx={{ margin: "10px 0" }} />
-
-          <Button
-            onClick={handleOpen}
-            sx={{ margin: "10px 0", padding: "15px" }}
-            variant="contained"
-            style={{ backgroundColor: "#0a0a81", color: "#FFFFFF" }}
-            type="submit"
-            className="submit-btn"
-          >
-            Edit Course
-          </Button>
-        </Box>
-        {/* <Typography variant="h6" sx={{ color: red[500] }}>
+          </Box>
+          {/* <Typography variant="h6" sx={{ color: red[500] }}>
         {message}
       </Typography> */}
-        <Backdrop
-          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-          open={open}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
-      </Container>
+          <Backdrop
+            sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={open}
+          >
+            <CircularProgress color="inherit" />
+          </Backdrop>
+        </Container>
+      }
+
       <Footer />
     </div>
+
+
   );
 }
 export default EditCourse;
