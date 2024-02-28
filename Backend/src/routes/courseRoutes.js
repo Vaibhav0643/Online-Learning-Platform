@@ -40,7 +40,7 @@ router.post(
   updateUserProgress
 );
 
-router.put(
+router.post(
   "/:courseId/editCourse",
   upload.single("courseBannerImage"),
   editCourse

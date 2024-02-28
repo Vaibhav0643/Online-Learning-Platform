@@ -13,14 +13,14 @@ import {
 import { useState, useEffect } from "react";
 import Cookie from "universal-cookie";
 import axios from "axios";
-import { useNavigate , useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "../Assets/AddCourse.css";
 import Header from "./Header";
 import Footer from "./Footer";
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import DeleteIcon from "@mui/icons-material/Delete";
-import VideoCallIcon from '@mui/icons-material/VideoCall';
+import VideoCallIcon from "@mui/icons-material/VideoCall";
 const drawerWidth = 200;
 
 function EditCourse() {
@@ -29,7 +29,7 @@ function EditCourse() {
   const [courseDescription, setCourseDescription] = useState("");
   const [courseBannerImage, setCourseBannerImage] = useState("");
   const [open, setOpen] = useState(false);
-  const [videos, setVideos] = useState([{ title: '', link: '' }]);
+  const [videos, setVideos] = useState([{ title: "", link: "" }]);
   const formData = new FormData();
   const navigator = useNavigate();
 
@@ -43,7 +43,6 @@ function EditCourse() {
     }
   };
 
-
   const cookies = new Cookie();
 
   const handleClose = () => {
@@ -52,7 +51,6 @@ function EditCourse() {
   const handleOpen = () => {
     setOpen(true);
   };
-
 
   const handleChange = (index, event) => {
     const { name, value } = event.target;
@@ -65,40 +63,40 @@ function EditCourse() {
     newVideos.splice(index, 1);
     setVideos(newVideos);
     console.log(videos);
-  }
+  };
 
   useEffect(() => {
     setVideos(videos);
   }, [videos]);
 
   const handleAddVideo = () => {
-    setVideos([...videos, { title: '', link: '' }]);
-  }
+    setVideos([...videos, { title: "", link: "" }]);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     let isSafe = true;
-    const titles = videos.map(video => {
+    const titles = videos.map((video) => {
       if (!video.title.trim()) {
-        isSafe = false
+        isSafe = false;
       }
       return video.title;
     });
-    if(!isSafe){
+    if (!isSafe) {
       toast.error("Please fill all the video Titles.");
       handleClose();
       return;
     }
-    
+
     // Extract links from videos
-    const links = videos.map(video => {
+    const links = videos.map((video) => {
       if (!video.link.trim()) {
-        isSafe = false
+        isSafe = false;
       }
       return video.link;
     });
-    if(!isSafe){
+    if (!isSafe) {
       toast.error("Please fill all the video Links.");
       handleClose();
       return;
@@ -119,47 +117,34 @@ function EditCourse() {
       handleClose();
       return;
     }
-    if(links.length === 0){
+    if (links.length === 0) {
       toast.error("Please upload atleast 1 course video.");
       handleClose();
       return;
     }
-    
-
 
     formData.append("courseTitle", courseTitle);
     formData.append("courseDescription", courseDescription);
     formData.append("courseBannerImage", courseBannerImage.data);
     formData.append("videoURLs", links);
     formData.append("videoTitle", titles);
-    console.log(videos);
-    // Iterate over key-value pairs using entries()
-  for (const pair of formData.entries()) {
-    console.log(pair[0] + ', ' + pair[1]);
-  }
-
 
     const token = cookies.get("token");
     console.log(token);
-
+    console.log(params.id);
+    console.log(links);
+    console.log(titles);
     console.log(formData);
     axios
-      .put(
+      .post(
         `https://online-learning-platform-r55m.onrender.com/api/v1/course/${params.id}/editCourse`,
-        formData,
-        {
-          withCredentials: true,
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
-          },
-        }
+        formData
       )
       .then((res) => {
         console.log(res.data);
         toast.success("Course Updated");
         setTimeout(() => {
-          navigator('/dashboard');
+          navigator("/dashboard");
         }, 5000);
         handleClose();
       })
@@ -180,7 +165,7 @@ function EditCourse() {
   }, [navigator]);
 
   return (
-    <div  >
+    <div>
       <Header />
       {/* <Container maxWidth="sm"> */}
       <Container maxWidth="sm" className="add-course">
@@ -213,13 +198,21 @@ function EditCourse() {
             variant="outlined"
             sx={{ margin: "10px 0" }}
           />
-          <Button variant="outlined" component="label" sx={{ margin: "10px 0 0 0", padding: "12px" }}>
+          <Button
+            variant="outlined"
+            component="label"
+            sx={{ margin: "10px 0 0 0", padding: "12px" }}
+          >
             Upload course cover image
             <input type="file" onChange={handleImageChange} hidden />
           </Button>
 
           {courseBannerImage !== "" && (
-            <img className="preview_img" src={courseBannerImage.preview} alt="" />
+            <img
+              className="preview_img"
+              src={courseBannerImage.preview}
+              alt=""
+            />
           )}
 
           {videos.map((video, index) => (
@@ -240,31 +233,36 @@ function EditCourse() {
                 value={video.link}
                 onChange={(e) => handleChange(index, e)}
               />
-              <IconButton className="deleteButton" color="error" aria-label="add to shopping cart" onClick={() => handleDeleteVideo(index)}>
+              <IconButton
+                className="deleteButton"
+                color="error"
+                aria-label="add to shopping cart"
+                onClick={() => handleDeleteVideo(index)}
+              >
                 <DeleteIcon />
               </IconButton>
             </div>
           ))}
 
           <Tooltip title="Use YouTube embed URL's seperated by newline">
-          <Button
-            variant="contained"
-            startIcon={<VideoCallIcon />}
-            sx={{ margin: "10px 0", padding: "15px" }}
-            disableElevation
-            onClick={handleAddVideo}
-          >
-            Add Video
-          </Button>
+            <Button
+              variant="contained"
+              startIcon={<VideoCallIcon />}
+              sx={{ margin: "10px 0", padding: "15px" }}
+              disableElevation
+              onClick={handleAddVideo}
+            >
+              Add Video
+            </Button>
           </Tooltip>
-            
-          <Divider sx={{ margin: "10px 0", }} />
+
+          <Divider sx={{ margin: "10px 0" }} />
 
           <Button
             onClick={handleOpen}
             sx={{ margin: "10px 0", padding: "15px" }}
             variant="contained"
-            style={{ backgroundColor: '#0a0a81', color: '#FFFFFF' }}
+            style={{ backgroundColor: "#0a0a81", color: "#FFFFFF" }}
             type="submit"
             className="submit-btn"
           >
@@ -283,8 +281,6 @@ function EditCourse() {
       </Container>
       <Footer />
     </div>
-
-
   );
 }
 export default EditCourse;

@@ -314,10 +314,12 @@ const checkCourseOwnership = async (userId, courseId) => {
 
 const editCourse = async (req, res) => {
   try {
+    console.log("Hello from EDIT");
     const courseId = req.params.courseId;
-    const { courseTitle, courseDescription, videoURLs, videoTitles } = req.body;
+    const { courseTitle, courseDescription, videoURLs, videoTitle } = req.body;
+    console.table([courseTitle, courseDescription, videoURLs, videoTitle]);
 
-    if (!courseTitle || !courseDescription || !videoURLs || !videoTitles) {
+    if (!courseTitle || !courseDescription || !videoURLs || !videoTitle) {
       return res.status(400).json({
         error:
           "Course title, description, video URLs, and video titles are required",
@@ -326,7 +328,7 @@ const editCourse = async (req, res) => {
 
     // Split video URLs and titles into arrays
     const videoURLsArray = videoURLs.split(",");
-    const videoTitlesArray = videoTitles.split(",");
+    const videoTitlesArray = videoTitle.split(",");
 
     let courseBannerImage = null;
     if (req.file) {
