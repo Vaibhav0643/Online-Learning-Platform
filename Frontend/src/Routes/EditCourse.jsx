@@ -62,11 +62,15 @@ function EditCourse() {
       )
       .then((res) => {
         const data = res.data;
-        console.log(data);
+        console.log(data.courseDetails);
         // Set data from API response to state variables
         setCourseTitle(data.courseDetails.courseTitle);
         setCourseDescription(data.courseDetails.courseDescription);
-        setCourseBannerImage(data.courseDetails.courseBannerImage);
+        const img = {
+          preview: data.courseDetails.courseBannerImage,
+          data: data.courseDetails.courseBannerImage,
+        };
+        setCourseBannerImage(img);
         const formattedData = data.courseDetails.videos.map(video => {
           return { title: video.videoTitle, link: video.videoURL };
         })
@@ -164,6 +168,12 @@ function EditCourse() {
     formData.append("videoURLs", links);
     formData.append("videoTitle", titles);
 
+    // Retrieve value associated with a specific key using get()
+    console.log(formData.get('courseTitle'));
+    console.log(formData.get('courseDescription'));
+    console.log(formData.get('courseBannerImage'));
+    console.log(formData.get('videoURLs'));
+    console.log(formData.get('videoTitle'));
 
 
     const token = cookies.get("token");
@@ -248,7 +258,7 @@ function EditCourse() {
           </Button>
 
             {courseBannerImage !== "" && (
-            <img className="preview_img" src={courseBannerImage} alt="" />
+            <img className="preview_img" src={courseBannerImage.preview} alt="" />
           )}
 
             {videos.map((video, index) => (
