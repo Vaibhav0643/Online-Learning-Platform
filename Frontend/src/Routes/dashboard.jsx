@@ -30,7 +30,7 @@ function Dashboard() {
           "https://online-learning-platform-r55m.onrender.com/api/v1/course/getAllCourses"
         );
         setAllCourses(response.data.courses);
-        // console.log(allCourses);
+        // console.log(response.data.courses);
 
         const cookies = new Cookies();
         const userId = JSON.parse(localStorage.getItem("user")).userId;

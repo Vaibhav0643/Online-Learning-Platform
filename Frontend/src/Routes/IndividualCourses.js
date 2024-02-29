@@ -41,11 +41,13 @@ function IndividualCourse() {
   //   progress = Object.values(checkedVideos).filter(checked => checked).length / (course?.courseDetails.videos.length || 1) * 100;
   // }
 
+
   const handleCheckboxChange = (index) => {
     setCheckedVideos((prevState) => ({
       ...prevState,
       [index]: !prevState[index],
     }));
+    console.log(checkedVideos);
     const cookies = new Cookies();
 
     const user = JSON.parse(localStorage.getItem("user"));
@@ -57,10 +59,8 @@ function IndividualCourse() {
     ]);
     axios
       .post(
-        `https://online-learning-platform-r55m.onrender.com/api/v1/course/${
-          user.userId
-        }/${params.id}/${index + 1}/${
-          course.courseDetails.videoCount
+        `https://online-learning-platform-r55m.onrender.com/api/v1/course/${user.userId
+        }/${params.id}/${index + 1}/${course.courseDetails.videoCount
         }/updateUserProgress`,
         {
           headers: {
@@ -87,6 +87,7 @@ function IndividualCourse() {
       .then((res) => {
         setCourse(res.data);
         setProgress(res.data.courseDetails.progress);
+        // console.log(res.data.courseDetails);
         const arr = [];
         for (let i = 0; i < res.data.courseDetails.videoCount; i++) {
           arr.push(false);

@@ -245,7 +245,7 @@ function AddCourse() {
             </div>
           ))}
 
-          <Tooltip title="Use YouTube embed URL's seperated by newline">
+          <Tooltip title="Use YouTube embed URL in video link">
           <Button
             variant="contained"
             startIcon={<VideoCallIcon />}
