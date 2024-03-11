@@ -1,129 +1,131 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;600;700&display=swap");
 
 nav img {
-    width: 3rem;
-    /* height: 2.5rem; */
-    border-radius: 50%;
+  width: 3rem;
+  /* height: 2.5rem; */
+  border-radius: 50%;
 }
 
-
 header {
-    width: 100%;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+  color: #fff;
+  box-shadow: 0px 5px 20px 10px rgba(118, 100, 223, 0.3);
 }
 
 nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: rgb(165, 165, 243);
-    padding: 20px 80px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(118, 100, 223, 0.8);
+  padding: 20px 80px;
 }
 
 #navbar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #navbar li {
-    list-style: none;
-    padding: 0 20px;
-    position: relative;
+  list-style: none;
+  padding: 0 20px;
+  position: relative;
 }
 
 .nav-logo {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    font-family: 'Quicksand', sans-serif;
-
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-family: "Quicksand", sans-serif;
 }
 
 .nav-logo h2 {
-    margin-left: 1rem;
+  margin-left: 1rem;
 }
 
 #navbar li a {
-    text-decoration: none;
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: #fff;
-    transition: 0.3s ease-in-out;
-    font-family: 'Quicksand', sans-serif;
-
+  text-decoration: none;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #fff;
+  transition: 0.3s ease-in-out;
+  font-family: "Quicksand", sans-serif;
+  outline: none;
 }
 
 #navbar li a:hover,
 #navbar li a.active {
-    color: rgb(25, 25, 136);
+  color: rgb(82, 58, 219);
 }
 
 #navbar li a:hover::after,
 #navbar li a.active::after {
-    content: "";
-    width: 30%;
-    height: 2px;
-    background: rgb(25, 25, 136);
-    position: absolute;
-    bottom: -4px;
-    left: 20px;
+  content: "";
+  width: 30%;
+  height: 2px;
+  background: rgb(82, 58, 219);
+  position: absolute;
+  bottom: -4px;
+  left: 20px;
 }
 
 #mobile i {
-    color: #fff;
+  color: #fff;
 }
 
 #mobile {
-    display: none;
+  display: none;
 }
 
 #mobile-icon {
-    display: none;
+  display: none;
 }
 
-@media screen and (max-width:769px) {
-    #navbar {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: flex-start;
-        position: fixed;
-        margin-top: -3rem;
-        right: -3000px;
-        width: 300px;
-        height: 100vh;
-        background: rgb(163, 163, 211);
-        box-shadow: 0 40px 60px rgba(0, 0, 0, 0.01);
-        padding: 40px 0 0 10px;
-        transition: 0.3s ease-in-out;
-    }
+@media screen and (max-width: 769px) {
+  #navbar {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    position: fixed;
+    margin-top: -3rem;
+    right: -3000px;
+    width: 300px;
+    height: 100vh;
+    background: rgb(163, 163, 211);
+    box-shadow: 0 40px 60px rgba(0, 0, 0, 0.01);
+    padding: 40px 0 0 10px;
+    transition: 0.3s ease-in-out;
+  }
 
-    #navbar.active {
-        right: 0px;
-    }
+  #navbar.active {
+    right: 0px;
+  }
 
-    #mobile-icon {
-        display: block;
-        margin-left: 1.3rem;
-        margin-bottom: 1rem;
-    }
+  #mobile-icon {
+    display: block;
+    margin-left: 1.3rem;
+    margin-bottom: 1rem;
+  }
 
-    #mobile-icon i {
-        color: white;
-    }
+  #mobile-icon i {
+    color: white;
+  }
 
-    #mobile {
-        display: block;
-    }
+  #mobile {
+    display: block;
+  }
 
-    #navbar li {
-        margin-bottom: 25px;
-    }
+  #navbar li {
+    margin-bottom: 25px;
+  }
 
-    #mobile i {
-        font-size: 24px;
-        cursor: pointer;
-    }
-
+  #mobile i {
+    font-size: 24px;
+    cursor: pointer;
+  }
 }

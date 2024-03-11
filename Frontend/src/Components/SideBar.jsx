@@ -15,18 +15,22 @@ import {
   ListItemText,
 } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import BarChartIcon from "@mui/icons-material/BarChart";
-import Person2Icon from "@mui/icons-material/Person2";
-import HorizontalSplitIcon from "@mui/icons-material/HorizontalSplit";
 import MenuIcon from "@mui/icons-material/Menu";
-
+import HomeIcon from "@mui/icons-material/Home";
+import DashboardIcon from "@mui/icons-material/Dashboard";
 import logo from "../Images/logo-elearn.jpg";
+import { Link, useNavigate } from "react-router-dom";
 
-const userType = "user";
 
 function SideBar(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
+  const [user, setUser] = React.useState("");
+  let navigate = useNavigate();
+
+  React.useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem("user")));
+  }, []);
 
   const handleDrawerClose = () => {
     setIsClosing(true);
@@ -45,51 +49,61 @@ function SideBar(props) {
 
   const userLinks = [
     {
-      title: "My Courses",
-      icon: <Person2Icon />,
+      title: "Home",
+      icon: <HomeIcon />,
+      link: "/",
     },
     {
-      title: "New Courses",
-      icon: <AddCircleOutlineIcon />,
-    },
-    {
-      title: "Statistics",
-      icon: <BarChartIcon />,
+      title: "Dashboard",
+      icon: <DashboardIcon />,
+      link: "/dashboard",
     },
   ];
 
   const adminLinks = [
     {
-      title: "Courses",
-      icon: <HorizontalSplitIcon />,
+      title: "Home",
+      icon: <HomeIcon />,
+      link: "/",
     },
     {
-      title: "Users",
-      icon: <Person2Icon />,
+      title: "Dashboard",
+      icon: <DashboardIcon />,
+      link: "/dashboard",
     },
     {
-      title: "Statistics",
-      icon: <BarChartIcon />,
+      title: "Add Course",
+      icon: <AddCircleOutlineIcon />,
+      link: "/addcourse",
     },
   ];
 
-  const content = userType === "user" ? userLinks : adminLinks;
+  const content = user.userEmail === "ADMIN@GMAIL.COM" ? adminLinks : userLinks;
+  function home()
+  {
+    navigate('/');
+  }
 
   const drawer = (
     <div>
       <Toolbar>
-        <Avatar alt="logo" src={logo} sx={{ mr: "10px" }} />
-        <Typography variant="h6" noWrap>
+        <Avatar alt="logo" src={logo} sx={{ mr: "10px" }} onClick={home}/>
+        <Typography variant="h6" noWrap sx={{color:'#0d47a1'}} >
           JLearn
         </Typography>
       </Toolbar>
       <List>
         {content.map((obj) => (
-          <ListItem key={obj.title} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>{obj.icon}</ListItemIcon>
-              <ListItemText primary={obj.title} />
-            </ListItemButton>
+          <ListItem key={obj.title} disablePadding sx={{ color:'#0d47a1'}}>
+            <Link to={obj.link ? obj.link : "/"}>
+              <ListItemButton >
+                <ListItemIcon sx={{ color:'#0d47a1'}}>{obj.icon}</ListItemIcon>
+                <ListItemText
+                  primary={obj.title}
+                  sx={{ textDecoration: "none", color: "blue" }}
+                />
+              </ListItemButton>
+            </Link>
           </ListItem>
         ))}
       </List>
@@ -105,10 +119,11 @@ function SideBar(props) {
         onClick={handleDrawerToggle}
         sx={{
           m: 2,
-          display: { sm: "none" },
+          display: { sx: "block", sm: "none" },
           position: "fixed",
-          top: 0,
-          right: 0,
+          top: 10,
+          left: 10,
+          zIndex: 100000,
         }}
       >
         <MenuIcon />

@@ -8,19 +8,18 @@ import Section4 from "../Components/Section4";
 import Section5 from "../Components/Section5";
 import Footer from "./Footer";
 
-function Home()
-{
-    return(
-        <div className="home">
-        <Header/>
-        <Section1/>
-        <Section2/>
-        <Section3/>
-        <Section4/>
-        <Section5/>
-        <Footer/>
-        </div>
-    )
+function Home() {
+  return (
+    <div className="home">
+      <Header />
+      <Section1 />
+      <Section2 />
+      <Section3 />
+      <Section4 />
+      <Section5 />
+      <Footer />
+    </div>
+  );
 }
 
 export default Home;

@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;600;700&display=swap');
+
+
+.course_individual_data {
+  margin-left: 2rem;
+  margin-right: 2rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  font-family: "Quicksand";
+}
+
+.course_individual_data img {
+  width: 100px;
+}
+
+.course_individual_data img,
+.course_individual_data h1,
+.course_individual_data p,
+.course_individual_data h2,
+.course_individual_data ul li {
+  margin-top: 2rem;
+}
+
+.course_individual_data h1 {
+  font-size: 44px;
+}
+
+.course_individual_data h3 {
+  font-size: 24px;
+}
+
+.course_individual_data p {
+  font-size: 20px;
+  width: 40%;
+  text-align: justify;
+}
+
+.course_individual_data h2 {
+  font-size: 28px;
+}
+
+.course_individual_data{
+    margin-bottom: 2rem;
+}
+
+.complete-button {
+  border: none;
+  width: 150px;
+  height: 40px;
+  border-radius: 0.5rem;
+  background-color: rgb(157, 157, 250);
+  font-size: 16px;
+  font-family: "Quicksand";
+  margin-bottom: 4rem;
+}
+
+@media only screen and (max-width:870px) {
+  .course_individual_data img{
+    width: 600px;
+} 
+}
+
+@media only screen and (max-width:650px) {
+  .course_individual_data img{
+    width: 400px;
+} 
+}
+
+@media only screen and (max-width:420px) {
+  .course_individual_data img{
+    width: 300px;
+} 
+}

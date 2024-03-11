@@ -1,0 +1,28 @@
+.add-course{
+    height: max-content;
+}
+
+.preview_img{
+    margin-top: 20px;
+    border-radius: 12px;
+    max-height: 300px;
+}
+
+.video_title {
+    width: 35%;
+    margin: 10px 3% 10px 0;
+    padding: 15px;
+}
+.video_link {
+    width: 50%;
+    margin: 10px 0 10px 2%;
+    padding: 15px;
+}
+.deleteButton{
+    width: 10%;
+    margin: 3%;
+}
+
+.submit-btn {
+    margin-bottom: 30px;
+}

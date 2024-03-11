@@ -16,9 +16,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function TopBar(props) {
+  const user = JSON.parse(localStorage.getItem("user")) || null;
   let navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+
+  if (user === null) navigate("/login");
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -46,12 +50,12 @@ function TopBar(props) {
           variant="text"
           sx={{ textTransform: "none", color: "black" }}
         >
-          <Typography variant="h6" noWrap component="div" sx={{ mr: "10px" }}>
+          <Typography variant="h6" noWrap component="div" sx={{ mr: "10px" , color:'#0d47a1'}}>
             Hi {JSON.parse(localStorage.getItem("user")).userName}
           </Typography>
           <Avatar
             alt="Profile Image"
-            src={JSON.parse(localStorage.getItem("user")).userImage || profile}
+            src={JSON.parse(localStorage.getItem("user")).userImgUrl || profile}
           />
         </Button>
         <Menu
@@ -66,14 +70,13 @@ function TopBar(props) {
           <MenuItem
             onClick={() => {
               localStorage.removeItem("user");
-              localStorage.removeItem("courses");
               navigate("/login");
             }}
           >
             <ListItemIcon>
-              <LogoutIcon />
+              <LogoutIcon sx={{color:'#0d47a1'}}/>
             </ListItemIcon>
-            <ListItemText>Logout</ListItemText>
+            <ListItemText sx={{color:'#0d47a1'}}>Logout</ListItemText>
           </MenuItem>
         </Menu>
       </Toolbar>

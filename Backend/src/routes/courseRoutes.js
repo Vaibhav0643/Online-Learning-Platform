@@ -1,7 +1,6 @@
 import express from "express";
 
 import {
-  getAPIInfo,
   getAllCourses,
   getUserCourses,
   deleteCourse,
@@ -9,6 +8,8 @@ import {
   getCourseDetails,
   uploadCourse,
   updateUserProgress,
+  getWebsiteStats,
+  editCourse,
 } from "../controllers/courseController.js";
 import { upload } from "../middlewares/multer.middleware.js";
 import { verifyToken } from "../middlewares/auth.middleware.js";
@@ -22,7 +23,7 @@ router.post(
   uploadCourse
 );
 
-router.get("/", getAPIInfo);
+router.get("/getWebsiteStats", getWebsiteStats);
 
 router.get("/getAllCourses", getAllCourses);
 
@@ -35,9 +36,14 @@ router.post("/:courseId/enrollUser", verifyToken, enrollUserInCourse);
 router.delete("/:courseId/deleteCourse", verifyToken, deleteCourse);
 
 router.post(
-  "/:courseId/:videoNumber/:videoCount/updateUserProgress",
-  verifyToken,
+  "/:userId/:courseId/:videoNumber/:videoCount/updateUserProgress",
   updateUserProgress
+);
+
+router.post(
+  "/:courseId/editCourse",
+  upload.single("courseBannerImage"),
+  editCourse
 );
 
 export default router;

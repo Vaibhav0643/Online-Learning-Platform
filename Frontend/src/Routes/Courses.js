@@ -1,40 +1,101 @@
-import React,{useState} from  "react";
-import "../Assets/Courses.css";
-import Details_data from "../Components/Details_data";
-import CoursesAvailable from "../Components/CoursesAvailable";
-import EnrollCourseCard from "../Components/EnrollCourseCard";
-import Carousel2 from "../Components/Carousel2";
-import Header from "./Header"
-import Footer from "./Footer"
+import CoursesContent from "../Components/Courses";
+import Header from "./Header";
+import Footer from "./Footer";
+import { Box, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import Cookies from "universal-cookie";
 
-function Courses()
-{
+function Courses() {
+  const [allCourses, setAllCourses] = useState([]);
 
-  const [selectedCourse, setSelectedCourse] = useState(null);
+  let navigate = useNavigate();
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user") || null);
+    if (user == null) {
+      navigate("/login");
+    }
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://online-learning-platform-r55m.onrender.com/api/v1/course/getAllCourses"
+        );
+        setAllCourses(response.data.courses);
 
-  const handleCourseClick = (course) => {
-    setSelectedCourse(course);
+        const cookies = new Cookies();
+        const userId = JSON.parse(localStorage.getItem("user")).userId;
+        axios.get(
+          `https://online-learning-platform-r55m.onrender.com/api/v1/course/${userId}/getUserCourses`,
+          {
+            headers: {
+              Authorization: "Bearer " + cookies.get("token"),
+            },
+          }
+        );
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, [navigate]);
+
+  const allCoursesDisplay = () => {
+    if (allCourses) {
+      return allCourses.map((course) => {
+        return (
+          <CoursesContent
+            key={course.courseId}
+            id={course.courseId}
+            title={course.courseTitle}
+            content={course.courseDescription}
+            image={course.courseBannerImage}
+            videoCount={course.videoCount}
+            navigate={navigate}
+          />
+        );
+      });
+    }
   };
 
-    return (
-
-        <div className="courses">
-        <Header/>
-        <Carousel2/>
-          <h1 className="course-heading">Courses Available</h1>
-          <div className="course-select">
-            {Details_data.map((course) => (
-              <CoursesAvailable
-                key={course.id}
-                {...course}
-                onClick={() => handleCourseClick(course)}
-              />
-            ))}
-          </div>
-          {selectedCourse && <EnrollCourseCard {...selectedCourse} />}
-          <Footer/>
-        </div>
-      );
-    }
+  return (
+    <Box sx={{ display: "flex", flexDirection: "column" }}>
+      <Header />
+      <Typography
+        variant="h4"
+        component="h2"
+        sx={{
+          width: "100%",
+          textAlign: "center",
+          mb: 4,
+          mt: 5,
+          color: "#0d47a1",
+          fontSize: 40,
+        }}
+        className="quicksand"
+      >
+        Available Courses
+      </Typography>
+      <Box
+        component="main"
+        sx={{
+          width: "90%",
+          margin: "auto",
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+          gap: { sx: 5, md: 3, lg: 10 },
+          justifyContent: "space-between",
+          justifyItems: "center",
+          alignItems: "flex-start",
+          padding: "30px 10px",
+        }}
+      >
+        {allCoursesDisplay()}
+      </Box>
+      <Footer />
+    </Box>
+  );
+}
 
 export default Courses;
