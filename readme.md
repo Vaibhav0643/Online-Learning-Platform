@@ -8,4 +8,8 @@ Phase-2 : Project Proposal (Completed)
 
 Phase-3 : Designing the User Interface (Completed)
 
-Phase-4 : Development (In Progress)
+Phase-4 : Development (Completed)
+
+Phase-5 : Testing (Completed)
+
+Phase-6 : Deployment (In Progress)
